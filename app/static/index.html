@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrepreneur Mitra | उद्यमी मित्र - MoSJE</title>
+  
+  <!-- Favicon / Meta -->
+  <meta name="description" content="AI-Driven Scheme Matching and Concessional Loan Access for Marginalized Entrepreneurs - Ministry of Social Justice and Empowerment">
+  <meta name="theme-color" content="#0F2C59">
+
+  <!-- Leaflet GIS Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Custom Design System Stylesheet -->
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+  <!-- Top Tricolor Stripe -->
+  <div class="top-tricolor-strip" aria-hidden="true"></div>
+
+  <!-- Government Official Sub-Bar -->
+  <div class="gov-sub-bar" role="region" aria-label="Official Government Header">
+    <span>
+      <span>🇮🇳</span>
+      <strong id="t-gov-title">सामाजिक न्याय और अधिकारिता मंत्रालय | MoSJE</strong>
+    </span>
+    <span class="tag-official" id="t-gov-tag">भारत सरकार | Govt of India</span>
+  </div>
+
+  <!-- Main App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="emblem-icon" aria-hidden="true">🏛️</div>
+        <div class="brand-titles">
+          <h1 id="t-app-title">उद्यमी मित्र (Entrepreneur Mitra)</h1>
+          <p id="t-app-subtitle">SIH26092 • AI-Driven Scheme Matching for Marginalized Entrepreneurs</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <!-- 1-Click SIH Ramesh Demo Persona -->
+        <button class="btn-control btn-persona" id="btnLoadRamesh" title="Load Pre-configured Demo Persona (Ramesh Kumar - OBC Carpenter)">
+          <span>👤</span>
+          <span id="t-btn-demo">डेमो: रमेश कुमार</span>
+        </button>
+
+        <!-- High Contrast AAA Toggle -->
+        <button class="btn-control" id="btnHighContrast" aria-label="Toggle High Contrast" title="High Contrast Mode (WCAG AAA)">
+          <span>👁️</span>
+          <span class="hide-mobile">AAA</span>
+        </button>
+
+        <!-- Language Switcher -->
+        <button class="btn-control" id="btnLangToggle" aria-label="Switch Language" title="Switch between Hindi and English">
+          <span id="langIndicator">हिंदी / EN</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <!-- Anti-Scam Advisory Notice -->
+    <div class="advisory-card" role="alert">
+      <span class="icon" aria-hidden="true">🛡️</span>
+      <div>
+        <strong id="t-advisory-title">सचेत रहें (Official Anti-Scam Advisory):</strong>
+        <span id="t-advisory-desc">सरकारी योजनाओं के आवेदन हेतु कभी भी किसी दलाल या बिचौलिए को कोई शुल्क न दें और न ही OTP साझा करें। समस्त MoSJE / NBCFDC सेवाएं पूर्णतः निःशुल्क हैं।</span>
+      </div>
+    </div>
+
+    <!-- VIEW 1: HOME / DASHBOARD -->
+    <section id="view-home" class="tab-view active" role="tabpanel">
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <span class="hero-badge">
+          <span>✨</span>
+          <span id="t-hero-badge">आवाज़-आधारित AI सहायक</span>
+        </span>
+        <h2 id="t-hero-heading">अपनी मातृभाषा में बोलें,<br>सटीक सरकारी योजना पाएं</h2>
+        <p id="t-hero-sub">
+          गरीब और वंचित वर्ग के उद्यमियों के लिए शून्य-भ्रम (Zero Hallucination) आधारित ऋण, ब्याज अनुदान और कौशल योजनाएं। 
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary-hero" onclick="switchTab('voice')">
+            <span>🎙️</span>
+            <span id="t-btn-start-voice">बोलकर शुरू करें (Voice Interview)</span>
+          </button>
+          <button class="btn-secondary-hero" onclick="switchTab('schemes')">
+            <span>📋</span>
+            <span id="t-btn-view-schemes">सभी योजनाएं देखें</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon blue" aria-hidden="true">📜</div>
+          <div class="metric-data">
+            <div class="num" id="statSchemesCount">3</div>
+            <div class="lbl" id="t-kpi-schemes">अधिकृत MoSJE योजनाएं</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon green" aria-hidden="true">📍</div>
+          <div class="metric-data">
+            <div class="num" id="statPartnersCount">3</div>
+            <div class="lbl" id="t-kpi-partners">चयनित चैनल पार्टनर (SCA/बैंक)</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon orange" aria-hidden="true">⚡</div>
+          <div class="metric-data">
+            <div class="num">100%</div>
+            <div class="lbl" id="t-kpi-rules">पारदर्शी नियम सत्यापन (Rule Engine)</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon blue" aria-hidden="true">💰</div>
+          <div class="metric-data">
+            <div class="num">₹0</div>
+            <div class="lbl" id="t-kpi-fee">आवेदन शुल्क (निःशुल्क सेवा)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Shortcuts Grid -->
+      <div class="section-header">
+        <div class="section-title">
+          <h2 id="t-quick-actions-title">मुख्य सेवाएं (Key Services)</h2>
+          <p id="t-quick-actions-sub">आपकी उद्यमिता यात्रा के लिए एकीकृत सहायता</p>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card" style="cursor: pointer;" onclick="switchTab('voice')">
+          <div class="metric-icon orange">🎙️</div>
+          <div>
+            <strong id="t-svc-voice">AI वॉइस इंटरव्यू</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-voice-sub">बोलकर अपना विवरण दें</p>
+          </div>
+        </div>
+
+        <div class="metric-card" style="cursor: pointer;" onclick="switchTab('schemes')">
+          <div class="metric-icon green">🎯</div>
+          <div>
+            <strong id="t-svc-schemes">स्मार्ट योजना मिलान</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-schemes-sub">6-कारकीय वेटेज स्कोरिंग</p>
+          </div>
+        </div>
+
+        <div class="metric-card" style="cursor: pointer;" onclick="switchTab('calc')">
+          <div class="metric-icon blue">🧮</div>
+          <div>
+            <strong id="t-svc-calc">वित्तीय ईएमआई कैलकुलेटर</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-calc-sub">मोराटोरियम सहित किस्त जानें</p>
+          </div>
+        </div>
+
+        <div class="metric-card" style="cursor: pointer;" onclick="switchTab('partners')">
+          <div class="metric-icon green">🗺️</div>
+          <div>
+            <strong id="t-svc-partners">निकटतम पार्टनर खोजें</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-partners-sub">SCA और बैंक शाखाएं</p>
+          </div>
+        </div>
+
+        <div class="metric-card" style="cursor: pointer;" onclick="switchTab('docs')">
+          <div class="metric-icon orange">📂</div>
+          <div>
+            <strong id="t-svc-docs">दस्तावेज़ और आवेदन</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-docs-sub">OCR और 5-चरणीय कोपायलट</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: AI CONVERSATIONAL VOICE INTERVIEW -->
+    <section id="view-voice" class="tab-view" role="tabpanel">
+      <div class="section-header">
+        <div class="section-title">
+          <h2 id="t-interview-title">संवादात्मक AI वॉइस इंटरव्यू</h2>
+          <p id="t-interview-sub">माइक दबाकर बोलें या नीचे टेक्स्ट लिखें। मित्र आपके विवरण को स्वचालित रूप से तैयार करेगा।</p>
+        </div>
+        <div>
+          <button class="btn-action btn-action-primary" id="btnMatchFromInterview" onclick="finalizeInterviewAndMatch()">
+            <span>✨</span>
+            <span id="t-btn-finalize">योजनाएं खोजें (Find Matches)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="interview-container">
+        <!-- Chat & Waveform Visualizer -->
+        <div class="chat-box">
+          <div class="chat-header">
+            <div class="chat-header-info">
+              <span style="font-size: 20px;">🤖</span>
+              <div>
+                <strong>उद्यमी मित्र (Mitra AI)</strong>
+                <div style="font-size: 11px; color: var(--color-text-secondary);">MoSJE Assistant</div>
+              </div>
+            </div>
+            <div class="status-pill" id="voiceStatusPill">
+              <span class="status-dot" id="statusDot"></span>
+              <span id="voiceStatusText">तैयार (Ready)</span>
+            </div>
+          </div>
+
+          <!-- Waveform Canvas -->
+          <div class="waveform-box">
+            <canvas id="waveformCanvas"></canvas>
+            <div class="waveform-tip" id="waveformTip">ध्वनि तरंगे (Audio Waveform Active During Speech)</div>
+          </div>
+
+          <!-- Messages Stream -->
+          <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
+            <div class="chat-message bot">
+              <div class="speaker-tag">Entrepreneur Mitra</div>
+              <span id="initialBotGreeting">नमस्ते! मैं उद्यमी मित्र हूँ। सामाजिक न्याय और अधिकारिता मंत्रालय की योजनाओं से आपको जोड़ने में मदद करूँगा। कृपया बताएं, आप किस प्रकार का व्यवसाय करते हैं या नया काम शुरू करना चाहते हैं?</span>
+              <span class="speak-btn" onclick="speakMessage(document.getElementById('initialBotGreeting').innerText)" title="Play voice audio">🔊</span>
+            </div>
+          </div>
+
+          <!-- Input Controls -->
+          <div class="chat-controls">
+            <button class="btn-mic" id="btnMicToggle" aria-label="Start Voice Recording" title="माइक शुरू करने के लिए क्लिक करें (Click to Speak)">
+              <span>🎙️</span>
+            </button>
+            <input type="text" class="chat-input" id="chatTextInput" placeholder="यहाँ बोलें या अपनी भाषा में टाइप करें..." aria-label="User response input">
+            <button class="btn-send" id="btnSendText">भेजें</button>
+          </div>
+        </div>
+
+        <!-- Live Extracted Attributes Drawer -->
+        <aside class="extracted-drawer">
+          <div class="drawer-header">
+            <h3 id="t-drawer-title">पहचाने गए विवरण (Extracted Profile)</h3>
+            <button class="btn-action btn-action-secondary" style="font-size: 11px; padding: 2px 8px;" onclick="openProfileModal()">संपादित करें</button>
+          </div>
+          <div class="field-chips-list" id="extractedChipsList">
+            <div class="attr-chip" id="chip-business_type">
+              <span class="label">व्यवसाय प्रकार (Business)</span>
+              <span class="value" id="val-business_type">—</span>
+            </div>
+            <div class="attr-chip" id="chip-estimated_project_cost">
+              <span class="label">अनुमानित लागत (Project Cost)</span>
+              <span class="value" id="val-estimated_project_cost">—</span>
+            </div>
+            <div class="attr-chip" id="chip-annual_income">
+              <span class="label">वार्षिक आय (Family Income)</span>
+              <span class="value" id="val-annual_income">—</span>
+            </div>
+            <div class="attr-chip" id="chip-caste_category">
+              <span class="label">सामाजिक वर्ग (Category)</span>
+              <span class="value" id="val-caste_category">—</span>
+            </div>
+            <div class="attr-chip" id="chip-state">
+              <span class="label">राज्य (State)</span>
+              <span class="value" id="val-state">—</span>
+            </div>
+            <div class="attr-chip" id="chip-district">
+              <span class="label">जिला (District)</span>
+              <span class="value" id="val-district">—</span>
+            </div>
+            <div class="attr-chip" id="chip-education">
+              <span class="label">शिक्षा (Education)</span>
+              <span class="value" id="val-education">—</span>
+            </div>
+            <div class="attr-chip" id="chip-gender">
+              <span class="label">लिंग (Gender)</span>
+              <span class="value" id="val-gender">—</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <button class="btn-primary-hero" style="width: 100%; justify-content: center; font-size: var(--font-size-sm);" onclick="finalizeInterviewAndMatch()">
+              <span>🎯</span>
+              <span id="t-btn-run-matching">पात्र योजनाएं देखें</span>
+            </button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- VIEW 3: SMART SCHEME RECOMMENDER & MATCHES -->
+    <section id="view-schemes" class="tab-view" role="tabpanel">
+      <div class="section-header">
+        <div class="section-title">
+          <h2 id="t-schemes-heading">स्मार्ट योजना अनुशंसाएं (Smart Recommendations)</h2>
+          <p id="t-schemes-sub">आपके प्रोफ़ाइल के अनुसार रैंक की गई आधिकारिक MoSJE योजनाएं (पारदर्शी 6-कारकीय मॉडल)</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-action btn-action-secondary" onclick="loadMatchedSchemes()">
+            <span>🔄</span>
+            <span>ताज़ा करें (Refresh)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Schemes List Container -->
+      <div class="scheme-cards-list" id="schemesListContainer">
+        <!-- Rendered via JavaScript -->
+        <div style="text-align: center; padding: 40px; color: var(--color-text-secondary);">
+          योजनाएं लोड हो रही हैं...
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: FINANCIAL CALCULATOR & WHAT-IF SIMULATOR -->
+    <section id="view-calc" class="tab-view" role="tabpanel">
+      <div class="section-header">
+        <div class="section-title">
+          <h2 id="t-calc-heading">वित्तीय सामर्थ्य एवं ईएमआई कैलकुलेटर</h2>
+          <p id="t-calc-sub">मोराटोरियम, मार्जिन मनी एवं ऋण सीमा के आधार पर मासिक किस्त की वास्तविक गणना</p>
+        </div>
+      </div>
+
+      <div class="calc-grid">
+        <!-- Interactive Controls -->
+        <div class="calc-panel">
+          <!-- Loan Amount Slider -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="sliderLoanAmount" class="form-label" id="t-lbl-loanamt">ऋण राशि (Loan Amount)</label>
+              <span class="form-val-display" id="displayLoanAmount">₹5,00,000</span>
+            </div>
+            <input type="range" class="range-slider" id="sliderLoanAmount" min="25000" max="2500000" step="25000" value="500000">
+          </div>
+
+          <!-- Interest Rate Slider -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="sliderInterestRate" class="form-label" id="t-lbl-interest">रियायती ब्याज दर (Interest Rate % p.a.)</label>
+              <span class="form-val-display" id="displayInterestRate">5.0%</span>
+            </div>
+            <input type="range" class="range-slider" id="sliderInterestRate" min="3.0" max="14.0" step="0.5" value="5.0">
+          </div>
+
+          <!-- Tenure Slider -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="sliderTenure" class="form-label" id="t-lbl-tenure">अवधि (Tenure in Months)</label>
+              <span class="form-val-display" id="displayTenure">60 महीने (5 वर्ष)</span>
+            </div>
+            <input type="range" class="range-slider" id="sliderTenure" min="12" max="120" step="6" value="60">
+          </div>
+
+          <!-- Moratorium Slider -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="sliderMoratorium" class="form-label" id="t-lbl-moratorium">मोराटोरियम छूट अवधि (Moratorium Months)</label>
+              <span class="form-val-display" id="displayMoratorium">6 महीने</span>
+            </div>
+            <input type="range" class="range-slider" id="sliderMoratorium" min="0" max="18" step="1" value="6">
+          </div>
+
+          <!-- Stated Monthly Income for DTI -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="inputMonthlyIncome" class="form-label" id="t-lbl-monthlyincome">आवेदक की अनुमानित मासिक आय</label>
+              <span class="form-val-display" id="displayMonthlyIncome">₹20,000</span>
+            </div>
+            <input type="range" class="range-slider" id="inputMonthlyIncome" min="5000" max="100000" step="5000" value="20000">
+          </div>
+        </div>
+
+        <!-- Calculated Results Panel -->
+        <div class="calc-results-card">
+          <div class="emi-hero">
+            <div class="lbl" id="t-lbl-projectedemi">प्रक्षेपित मासिक ईएमआई (Projected Monthly EMI)</div>
+            <div class="amount" id="valEmiAmount">₹9,436</div>
+            <div class="sub" id="valEmiNote">*मोराटोरियम अवधि के बाद लागू</div>
+          </div>
+
+          <div class="calc-stats-row">
+            <div class="stat-box">
+              <div class="title" id="t-lbl-totinterest">कुल देय ब्याज</div>
+              <div class="val" id="valTotalInterest">₹66,138</div>
+            </div>
+            <div class="stat-box">
+              <div class="title" id="t-lbl-totrepayment">कुल पुनर्भुगतान राशि</div>
+              <div class="val" id="valTotalRepayment">₹5,66,138</div>
+            </div>
+            <div class="stat-box">
+              <div class="title" id="t-lbl-marginmoney">उद्यमी अंशदान (मार्जिन 5%)</div>
+              <div class="val" id="valMarginMoney">₹25,000</div>
+            </div>
+            <div class="stat-box">
+              <div class="title" id="t-lbl-dti">सामर्थ्य अनुपात (DTI Ratio)</div>
+              <div class="val" id="valDtiRatio" style="color: #4ADE80;">47% (सामर्थ्य सीमा)</div>
+            </div>
+          </div>
+
+          <div style="background: rgba(255,255,255,0.1); padding: 10px 14px; border-radius: var(--radius-md); font-size: 11px;">
+            ℹ️ MoSJE/NBCFDC रियायती योजनाओं में व्यावसायिक बैंकों की तुलना में 4% से 7% तक ब्याज की सीधी बचत होती है।
+          </div>
+        </div>
+      </div>
+
+      <!-- What-If Diff Simulator -->
+      <div class="whatif-container">
+        <div class="section-title">
+          <h3 id="t-whatif-title">"क्या होगा यदि?" परिदृश्य सिम्युलेटर (What-If Scenario Simulator)</h3>
+          <p id="t-whatif-sub">विभिन्न परिस्थितियों में अपनी पात्रता और ईएमआई की तुलना करें (Zero DB Mutation)</p>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap;">
+          <button class="btn-action btn-action-secondary" onclick="runWhatIfSimulation({estimated_project_cost: 1000000})">
+            📈 यदि परियोजना ₹10 लाख हो?
+          </button>
+          <button class="btn-action btn-action-secondary" onclick="runWhatIfSimulation({annual_income: 250000})">
+            💼 यदि आय ₹2.5 लाख हो?
+          </button>
+          <button class="btn-action btn-action-secondary" onclick="runWhatIfSimulation({gender: 'FEMALE'})">
+            👩 यदि महिला उद्यमी संचालित करे (1% अतिरिक्त छूट)?
+          </button>
+        </div>
+
+        <div class="diff-compare-grid" id="whatifResultsContainer" style="display: none;">
+          <div class="compare-column">
+            <h4 style="color: var(--color-navy-primary); margin-bottom: 6px;">वर्तमान प्रोफ़ाइल (Current)</h4>
+            <div id="whatifCurrentSummary" style="font-size: var(--font-size-sm);"></div>
+          </div>
+          <div class="compare-column hypothetical">
+            <h4 style="color: var(--color-saffron-primary); margin-bottom: 6px;">काल्पनिक परिदृश्य (Hypothetical)</h4>
+            <div id="whatifHypoSummary" style="font-size: var(--font-size-sm);"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: GEO-SPATIAL PARTNER LOCATOR -->
+    <section id="view-partners" class="tab-view" role="tabpanel">
+      <div class="section-header">
+        <div class="section-title">
+          <h2 id="t-partner-heading">भू-स्थानिक अधिकृत चैनल पार्टनर लोकेटर</h2>
+          <p id="t-partner-sub">निकटतम राज्य चैनलाइजिंग एजेंसी (SCA) एवं अधिकृत बैंक शाखाओं का सत्यापन एवं रूटिंग</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-action btn-action-primary" onclick="detectUserLocation()">
+            <span>📍</span>
+            <span id="t-btn-locate-me">मेरा स्थान उपयोग करें</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="partner-container">
+        <!-- Interactive Leaflet Map -->
+        <div class="map-wrapper">
+          <div id="partnerMap"></div>
+        </div>
+
+        <!-- Partners Directory Cards Scroll -->
+        <div class="partners-list-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <strong id="t-verified-partners-title">सत्यापित पार्टनर सूची</strong>
+            <span class="status-pill" id="partnerCountBadge">3 उपलब्ध</span>
+          </div>
+
+          <div class="partners-cards-scroll" id="partnersListContainer">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 6: DOCUMENT VAULT & APPLICATION COPILOT -->
+    <section id="view-docs" class="tab-view" role="tabpanel">
+      <div class="section-header">
+        <div class="section-title">
+          <h2 id="t-docs-heading">दस्तावेज़ वॉल्ट एवं आवेदन कोपायलट</h2>
+          <p id="t-docs-sub">दस्तावेज़ अपलोड करें, ओसीआर सत्यापन देखें और 5-चरणीय आवेदन प्रक्रिया का पालन करें</p>
+        </div>
+      </div>
+
+      <!-- 5-Step Progress Stepper -->
+      <div class="stepper-nav" aria-label="Application Steps">
+        <div class="step-node done">
+          <div class="step-circle">1</div>
+          <div class="step-label">पात्रता जांच</div>
+        </div>
+        <div class="step-node active">
+          <div class="step-circle">2</div>
+          <div class="step-label">दस्तावेज़ तैयारी</div>
+        </div>
+        <div class="step-node">
+          <div class="step-circle">3</div>
+          <div class="step-label">पार्टनर चयन</div>
+        </div>
+        <div class="step-node">
+          <div class="step-circle">4</div>
+          <div class="step-label">पोर्टल आवेदन</div>
+        </div>
+        <div class="step-node">
+          <div class="step-circle">5</div>
+          <div class="step-label">स्वीकृति एवं वितरण</div>
+        </div>
+      </div>
+
+      <div class="doc-vault-grid">
+        <!-- Document Upload & Vault -->
+        <div class="calc-panel">
+          <h3 style="color: var(--color-navy-primary); margin-bottom: 12px;" id="t-upload-title">दस्तावेज़ अपलोड (Secure Vault)</h3>
+          
+          <div class="upload-dropzone" id="dropzone" onclick="document.getElementById('fileUploadInput').click()">
+            <div class="drop-icon">📤</div>
+            <strong id="t-drop-prompt">प्रमाणपत्र या प्रोजेक्ट रिपोर्ट यहाँ अपलोड करें</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary); margin-top: 4px;">PDF, PNG, JPG (अधिकतम 10MB) - SHA-256 सुरक्षित</p>
+            <input type="file" id="fileUploadInput" style="display: none;" accept=".pdf,.png,.jpg,.jpeg">
+          </div>
+
+          <div style="margin-top: 18px;">
+            <div style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 8px;">
+              आवश्यक दस्तावेज़ चेकलिस्ट (MoSJE / NBCFDC)
+            </div>
+            
+            <div class="doc-item-row">
+              <div>
+                <strong>जाति प्रमाण पत्र (Caste Certificate)</strong>
+                <div style="font-size: 11px; color: var(--color-text-secondary);">OBC / EBC प्राधिकृत प्रमाण</div>
+              </div>
+              <span class="status-pill" style="color: var(--color-emerald-primary); border-color: var(--color-emerald-primary);">सत्यापित</span>
+            </div>
+
+            <div class="doc-item-row">
+              <div>
+                <strong>आय प्रमाण पत्र (Income Certificate)</strong>
+                <div style="font-size: 11px; color: var(--color-text-secondary);">वार्षिक आय ₹3.00 लाख से कम</div>
+              </div>
+              <span class="status-pill" style="color: var(--color-emerald-primary); border-color: var(--color-emerald-primary);">सत्यापित</span>
+            </div>
+
+            <div class="doc-item-row">
+              <div>
+                <strong>आधार कार्ड / निवास प्रमाण पत्र</strong>
+                <div style="font-size: 11px; color: var(--color-text-secondary);">पहचान एवं निवास सत्यापन</div>
+              </div>
+              <span class="status-pill" style="color: var(--color-emerald-primary); border-color: var(--color-emerald-primary);">सत्यापित</span>
+            </div>
+
+            <div class="doc-item-row">
+              <div>
+                <strong>प्रोजेक्ट रिपोर्ट (Project Profile)</strong>
+                <div style="font-size: 11px; color: var(--color-text-secondary);">लागत, उपकरण एवं कार्यशील पूंजी</div>
+              </div>
+              <span class="status-pill" style="color: var(--color-saffron-primary); border-color: var(--color-saffron-primary);">अपलोड प्रतीक्षित</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-Step Copilot Guidance Card -->
+        <div class="calc-panel">
+          <h3 style="color: var(--color-navy-primary); margin-bottom: 12px;">MoSJE आवेदन सहायता (Application Copilot)</h3>
+
+          <div style="display: flex; flex-direction: column; gap: 14px; font-size: var(--font-size-sm);">
+            <div style="border-left: 3px solid var(--color-emerald-primary); padding-left: 12px;">
+              <strong>चरण 1: पात्रता एवं दस्तावेज सत्यापन</strong>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
+                आपकी पात्रता NBCFDC-GTL-001 योजना के तहत 96% सत्यापित हो चुकी है।
+              </p>
+            </div>
+
+            <div style="border-left: 3px solid var(--color-saffron-primary); padding-left: 12px;">
+              <strong>चरण 2: अधिकृत पार्टनर का चयन</strong>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
+                बिजनौर के लिए आपकी निकटतम अधिकृत बैंक शाखा: <strong>State Bank of India Bijnor Branch</strong> (दूरी 4.2 किमी) या UPBCDFC लखनऊ है।
+              </p>
+            </div>
+
+            <div style="border-left: 3px solid var(--color-navy-primary); padding-left: 12px;">
+              <strong>चरण 3: आधिकारिक MoSJE पोर्टल पर फॉर्म भरें</strong>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
+                उद्यमी मित्र ने आपके प्रोफ़ाइल डेटा को तैयार कर दिया है। इसे आधिकारिक राष्ट्रीय पोर्टल पर सीधे सबमिट किया जा सकता है।
+              </p>
+              <div style="margin-top: 8px;">
+                <a href="https://nbcfdc.gov.in" target="_blank" rel="noopener noreferrer" class="btn-action btn-action-primary" style="display: inline-flex;">
+                  <span>🔗</span>
+                  <span>NBCFDC आधिकारिक पोर्टल पर जाएं</span>
+                </a>
+              </div>
+            </div>
+
+            <div style="border-left: 3px solid var(--color-border); padding-left: 12px;">
+              <strong>चरण 4: भौतिक सत्यापन व संस्तुति</strong>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
+                फॉर्म की प्रति प्रिंट कर मूल दस्तावेजों के साथ चयनित शाखा में प्रस्तुत करें।
+              </p>
+            </div>
+
+            <div style="border-left: 3px solid var(--color-border); padding-left: 12px;">
+              <strong>चरण 5: ऋण स्वीकृति एवं डीबीटी वितरण</strong>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
+                स्वीकृति के उपरांत ऋण राशि आपके बैंक खाते में सीधे (DBT) अंतरित होगी।
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       MODALS
+       ========================================================================== -->
+
+  <!-- Modal 1: Explainable Rule Trace Modal (Why Am I Eligible?) -->
+  <div class="modal-backdrop" id="ruleTraceModal" role="dialog" aria-modal="true" aria-labelledby="ruleModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="ruleModalTitle">पात्रता विश्लेषण एवं नियम निष्पादन (Rule Trace)</h3>
+        <button class="btn-close" onclick="closeRuleTraceModal()" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="zero-hallucination-seal">
+          <span style="font-size: 20px;">🛡️</span>
+          <div>
+            <strong>शून्य-भ्रम गारंटी (Zero-Hallucination Verified):</strong>
+            <p style="font-size: 11px; margin-top: 2px;">
+              यह परिणाम AI के अनुमान पर नहीं, बल्कि MoSJE के राजपत्र और अधिकृत नियमों के कोड-आधारित निष्पादन पर आधारित है।
+            </p>
+          </div>
+        </div>
+
+        <div id="ruleSchemeHeader" style="background: var(--color-bg); padding: 10px 14px; border-radius: var(--radius-md);">
+          <div style="font-size: 11px; color: var(--color-text-secondary);" id="ruleSchemeCode">योजना कोड: NBCFDC-GTL-001</div>
+          <strong style="font-size: var(--font-size-base);" id="ruleSchemeName">NBCFDC General Term Loan Scheme</strong>
+        </div>
+
+        <div class="rules-checklist" id="ruleChecklistContainer">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <div style="text-align: right; margin-top: 10px;">
+          <button class="btn-action btn-action-primary" onclick="closeRuleTraceModal()">समझ गया (Understood)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Edit / Confirm Profile Drawer -->
+  <div class="modal-backdrop" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="profileModalTitle">उद्यमी प्रोफ़ाइल विवरण (Profile Details)</h3>
+        <button class="btn-close" onclick="closeProfileModal()" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label class="form-label" style="font-size: 11px;">व्यवसाय प्रकार (Business)</label>
+            <input type="text" class="chat-input" id="inpBusinessType" value="बढ़ईगीरी एवं लकड़ी कार्यशाला (Carpentry)">
+          </div>
+          <div>
+            <label class="form-label" style="font-size: 11px;">अनुमानित परियोजना लागत (₹)</label>
+            <input type="number" class="chat-input" id="inpProjectCost" value="500000">
+          </div>
+          <div>
+            <label class="form-label" style="font-size: 11px;">वार्षिक पारिवारिक आय (₹)</label>
+            <input type="number" class="chat-input" id="inpAnnualIncome" value="180000">
+          </div>
+          <div>
+            <label class="form-label" style="font-size: 11px;">सामाजिक वर्ग (Category)</label>
+            <select class="chat-input" id="inpCategory">
+              <option value="OBC" selected>अन्य पिछड़ा वर्ग (OBC)</option>
+              <option value="SC">अनुसूचित जाति (SC)</option>
+              <option value="ST">अनुसूचित जनजाति (ST)</option>
+              <option value="DNT">विमुक्त घुमंतू जनजाति (DNT)</option>
+              <option value="GENERAL">सामान्य (General)</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" style="font-size: 11px;">राज्य (State)</label>
+            <input type="text" class="chat-input" id="inpState" value="Uttar Pradesh">
+          </div>
+          <div>
+            <label class="form-label" style="font-size: 11px;">जिला (District)</label>
+            <input type="text" class="chat-input" id="inpDistrict" value="Bijnor">
+          </div>
+          <div>
+            <label class="form-label" style="font-size: 11px;">शैक्षणिक योग्यता (Education)</label>
+            <input type="text" class="chat-input" id="inpEducation" value="10th Pass (कक्षा 10 उत्तीर्ण)">
+          </div>
+          <div>
+            <label class="form-label" style="font-size: 11px;">आयु (Age in years)</label>
+            <input type="number" class="chat-input" id="inpAge" value="32">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;">
+          <button class="btn-action btn-action-secondary" onclick="closeProfileModal()">रद्द करें</button>
+          <button class="btn-action btn-action-primary" onclick="saveProfileAndRerun()">सहेजें और मिलान करें</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Mobile Navigation Bar -->
+  <nav class="bottom-nav-bar" aria-label="Mobile Navigation">
+    <button class="nav-item-btn active" id="nav-home" onclick="switchTab('home')">
+      <span class="nav-icon">🏠</span>
+      <span id="t-nav-home">होम</span>
+    </button>
+
+    <button class="nav-item-btn" id="nav-schemes" onclick="switchTab('schemes')">
+      <span class="nav-icon">📋</span>
+      <span id="t-nav-schemes">योजनाएं</span>
+    </button>
+
+    <!-- Center Floating Action Button for Mic -->
+    <button class="nav-item-btn nav-mic-center" id="nav-voice" onclick="switchTab('voice')" aria-label="Start Voice Interview">
+      <div class="nav-icon-circle">
+        <span>🎙️</span>
+      </div>
+      <span id="t-nav-voice" style="margin-top: 2px;">बोलें</span>
+    </button>
+
+    <button class="nav-item-btn" id="nav-calc" onclick="switchTab('calc')">
+      <span class="nav-icon">🧮</span>
+      <span id="t-nav-calc">कैलकुलेटर</span>
+    </button>
+
+    <button class="nav-item-btn" id="nav-partners" onclick="switchTab('partners')">
+      <span class="nav-icon">📍</span>
+      <span id="t-nav-partners">पार्टनर</span>
+    </button>
+  </nav>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="assertive"></div>
+
+  <!-- Leaflet GIS Script -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Main Application Logic Script -->
+  <script src="/static/app.js"></script>
+
+</body>
+</html>

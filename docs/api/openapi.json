@@ -1,0 +1,4839 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Entrepreneur Mitra Backend",
+    "description": "Production-quality backend for SIH26092: AI-Driven Scheme Matching for Marginalized Entrepreneurs (Ministry of Social Justice and Empowerment - MoSJE). Connects conversational voice interview, deterministic rule evaluation, transparent ranking, financial affordability calculation, and geo-spatial partner routing.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Register",
+        "description": "Register a new user account.",
+        "operationId": "register_api_v1_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegister"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_Token_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login",
+        "description": "Authenticate user and return JWT access token.",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_Token_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logout",
+        "description": "Logout current user session.",
+        "operationId": "logout_api_v1_auth_logout_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_dict_"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Get Current User Profile",
+        "description": "Retrieve authenticated user details.",
+        "operationId": "get_current_user_profile_api_v1_auth_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_UserOut_"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/profiles": {
+      "post": {
+        "tags": [
+          "Profiles"
+        ],
+        "summary": "Create Profile",
+        "description": "Create a new entrepreneur profile (supports anonymous MVP or authenticated user).",
+        "operationId": "create_profile_api_v1_profiles_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_ProfileOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/profiles/{profile_id}": {
+      "get": {
+        "tags": [
+          "Profiles"
+        ],
+        "summary": "Get Profile By Id",
+        "description": "Retrieve an entrepreneur profile by ID.",
+        "operationId": "get_profile_by_id_api_v1_profiles__profile_id__get",
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Profile Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_ProfileOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Profiles"
+        ],
+        "summary": "Update Profile By Id",
+        "description": "Update profile attributes or preferred language.",
+        "operationId": "update_profile_by_id_api_v1_profiles__profile_id__patch",
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Profile Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_ProfileOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profile": {
+      "get": {
+        "tags": [
+          "Profiles"
+        ],
+        "summary": "Get My Profile",
+        "description": "Get current profile by query param or authenticated user.",
+        "operationId": "get_my_profile_api_v1_profile_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Profile Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_ProfileOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{conversation_id}/turn": {
+      "post": {
+        "tags": [
+          "AI Interview"
+        ],
+        "summary": "Process Interview Turn",
+        "description": "Process a speech/text utterance in the conversational AI interview.\nExtracts structured fields and returns the next targeted question.",
+        "operationId": "process_interview_turn_api_v1_interviews__conversation_id__turn_post",
+        "parameters": [
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Conversation or Profile identifier",
+              "title": "Conversation Id"
+            },
+            "description": "Conversation or Profile identifier"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterviewTurnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_InterviewTurnResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/interview/start": {
+      "post": {
+        "tags": [
+          "AI Interview"
+        ],
+        "summary": "Start Interview",
+        "description": "Start an AI interview session.",
+        "operationId": "start_interview_api_v1_interview_start_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterviewStartRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_dict_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/interview/message": {
+      "post": {
+        "tags": [
+          "AI Interview"
+        ],
+        "summary": "Post Interview Message",
+        "description": "Shorthand alias for interview turn.",
+        "operationId": "post_interview_message_api_v1_interview_message_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterviewTurnRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_InterviewTurnResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/interview/confirm": {
+      "post": {
+        "tags": [
+          "AI Interview"
+        ],
+        "summary": "Confirm Interview Fields",
+        "description": "User confirmation of candidate fields extracted by AI.",
+        "operationId": "confirm_interview_fields_api_v1_interview_confirm_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmFieldsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_dict_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/schemes": {
+      "get": {
+        "tags": [
+          "Schemes"
+        ],
+        "summary": "List Schemes",
+        "description": "List all verified government schemes with optional filtering.",
+        "operationId": "list_schemes_api_v1_schemes_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "ACTIVE",
+              "title": "Status"
+            }
+          },
+          {
+            "name": "scheme_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scheme Type"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_List_SchemeOut__"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/schemes/{scheme_id}": {
+      "get": {
+        "tags": [
+          "Schemes"
+        ],
+        "summary": "Get Scheme Details",
+        "description": "Retrieve full details of a scheme including rules, benefits, and verified official sources.",
+        "operationId": "get_scheme_details_api_v1_schemes__scheme_id__get",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scheme Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_SchemeDetailOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/schemes/{scheme_id}/application-steps": {
+      "get": {
+        "tags": [
+          "Schemes"
+        ],
+        "summary": "Get Scheme Application Steps",
+        "description": "Get authoritative application guidance and steps for a specific scheme.",
+        "operationId": "get_scheme_application_steps_api_v1_schemes__scheme_id__application_steps_get",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scheme Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_dict_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/eligibility/check": {
+      "post": {
+        "tags": [
+          "Eligibility"
+        ],
+        "summary": "Check Eligibility",
+        "description": "Evaluate deterministic scheme eligibility for a given entrepreneur profile.\nReturns traceable criteria evaluation with exact pass/fail reasons.",
+        "operationId": "check_eligibility_api_v1_eligibility_check_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EligibilityCheckRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_List_SchemeEligibilityResult__"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/eligibility/simulate": {
+      "post": {
+        "tags": [
+          "Eligibility"
+        ],
+        "summary": "Simulate What If",
+        "description": "Simulate hypothetical eligibility when attributes change (e.g. income, project cost).\nZero database mutation; clearly flagged as hypothetical.",
+        "operationId": "simulate_what_if_api_v1_eligibility_simulate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WhatIfSimulateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_WhatIfResultOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/matches": {
+      "post": {
+        "tags": [
+          "Matching"
+        ],
+        "summary": "Match Schemes",
+        "description": "Match and rank government schemes for an entrepreneur profile\nusing the transparent 6-factor weighting model.",
+        "operationId": "match_schemes_api_v1_matches_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MatchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_MatchResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/matching/results": {
+      "get": {
+        "tags": [
+          "Matching"
+        ],
+        "summary": "Get Matching Results",
+        "description": "Get matched schemes by query parameter.",
+        "operationId": "get_matching_results_api_v1_matching_results_get",
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Entrepreneur Profile ID",
+              "title": "Profile Id"
+            },
+            "description": "Entrepreneur Profile ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_MatchResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/matches/{scheme_id}/explanation": {
+      "get": {
+        "tags": [
+          "Matching"
+        ],
+        "summary": "Explain Scheme Match",
+        "description": "Return structured rule trace explaining exactly WHY a scheme was matched or rejected.",
+        "operationId": "explain_scheme_match_api_v1_matches__scheme_id__explanation_get",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scheme Id"
+            }
+          },
+          {
+            "name": "profile_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Profile Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_MatchExplanationOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/calculator/affordability": {
+      "post": {
+        "tags": [
+          "Financial Calculator"
+        ],
+        "summary": "Calculate Projected Emi",
+        "description": "Calculate dynamic projected monthly EMI, total interest, moratorium interest,\nand mandatory promoter contribution (margin money).",
+        "operationId": "calculate_projected_emi_api_v1_calculator_affordability_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EMICalculatorRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_EMICalculatorResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/calculator/emi": {
+      "post": {
+        "tags": [
+          "Financial Calculator"
+        ],
+        "summary": "Calculate Projected Emi",
+        "description": "Calculate dynamic projected monthly EMI, total interest, moratorium interest,\nand mandatory promoter contribution (margin money).",
+        "operationId": "calculate_projected_emi_api_v1_calculator_emi_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EMICalculatorRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_EMICalculatorResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/partners/nearby": {
+      "get": {
+        "tags": [
+          "Partners & GIS"
+        ],
+        "summary": "Get Nearby Partners",
+        "description": "Find authorized implementing channel partners near the entrepreneur's location.\nCalculates great-circle distance and verifies channel fund status.",
+        "operationId": "get_nearby_partners_api_v1_partners_nearby_get",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 90,
+              "minimum": -90,
+              "description": "Latitude of entrepreneur",
+              "title": "Lat"
+            },
+            "description": "Latitude of entrepreneur"
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 180,
+              "minimum": -180,
+              "description": "Longitude of entrepreneur",
+              "title": "Lng"
+            },
+            "description": "Longitude of entrepreneur"
+          },
+          {
+            "name": "scheme_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional scheme ID to check category match",
+              "title": "Scheme Id"
+            },
+            "description": "Optional scheme ID to check category match"
+          },
+          {
+            "name": "radius_km",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 500,
+              "exclusiveMinimum": 0,
+              "description": "Search radius in kilometers",
+              "default": 50.0,
+              "title": "Radius Km"
+            },
+            "description": "Search radius in kilometers"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Partner category filter",
+              "title": "Category"
+            },
+            "description": "Partner category filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_List_PartnerLocationOut__"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents": {
+      "get": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "List Documents",
+        "description": "List uploaded documents.",
+        "operationId": "list_documents_api_v1_documents_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_List_DocumentOut__"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "Upload Document",
+        "description": "Upload an entrepreneur document securely with mime validation, size check, and checksumming.",
+        "operationId": "upload_document_api_v1_documents_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_document_api_v1_documents_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_DocumentUploadResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/documents/{document_id}/extract": {
+      "post": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "Extract Document Fields",
+        "description": "Extract candidate profile fields from the document with confidence scores (requires human confirmation).",
+        "operationId": "extract_document_fields_api_v1_documents__document_id__extract_post",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_DocumentExtractResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}": {
+      "delete": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "Delete Document",
+        "description": "Delete a document.",
+        "operationId": "delete_document_api_v1_documents__document_id__delete",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_dict_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/applications": {
+      "get": {
+        "tags": [
+          "Application Copilot"
+        ],
+        "summary": "List Applications",
+        "description": "List tracked applications.",
+        "operationId": "list_applications_api_v1_applications_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_List_ApplicationOut__"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Application Copilot"
+        ],
+        "summary": "Create Application",
+        "description": "Initiate a guided scheme application.",
+        "operationId": "create_application_api_v1_applications_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_ApplicationOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/applications/{application_id}": {
+      "get": {
+        "tags": [
+          "Application Copilot"
+        ],
+        "summary": "Get Application",
+        "description": "Get single application with full Copilot step guidance.",
+        "operationId": "get_application_api_v1_applications__application_id__get",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_ApplicationOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/saved-schemes": {
+      "get": {
+        "tags": [
+          "Saved Schemes"
+        ],
+        "summary": "List Saved Schemes",
+        "description": "List all bookmarked schemes.",
+        "operationId": "list_saved_schemes_api_v1_saved_schemes_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_List_SavedSchemeOut__"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Saved Schemes"
+        ],
+        "summary": "Save Scheme",
+        "description": "Bookmark/save a scheme for later access.",
+        "operationId": "save_scheme_api_v1_saved_schemes_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveSchemeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_dict_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/schemes/{scheme_id}/save": {
+      "delete": {
+        "tags": [
+          "Saved Schemes"
+        ],
+        "summary": "Unsave Scheme",
+        "description": "Remove a saved scheme bookmark.",
+        "operationId": "unsave_scheme_api_v1_schemes__scheme_id__save_delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scheme Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_dict_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alerts": {
+      "get": {
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "Get Alerts",
+        "description": "Retrieve notifications, scheme policy updates, and application deadlines.",
+        "operationId": "get_alerts_api_v1_alerts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_List_AlertOut__"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/voice/transcribe": {
+      "post": {
+        "tags": [
+          "Voice Engine"
+        ],
+        "summary": "Transcribe Audio Input",
+        "description": "Transcribe spoken voice audio into text.\nAbstracted interface supporting IndicConformer, Whisper, or browser speech input.",
+        "operationId": "transcribe_audio_input_api_v1_voice_transcribe_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe_audio_input_api_v1_voice_transcribe_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_VoiceTranscribeResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voice/speak": {
+      "post": {
+        "tags": [
+          "Voice Engine"
+        ],
+        "summary": "Synthesize Speech Output",
+        "description": "Convert text into synthesized speech audio (TTS).\nProvides native Indian language pronunciation (Hindi, English, Hinglish).",
+        "operationId": "synthesize_speech_output_api_v1_voice_speak_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VoiceSpeakRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_VoiceSpeakResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ai/explain": {
+      "post": {
+        "tags": [
+          "Explainable AI"
+        ],
+        "summary": "Explain Scheme Ai",
+        "description": "Generate grounded, natural-language explanation of eligibility.\nGrounded strictly in deterministic rule evaluation; never modifies the underlying decision.",
+        "operationId": "explain_scheme_ai_api_v1_ai_explain_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AIExplainRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_AIExplainResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Health Check",
+        "description": "System health check endpoint.",
+        "operationId": "health_check_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Health Check",
+        "description": "System health check endpoint.",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AIExplainRequest": {
+        "properties": {
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "profile_id": {
+            "type": "string",
+            "title": "Profile Id"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language",
+            "default": "hi"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_id",
+          "profile_id"
+        ],
+        "title": "AIExplainRequest"
+      },
+      "AIExplainResponse": {
+        "properties": {
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language"
+          },
+          "decision": {
+            "type": "string",
+            "title": "Decision"
+          },
+          "plain_explanation": {
+            "type": "string",
+            "title": "Plain Explanation"
+          },
+          "key_points": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Key Points"
+          },
+          "next_steps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Next Steps"
+          },
+          "grounding_source": {
+            "type": "string",
+            "title": "Grounding Source"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_id",
+          "language",
+          "decision",
+          "plain_explanation",
+          "key_points",
+          "next_steps",
+          "grounding_source"
+        ],
+        "title": "AIExplainResponse"
+      },
+      "AlertOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "scheme_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme Id"
+          },
+          "alert_type": {
+            "type": "string",
+            "title": "Alert Type"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "read": {
+            "type": "boolean",
+            "title": "Read"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "alert_type",
+          "title",
+          "message",
+          "read",
+          "created_at"
+        ],
+        "title": "AlertOut"
+      },
+      "ApiResponse_AIExplainResponse_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AIExplainResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[AIExplainResponse]"
+      },
+      "ApiResponse_ApplicationOut_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApplicationOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[ApplicationOut]"
+      },
+      "ApiResponse_DocumentExtractResponse_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentExtractResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[DocumentExtractResponse]"
+      },
+      "ApiResponse_DocumentUploadResponse_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocumentUploadResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[DocumentUploadResponse]"
+      },
+      "ApiResponse_EMICalculatorResponse_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EMICalculatorResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[EMICalculatorResponse]"
+      },
+      "ApiResponse_InterviewTurnResponse_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InterviewTurnResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[InterviewTurnResponse]"
+      },
+      "ApiResponse_List_AlertOut__": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/AlertOut"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[List[AlertOut]]"
+      },
+      "ApiResponse_List_ApplicationOut__": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ApplicationOut"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[List[ApplicationOut]]"
+      },
+      "ApiResponse_List_DocumentOut__": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/DocumentOut"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[List[DocumentOut]]"
+      },
+      "ApiResponse_List_PartnerLocationOut__": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/PartnerLocationOut"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[List[PartnerLocationOut]]"
+      },
+      "ApiResponse_List_SavedSchemeOut__": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SavedSchemeOut"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[List[SavedSchemeOut]]"
+      },
+      "ApiResponse_List_SchemeEligibilityResult__": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SchemeEligibilityResult"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[List[SchemeEligibilityResult]]"
+      },
+      "ApiResponse_List_SchemeOut__": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SchemeOut"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[List[SchemeOut]]"
+      },
+      "ApiResponse_MatchExplanationOut_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MatchExplanationOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[MatchExplanationOut]"
+      },
+      "ApiResponse_MatchResponse_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MatchResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[MatchResponse]"
+      },
+      "ApiResponse_ProfileOut_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProfileOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[ProfileOut]"
+      },
+      "ApiResponse_SchemeDetailOut_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SchemeDetailOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[SchemeDetailOut]"
+      },
+      "ApiResponse_Token_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Token"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[Token]"
+      },
+      "ApiResponse_UserOut_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UserOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[UserOut]"
+      },
+      "ApiResponse_VoiceSpeakResponse_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VoiceSpeakResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[VoiceSpeakResponse]"
+      },
+      "ApiResponse_VoiceTranscribeResponse_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VoiceTranscribeResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[VoiceTranscribeResponse]"
+      },
+      "ApiResponse_WhatIfResultOut_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WhatIfResultOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[WhatIfResultOut]"
+      },
+      "ApiResponse_dict_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaInfo"
+          }
+        },
+        "type": "object",
+        "title": "ApiResponse[dict]"
+      },
+      "ApplicationCreate": {
+        "properties": {
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "selected_partner_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selected Partner Id"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_id"
+        ],
+        "title": "ApplicationCreate"
+      },
+      "ApplicationOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "scheme_name": {
+            "type": "string",
+            "title": "Scheme Name"
+          },
+          "selected_partner_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selected Partner Id"
+          },
+          "partner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Name"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "copilot_step": {
+            "type": "integer",
+            "title": "Copilot Step"
+          },
+          "steps_guidance": {
+            "items": {
+              "$ref": "#/components/schemas/ApplicationStepGuidance"
+            },
+            "type": "array",
+            "title": "Steps Guidance",
+            "default": []
+          },
+          "official_application_url": {
+            "type": "string",
+            "title": "Official Application Url"
+          },
+          "official_source_url": {
+            "type": "string",
+            "title": "Official Source Url"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "scheme_id",
+          "scheme_name",
+          "status",
+          "copilot_step",
+          "official_application_url",
+          "official_source_url",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ApplicationOut"
+      },
+      "ApplicationStepGuidance": {
+        "properties": {
+          "step_number": {
+            "type": "integer",
+            "title": "Step Number"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "action_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action Url"
+          },
+          "tips": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tips",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "step_number",
+          "title",
+          "status",
+          "description"
+        ],
+        "title": "ApplicationStepGuidance"
+      },
+      "AttributeSchema": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "value": {
+            "title": "Value"
+          },
+          "data_type": {
+            "type": "string",
+            "title": "Data Type",
+            "default": "string"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "default": "user_input"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence",
+            "default": 1.0
+          },
+          "user_confirmed": {
+            "type": "boolean",
+            "title": "User Confirmed",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "value"
+        ],
+        "title": "AttributeSchema"
+      },
+      "Body_transcribe_audio_input_api_v1_voice_transcribe_post": {
+        "properties": {
+          "audio": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "Audio"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language",
+            "default": "hi"
+          }
+        },
+        "type": "object",
+        "required": [
+          "audio"
+        ],
+        "title": "Body_transcribe_audio_input_api_v1_voice_transcribe_post"
+      },
+      "Body_upload_document_api_v1_documents_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
+          "document_type": {
+            "type": "string",
+            "title": "Document Type",
+            "description": "Document type e.g. INCOME_CERTIFICATE, CASTE_CERTIFICATE, PROJECT_REPORT"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file",
+          "document_type"
+        ],
+        "title": "Body_upload_document_api_v1_documents_post"
+      },
+      "ConfirmFieldsRequest": {
+        "properties": {
+          "confirmed_fields": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Confirmed Fields"
+          }
+        },
+        "type": "object",
+        "required": [
+          "confirmed_fields"
+        ],
+        "title": "ConfirmFieldsRequest"
+      },
+      "CriterionResult": {
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "title": "Rule Id"
+          },
+          "field_name": {
+            "type": "string",
+            "title": "Field Name"
+          },
+          "operator": {
+            "type": "string",
+            "title": "Operator"
+          },
+          "expected_value": {
+            "title": "Expected Value"
+          },
+          "user_value": {
+            "title": "User Value"
+          },
+          "result": {
+            "type": "string",
+            "title": "Result"
+          },
+          "rule_type": {
+            "type": "string",
+            "title": "Rule Type"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "source_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rule_id",
+          "field_name",
+          "operator",
+          "expected_value",
+          "user_value",
+          "result",
+          "rule_type",
+          "reason"
+        ],
+        "title": "CriterionResult"
+      },
+      "DocumentExtractResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "document_type": {
+            "type": "string",
+            "title": "Document Type"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/ExtractedField"
+            },
+            "type": "array",
+            "title": "Fields"
+          },
+          "raw_text_preview": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Text Preview"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "document_type",
+          "status",
+          "fields"
+        ],
+        "title": "DocumentExtractResponse"
+      },
+      "DocumentOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "document_type": {
+            "type": "string",
+            "title": "Document Type"
+          },
+          "original_filename": {
+            "type": "string",
+            "title": "Original Filename"
+          },
+          "file_size_bytes": {
+            "type": "integer",
+            "title": "File Size Bytes"
+          },
+          "ocr_status": {
+            "type": "string",
+            "title": "Ocr Status"
+          },
+          "document_status": {
+            "type": "string",
+            "title": "Document Status"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "document_type",
+          "original_filename",
+          "file_size_bytes",
+          "ocr_status",
+          "document_status",
+          "created_at"
+        ],
+        "title": "DocumentOut"
+      },
+      "DocumentRequirementOut": {
+        "properties": {
+          "document_type": {
+            "type": "string",
+            "title": "Document Type"
+          },
+          "mandatory": {
+            "type": "boolean",
+            "title": "Mandatory"
+          },
+          "acceptable_variants": {
+            "type": "string",
+            "title": "Acceptable Variants"
+          },
+          "verification_level": {
+            "type": "string",
+            "title": "Verification Level"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_type",
+          "mandatory",
+          "acceptable_variants",
+          "verification_level"
+        ],
+        "title": "DocumentRequirementOut"
+      },
+      "DocumentUploadResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "document_type": {
+            "type": "string",
+            "title": "Document Type"
+          },
+          "file_size_bytes": {
+            "type": "integer",
+            "title": "File Size Bytes"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "filename",
+          "document_type",
+          "file_size_bytes",
+          "status"
+        ],
+        "title": "DocumentUploadResponse"
+      },
+      "EMICalculatorRequest": {
+        "properties": {
+          "loan_amount": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Loan Amount",
+            "description": "Requested principal amount in INR"
+          },
+          "annual_interest_rate": {
+            "type": "number",
+            "maximum": 30.0,
+            "minimum": 0.0,
+            "title": "Annual Interest Rate",
+            "description": "Annual concessional interest rate in %"
+          },
+          "tenure_months": {
+            "type": "integer",
+            "maximum": 240.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Tenure Months",
+            "description": "Loan repayment tenure in months"
+          },
+          "moratorium_months": {
+            "type": "integer",
+            "maximum": 36.0,
+            "minimum": 0.0,
+            "title": "Moratorium Months",
+            "description": "Repayment holiday / moratorium in months",
+            "default": 0
+          },
+          "promoter_contribution_pct": {
+            "type": "number",
+            "maximum": 50.0,
+            "minimum": 0.0,
+            "title": "Promoter Contribution Pct",
+            "description": "Promoter own contribution margin %",
+            "default": 5.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "loan_amount",
+          "annual_interest_rate",
+          "tenure_months"
+        ],
+        "title": "EMICalculatorRequest"
+      },
+      "EMICalculatorResponse": {
+        "properties": {
+          "loan_amount": {
+            "type": "number",
+            "title": "Loan Amount"
+          },
+          "annual_interest_rate": {
+            "type": "number",
+            "title": "Annual Interest Rate"
+          },
+          "tenure_months": {
+            "type": "integer",
+            "title": "Tenure Months"
+          },
+          "moratorium_months": {
+            "type": "integer",
+            "title": "Moratorium Months"
+          },
+          "promoter_contribution_amount": {
+            "type": "number",
+            "title": "Promoter Contribution Amount"
+          },
+          "effective_repayment_tenure_months": {
+            "type": "integer",
+            "title": "Effective Repayment Tenure Months"
+          },
+          "monthly_emi": {
+            "type": "number",
+            "title": "Monthly Emi"
+          },
+          "total_interest": {
+            "type": "number",
+            "title": "Total Interest"
+          },
+          "total_payment": {
+            "type": "number",
+            "title": "Total Payment"
+          },
+          "moratorium_interest": {
+            "type": "number",
+            "title": "Moratorium Interest"
+          },
+          "disclaimer": {
+            "type": "string",
+            "title": "Disclaimer",
+            "default": "Estimated EMI is for guidance only. Final sanction and terms depend on channel partner evaluation."
+          }
+        },
+        "type": "object",
+        "required": [
+          "loan_amount",
+          "annual_interest_rate",
+          "tenure_months",
+          "moratorium_months",
+          "promoter_contribution_amount",
+          "effective_repayment_tenure_months",
+          "monthly_emi",
+          "total_interest",
+          "total_payment",
+          "moratorium_interest"
+        ],
+        "title": "EMICalculatorResponse"
+      },
+      "EligibilityCheckRequest": {
+        "properties": {
+          "profile_id": {
+            "type": "string",
+            "title": "Profile Id"
+          },
+          "scheme_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_id"
+        ],
+        "title": "EligibilityCheckRequest"
+      },
+      "ErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "user_message": {
+            "type": "string",
+            "title": "User Message"
+          },
+          "retryable": {
+            "type": "boolean",
+            "title": "Retryable",
+            "default": false
+          },
+          "details": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Details"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "user_message"
+        ],
+        "title": "ErrorDetail"
+      },
+      "ExtractedField": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "value": {
+            "title": "Value"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "requires_confirmation": {
+            "type": "boolean",
+            "title": "Requires Confirmation",
+            "default": true
+          },
+          "suggested_attribute_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggested Attribute Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "value",
+          "confidence"
+        ],
+        "title": "ExtractedField"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "InterviewStartRequest": {
+        "properties": {
+          "profile_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profile Id"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language",
+            "default": "hi"
+          }
+        },
+        "type": "object",
+        "title": "InterviewStartRequest"
+      },
+      "InterviewTurnRequest": {
+        "properties": {
+          "input_type": {
+            "type": "string",
+            "title": "Input Type",
+            "default": "text"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language",
+            "default": "hi"
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "InterviewTurnRequest"
+      },
+      "InterviewTurnResponse": {
+        "properties": {
+          "assistant_message": {
+            "type": "string",
+            "title": "Assistant Message"
+          },
+          "reply": {
+            "type": "string",
+            "title": "Reply"
+          },
+          "extracted_attributes": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Extracted Attributes"
+          },
+          "extracted_fields": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Extracted Fields"
+          },
+          "next_required_field": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Required Field"
+          },
+          "next_question": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Question"
+          },
+          "requires_confirmation": {
+            "type": "boolean",
+            "title": "Requires Confirmation",
+            "default": true
+          },
+          "uncertainties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Uncertainties"
+          },
+          "profile_completeness_pct": {
+            "type": "integer",
+            "title": "Profile Completeness Pct",
+            "default": 0
+          },
+          "conversation_state": {
+            "type": "string",
+            "title": "Conversation State",
+            "default": "in_progress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "assistant_message",
+          "reply",
+          "extracted_attributes",
+          "extracted_fields"
+        ],
+        "title": "InterviewTurnResponse"
+      },
+      "MatchExplanationCriterion": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "result": {
+            "type": "string",
+            "title": "Result"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "source_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "result",
+          "reason"
+        ],
+        "title": "MatchExplanationCriterion"
+      },
+      "MatchExplanationOut": {
+        "properties": {
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "scheme_name": {
+            "type": "string",
+            "title": "Scheme Name"
+          },
+          "decision": {
+            "type": "string",
+            "title": "Decision"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "criteria": {
+            "items": {
+              "$ref": "#/components/schemas/MatchExplanationCriterion"
+            },
+            "type": "array",
+            "title": "Criteria"
+          },
+          "official_url": {
+            "type": "string",
+            "title": "Official Url"
+          },
+          "last_verified_at": {
+            "type": "string",
+            "title": "Last Verified At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_id",
+          "scheme_name",
+          "decision",
+          "summary",
+          "criteria",
+          "official_url",
+          "last_verified_at"
+        ],
+        "title": "MatchExplanationOut"
+      },
+      "MatchItem": {
+        "properties": {
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "scheme_name": {
+            "type": "string",
+            "title": "Scheme Name"
+          },
+          "ministry": {
+            "type": "string",
+            "title": "Ministry"
+          },
+          "scheme_type": {
+            "type": "string",
+            "title": "Scheme Type"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "match_score": {
+            "type": "integer",
+            "title": "Match Score"
+          },
+          "score_breakdown": {
+            "$ref": "#/components/schemas/ScoreBreakdown"
+          },
+          "passed": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Passed",
+            "default": []
+          },
+          "missing": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing",
+            "default": []
+          },
+          "why_matched": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Why Matched",
+            "default": []
+          },
+          "missing_requirements": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Requirements",
+            "default": []
+          },
+          "estimated_max_loan": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Estimated Max Loan"
+          },
+          "interest_rate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interest Rate"
+          },
+          "official_url": {
+            "type": "string",
+            "title": "Official Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_id",
+          "scheme_name",
+          "ministry",
+          "scheme_type",
+          "status",
+          "match_score",
+          "score_breakdown",
+          "official_url"
+        ],
+        "title": "MatchItem"
+      },
+      "MatchRequest": {
+        "properties": {
+          "profile_id": {
+            "type": "string",
+            "title": "Profile Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_id"
+        ],
+        "title": "MatchRequest"
+      },
+      "MatchResponse": {
+        "properties": {
+          "profile_id": {
+            "type": "string",
+            "title": "Profile Id"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/MatchItem"
+            },
+            "type": "array",
+            "title": "Results"
+          },
+          "total_evaluated": {
+            "type": "integer",
+            "title": "Total Evaluated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_id",
+          "results",
+          "total_evaluated"
+        ],
+        "title": "MatchResponse"
+      },
+      "MetaInfo": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "timestamp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "title": "MetaInfo"
+      },
+      "PartnerLocationOut": {
+        "properties": {
+          "partner_id": {
+            "type": "string",
+            "title": "Partner Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "partner_type": {
+            "type": "string",
+            "title": "Partner Type"
+          },
+          "scheme_categories": {
+            "type": "string",
+            "title": "Scheme Categories"
+          },
+          "distance_km": {
+            "type": "number",
+            "title": "Distance Km"
+          },
+          "category_match": {
+            "type": "boolean",
+            "title": "Category Match"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "fund_utilisation_status": {
+            "type": "string",
+            "title": "Fund Utilisation Status"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "district": {
+            "type": "string",
+            "title": "District"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "pincode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pincode"
+          },
+          "contact_number": {
+            "type": "string",
+            "title": "Contact Number"
+          },
+          "latitude": {
+            "type": "number",
+            "title": "Latitude"
+          },
+          "longitude": {
+            "type": "number",
+            "title": "Longitude"
+          }
+        },
+        "type": "object",
+        "required": [
+          "partner_id",
+          "name",
+          "partner_type",
+          "scheme_categories",
+          "distance_km",
+          "category_match",
+          "status",
+          "fund_utilisation_status",
+          "address",
+          "district",
+          "state",
+          "contact_number",
+          "latitude",
+          "longitude"
+        ],
+        "title": "PartnerLocationOut"
+      },
+      "ProfileCreate": {
+        "properties": {
+          "language": {
+            "type": "string",
+            "title": "Language",
+            "default": "hi"
+          },
+          "attributes": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Attributes"
+          }
+        },
+        "type": "object",
+        "title": "ProfileCreate"
+      },
+      "ProfileOut": {
+        "properties": {
+          "profile_id": {
+            "type": "string",
+            "title": "Profile Id"
+          },
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language"
+          },
+          "attributes": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Attributes"
+          },
+          "attribute_details": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/AttributeSchema"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attribute Details"
+          },
+          "completeness_pct": {
+            "type": "integer",
+            "title": "Completeness Pct"
+          },
+          "confirmed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_id",
+          "status",
+          "language",
+          "attributes",
+          "completeness_pct",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ProfileOut"
+      },
+      "ProfileUpdate": {
+        "properties": {
+          "language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language"
+          },
+          "attributes": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Attributes"
+          }
+        },
+        "type": "object",
+        "title": "ProfileUpdate"
+      },
+      "SaveSchemeRequest": {
+        "properties": {
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_id"
+        ],
+        "title": "SaveSchemeRequest"
+      },
+      "SavedSchemeOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "scheme_name": {
+            "type": "string",
+            "title": "Scheme Name"
+          },
+          "ministry": {
+            "type": "string",
+            "title": "Ministry"
+          },
+          "official_url": {
+            "type": "string",
+            "title": "Official Url"
+          },
+          "saved_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Saved At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "scheme_id",
+          "scheme_name",
+          "ministry",
+          "official_url",
+          "saved_at"
+        ],
+        "title": "SavedSchemeOut"
+      },
+      "SchemeBenefitOut": {
+        "properties": {
+          "benefit_type": {
+            "type": "string",
+            "title": "Benefit Type"
+          },
+          "min_value": {
+            "type": "number",
+            "title": "Min Value"
+          },
+          "max_value": {
+            "type": "number",
+            "title": "Max Value"
+          },
+          "percentage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Percentage"
+          },
+          "interest_rate": {
+            "type": "number",
+            "title": "Interest Rate"
+          },
+          "tenure_months": {
+            "type": "integer",
+            "title": "Tenure Months"
+          },
+          "moratorium_months": {
+            "type": "integer",
+            "title": "Moratorium Months"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          }
+        },
+        "type": "object",
+        "required": [
+          "benefit_type",
+          "min_value",
+          "max_value",
+          "interest_rate",
+          "tenure_months",
+          "moratorium_months",
+          "description"
+        ],
+        "title": "SchemeBenefitOut"
+      },
+      "SchemeDetailOut": {
+        "properties": {
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "short_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Short Name"
+          },
+          "ministry": {
+            "type": "string",
+            "title": "Ministry"
+          },
+          "department": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Department"
+          },
+          "scheme_type": {
+            "type": "string",
+            "title": "Scheme Type"
+          },
+          "target_group": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Group"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "official_url": {
+            "type": "string",
+            "title": "Official Url"
+          },
+          "application_url": {
+            "type": "string",
+            "title": "Application Url"
+          },
+          "helpline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Helpline"
+          },
+          "source_confidence": {
+            "type": "string",
+            "title": "Source Confidence"
+          },
+          "last_verified_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last Verified At"
+          },
+          "rules": {
+            "items": {
+              "$ref": "#/components/schemas/SchemeRuleOut"
+            },
+            "type": "array",
+            "title": "Rules",
+            "default": []
+          },
+          "benefits": {
+            "items": {
+              "$ref": "#/components/schemas/SchemeBenefitOut"
+            },
+            "type": "array",
+            "title": "Benefits",
+            "default": []
+          },
+          "required_documents": {
+            "items": {
+              "$ref": "#/components/schemas/DocumentRequirementOut"
+            },
+            "type": "array",
+            "title": "Required Documents",
+            "default": []
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/SchemeSourceOut"
+            },
+            "type": "array",
+            "title": "Sources",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_id",
+          "name",
+          "ministry",
+          "scheme_type",
+          "description",
+          "status",
+          "official_url",
+          "application_url",
+          "source_confidence",
+          "last_verified_at"
+        ],
+        "title": "SchemeDetailOut"
+      },
+      "SchemeEligibilityResult": {
+        "properties": {
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "scheme_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme Name"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "criteria": {
+            "items": {
+              "$ref": "#/components/schemas/CriterionResult"
+            },
+            "type": "array",
+            "title": "Criteria",
+            "default": []
+          },
+          "matched_rules": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Matched Rules",
+            "default": []
+          },
+          "failed_rules": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Failed Rules",
+            "default": []
+          },
+          "missing_information": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Information",
+            "default": []
+          },
+          "passed": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Passed",
+            "default": []
+          },
+          "missing": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing",
+            "default": []
+          },
+          "summary_explanation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Summary Explanation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_id",
+          "status"
+        ],
+        "title": "SchemeEligibilityResult"
+      },
+      "SchemeOut": {
+        "properties": {
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "short_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Short Name"
+          },
+          "ministry": {
+            "type": "string",
+            "title": "Ministry"
+          },
+          "department": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Department"
+          },
+          "scheme_type": {
+            "type": "string",
+            "title": "Scheme Type"
+          },
+          "target_group": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Group"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "official_url": {
+            "type": "string",
+            "title": "Official Url"
+          },
+          "application_url": {
+            "type": "string",
+            "title": "Application Url"
+          },
+          "helpline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Helpline"
+          },
+          "source_confidence": {
+            "type": "string",
+            "title": "Source Confidence"
+          },
+          "last_verified_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last Verified At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_id",
+          "name",
+          "ministry",
+          "scheme_type",
+          "description",
+          "status",
+          "official_url",
+          "application_url",
+          "source_confidence",
+          "last_verified_at"
+        ],
+        "title": "SchemeOut"
+      },
+      "SchemeRuleOut": {
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "title": "Rule Id"
+          },
+          "field_name": {
+            "type": "string",
+            "title": "Field Name"
+          },
+          "operator": {
+            "type": "string",
+            "title": "Operator"
+          },
+          "expected_value": {
+            "type": "string",
+            "title": "Expected Value"
+          },
+          "value_unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value Unit"
+          },
+          "rule_type": {
+            "type": "string",
+            "title": "Rule Type"
+          },
+          "explanation_template": {
+            "type": "string",
+            "title": "Explanation Template"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rule_id",
+          "field_name",
+          "operator",
+          "expected_value",
+          "rule_type",
+          "explanation_template"
+        ],
+        "title": "SchemeRuleOut"
+      },
+      "SchemeSourceOut": {
+        "properties": {
+          "publisher": {
+            "type": "string",
+            "title": "Publisher"
+          },
+          "source_url": {
+            "type": "string",
+            "title": "Source Url"
+          },
+          "source_type": {
+            "type": "string",
+            "title": "Source Type"
+          },
+          "verified_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Verified At"
+          },
+          "verification_status": {
+            "type": "string",
+            "title": "Verification Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "publisher",
+          "source_url",
+          "source_type",
+          "verified_at",
+          "verification_status"
+        ],
+        "title": "SchemeSourceOut"
+      },
+      "ScoreBreakdown": {
+        "properties": {
+          "eligibility_completeness": {
+            "type": "number",
+            "title": "Eligibility Completeness",
+            "description": "Weight 35%"
+          },
+          "purpose_fit": {
+            "type": "number",
+            "title": "Purpose Fit",
+            "description": "Weight 25%"
+          },
+          "financial_fit": {
+            "type": "number",
+            "title": "Financial Fit",
+            "description": "Weight 15%"
+          },
+          "geography_fit": {
+            "type": "number",
+            "title": "Geography Fit",
+            "description": "Weight 10%"
+          },
+          "document_readiness": {
+            "type": "number",
+            "title": "Document Readiness",
+            "description": "Weight 10%"
+          },
+          "user_preference": {
+            "type": "number",
+            "title": "User Preference",
+            "description": "Weight 5%"
+          }
+        },
+        "type": "object",
+        "required": [
+          "eligibility_completeness",
+          "purpose_fit",
+          "financial_fit",
+          "geography_fit",
+          "document_readiness",
+          "user_preference"
+        ],
+        "title": "ScoreBreakdown"
+      },
+      "Token": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type",
+            "default": "bearer"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "user"
+        ],
+        "title": "Token"
+      },
+      "UserLogin": {
+        "properties": {
+          "email_or_phone": {
+            "type": "string",
+            "title": "Email Or Phone"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email_or_phone",
+          "password"
+        ],
+        "title": "UserLogin"
+      },
+      "UserOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "preferred_language": {
+            "type": "string",
+            "title": "Preferred Language"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "preferred_language",
+          "created_at"
+        ],
+        "title": "UserOut"
+      },
+      "UserRegister": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "email"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9+ -]{10,15}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6,
+            "title": "Password"
+          },
+          "preferred_language": {
+            "type": "string",
+            "title": "Preferred Language",
+            "default": "hi"
+          }
+        },
+        "type": "object",
+        "required": [
+          "password"
+        ],
+        "title": "UserRegister"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VoiceSpeakRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language",
+            "default": "hi"
+          },
+          "voice_speed": {
+            "type": "number",
+            "title": "Voice Speed",
+            "default": 1.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "VoiceSpeakRequest"
+      },
+      "VoiceSpeakResponse": {
+        "properties": {
+          "audio_base64": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Base64"
+          },
+          "audio_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Url"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "SYNTHESIZED"
+          }
+        },
+        "type": "object",
+        "required": [
+          "language"
+        ],
+        "title": "VoiceSpeakResponse"
+      },
+      "VoiceTranscribeResponse": {
+        "properties": {
+          "transcript": {
+            "type": "string",
+            "title": "Transcript"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "detected_language": {
+            "type": "string",
+            "title": "Detected Language"
+          },
+          "duration_seconds": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transcript",
+          "confidence",
+          "detected_language"
+        ],
+        "title": "VoiceTranscribeResponse"
+      },
+      "WhatIfResultOut": {
+        "properties": {
+          "is_hypothetical": {
+            "type": "boolean",
+            "title": "Is Hypothetical",
+            "default": true
+          },
+          "profile_id": {
+            "type": "string",
+            "title": "Profile Id"
+          },
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "original": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Original"
+          },
+          "simulated": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Simulated"
+          },
+          "changed_rules": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Changed Rules"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "warning": {
+            "type": "string",
+            "title": "Warning",
+            "default": "This is a hypothetical simulation. Do not provide false information in actual applications."
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_id",
+          "scheme_id",
+          "original",
+          "simulated",
+          "changed_rules",
+          "explanation"
+        ],
+        "title": "WhatIfResultOut"
+      },
+      "WhatIfSimulateRequest": {
+        "properties": {
+          "profile_id": {
+            "type": "string",
+            "title": "Profile Id"
+          },
+          "scheme_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme Id"
+          },
+          "hypothetical_changes": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Hypothetical Changes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_id",
+          "hypothetical_changes"
+        ],
+        "title": "WhatIfSimulateRequest"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
