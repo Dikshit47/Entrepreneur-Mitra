@@ -311,7 +311,10 @@
         <!-- Live Extracted Attributes Drawer -->
         <aside class="extracted-drawer">
           <div class="drawer-header">
-            <h3 id="t-drawer-title" data-i18n="interview.drawerTitle">Extracted Citizen Profile</h3>
+            <div>
+              <h3 id="t-drawer-title" data-i18n="interview.drawerTitle" style="margin: 0;">Extracted Citizen Profile</h3>
+              <span class="badge-trust-rank" id="profileVerificationBadge" style="display: none; font-size: 10px; background: #D1FAE5; color: #065F46; border: 1px solid #6EE7B7; border-radius: 12px; padding: 2px 8px; font-weight: 700; margin-top: 4px;">Verified (Sandbox Issuer Authenticated)</span>
+            </div>
             <button class="btn-action btn-action-secondary" style="font-size: 11px; padding: 2px 8px;" onclick="openProfileModal()" data-i18n="common.edit">Edit</button>
           </div>
           <div class="field-chips-list" id="extractedChipsList">
@@ -763,8 +766,8 @@
   </div>
 
   <!-- MODAL: DigiLocker Sandbox Consent Dialog -->
-  <div class="modal-overlay" id="digiLockerModal" role="dialog" aria-modal="true" aria-labelledby="dlModalTitle">
-    <div class="modal-container" style="max-width: 500px;">
+  <div class="modal-backdrop modal-overlay" id="digiLockerModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="dlModalTitle">
+    <div class="modal-card modal-container" style="max-width: 500px;">
       <div class="modal-header" style="background: #0056B3; color: white;">
         <div style="display: flex; align-items: center; gap: 8px;">
           <span>🔐</span>
@@ -772,7 +775,7 @@
             DigiLocker Document Verification (Sandbox Mode)
           </h3>
         </div>
-        <button class="modal-close-btn" onclick="closeDigiLockerModal()" style="color: white;" aria-label="Close Modal">&times;</button>
+        <button class="modal-close-btn" id="btnDlCloseX" onclick="closeDigiLockerModal()" style="color: white; background: transparent; border: none; font-size: 22px; cursor: pointer; line-height: 1;" aria-label="Close Modal">&times;</button>
       </div>
 
       <div class="modal-body">
@@ -792,7 +795,7 @@
           </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
             <span style="color: var(--color-text-secondary);" data-i18n="modals.dlCitizenName">Applicant Name:</span>
-            <strong id="dlModalCitizenName">Ramesh Kumar</strong>
+            <strong id="dlModalCitizenName">Applicant</strong>
           </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
             <span style="color: var(--color-text-secondary);" data-i18n="modals.dlAadhaarRef">Aadhaar Reference:</span>
@@ -809,7 +812,7 @@
         </p>
 
         <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
-          <button class="btn-action btn-action-secondary" onclick="closeDigiLockerModal()" data-i18n="modals.btnCancel">Cancel</button>
+          <button class="btn-action btn-action-secondary" id="btnDlCancel" onclick="closeDigiLockerModal()" data-i18n="modals.btnCancel">Cancel</button>
           <button class="btn-digilocker" id="btnConfirmDigiLocker" onclick="executeDigiLockerVerification()">
             <span data-i18n="modals.btnConfirmDL">🔐 Give Consent & Verify with DigiLocker</span>
           </button>

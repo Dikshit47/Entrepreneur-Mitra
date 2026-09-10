@@ -10,9 +10,16 @@ class InterviewStartRequest(BaseModel):
 
 class InterviewTurnRequest(BaseModel):
     input_type: str = "text"  # text, voice
-    text: str
-    language: Optional[str] = "hi"
+    text: Optional[str] = None
+    user_message: Optional[str] = None
+    message: Optional[str] = None
+    language: Optional[str] = "en"
     session_id: Optional[str] = None  # alias for conversation
+    conversation_id: Optional[str] = None
+    existing_attributes: Optional[Dict[str, Any]] = None
+
+    def get_text(self) -> str:
+        return (self.text or self.user_message or self.message or "").strip()
 
 
 class InterviewTurnResponse(BaseModel):

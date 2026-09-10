@@ -68,6 +68,8 @@ class DigiLockerSandboxProvider(BaseVerificationProvider):
                 "certificate_no": f"UP-INC-2026-{uuid.uuid4().hex[:6].upper()}",
                 "financial_year": "2025-2026"
             }
+            if request.citizen_name:
+                extracted["name"] = request.citizen_name
             issuer_name = "Office of Tehsildar, Revenue Department, Government of Uttar Pradesh"
             ref_id = f"in.gov.up.edistrict.inc-{uuid.uuid4().hex[:8]}"
             filename = "UP_eDistrict_Income_Certificate_Verified.xml"
@@ -79,12 +81,14 @@ class DigiLockerSandboxProvider(BaseVerificationProvider):
                 "state": "Uttar Pradesh",
                 "certificate_no": f"UP-OBC-2026-{uuid.uuid4().hex[:6].upper()}"
             }
+            if request.citizen_name:
+                extracted["name"] = request.citizen_name
             issuer_name = "Backward Classes Welfare Department, Government of Uttar Pradesh"
             ref_id = f"in.gov.up.edistrict.caste-{uuid.uuid4().hex[:8]}"
             filename = "UP_eDistrict_Caste_Certificate_Verified.xml"
         elif "AADHAAR" in dtype:
             extracted = {
-                "name": request.citizen_name or "Ramesh Kumar",
+                "name": request.citizen_name or "Applicant",
                 "aadhaar_masked": f"XXXX-XXXX-{request.aadhaar_last4 or '4321'}",
                 "state": "Uttar Pradesh",
                 "district": "Bijnor",

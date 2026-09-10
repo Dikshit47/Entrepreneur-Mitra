@@ -29,14 +29,21 @@ def process_interview_turn(
     existing_attrs = {}
     try:
         profile = ProfileService.get_profile(db, conversation_id)
-        existing_attrs = profile.attributes
+        if profile and profile.attributes:
+            existing_attrs = dict(profile.attributes)
     except Exception:
         pass
+
+    # Also merge client-provided existing_attributes if available
+    if turn_req.existing_attributes and isinstance(turn_req.existing_attributes, dict):
+        for k, v in turn_req.existing_attributes.items():
+            if k not in existing_attrs or existing_attrs[k] is None:
+                existing_attrs[k] = v
 
     response_turn = InterviewService.process_turn(turn_req, existing_attrs)
 
     # If new fields extracted and valid profile exists, update profile attributes
-    if response_turn.extracted_attributes and existing_attrs is not None:
+    if response_turn.extracted_attributes:
         try:
             ProfileService.upsert_attributes(
                 db,
@@ -48,6 +55,16 @@ def process_interview_turn(
             pass
 
     return ApiResponse.success_response(response_turn)
+
+
+@router.post("/interviews/turn", response_model=ApiResponse[InterviewTurnResponse])
+def process_interview_turn_general(
+    turn_req: InterviewTurnRequest,
+    db: Session = Depends(get_db)
+):
+    """Alias for conversational turn without path parameter."""
+    cid = turn_req.conversation_id or turn_req.session_id or "session_mitra_default"
+    return process_interview_turn(turn_req=turn_req, conversation_id=cid, db=db)
 
 
 @router.post("/interview/start", response_model=ApiResponse[dict])

@@ -44,17 +44,50 @@ class InterviewService:
         extracted: Dict[str, Any] = {}
         t = text.lower()
 
+        # 0. Applicant Name extraction
+        name_patterns = [
+            r'(?:my\s+name\s+is|i\s+am|i\'m|this\s+is)\s+([A-Za-z\u0900-\u097F]+(?:\s+[A-Za-z\u0900-\u097F]+){0,2})',
+            r'(?:mera\s+naam|mera\s+name|humara\s+naam|मेरा\s+नाम)\s+(?:hai\s+)?([A-Za-z\u0900-\u097F]+(?:\s+[A-Za-z\u0900-\u097F]+){0,2})',
+            r'(?:naam|name)\s*[:=-]\s*([A-Za-z\u0900-\u097F]+(?:\s+[A-Za-z\u0900-\u097F]+){0,2})',
+            r'main\s+([A-Za-z\u0900-\u097F]+(?:\s+[A-Za-z\u0900-\u097F]+){0,2})\s+(?:bol\s+raha\s+hoon|bol\s+rahi\s+hoon|hoon)',
+        ]
+        stop_words = {
+            "new", "business", "start", "shuru", "naya", "tailoring", "silai", "carpenter", "carpentry",
+            "dairy", "shop", "ka", "ki", "ke", "hai", "karna", "chahiye", "ek", "mujhe", "mera", "meri", "hum",
+            "and", "aur", "or", "from", "se", "in", "mein", "i", "run", "work", "live", "stay"
+        }
+        for pat in name_patterns:
+            m = re.search(pat, text, re.IGNORECASE)
+            if m:
+                cand = m.group(1).strip().strip(".,;:!?")
+                cand_words = []
+                for w in cand.split():
+                    if w.lower() in stop_words:
+                        break
+                    cand_words.append(w)
+                if cand_words:
+                    extracted["name"] = " ".join(w.capitalize() for w in cand_words)
+                    break
+
         # 1. Business Type extraction
-        if any(w in t for w in ["silai", "tailoring", "cloth", "garment", "kapde"]):
+        if any(w in t for w in ["silai", "tailoring", "cloth", "garment", "kapde", "boutique", "stitching"]):
             extracted["business_type"] = "tailoring"
-        elif any(w in t for w in ["handicraft", "hastshilp", "handloom", "dastkari"]):
+        elif any(w in t for w in ["carpentry", "carpenter", "badhai", "wood", "furniture", "lakdi"]):
+            extracted["business_type"] = "carpentry"
+        elif any(w in t for w in ["handicraft", "hastshilp", "handloom", "dastkari", "pottery", "bunkar"]):
             extracted["business_type"] = "handicraft"
-        elif any(w in t for w in ["dairy", "doodh", "dairy farm", "pashupalan"]):
+        elif any(w in t for w in ["dairy", "doodh", "dairy farm", "pashupalan", "cattle", "gaay", "bhains"]):
             extracted["business_type"] = "dairy"
-        elif any(w in t for w in ["kirana", "dukaan", "retail", "shop"]):
+        elif any(w in t for w in ["kirana", "dukaan", "retail", "shop", "store", "grocery"]):
             extracted["business_type"] = "retail_store"
-        elif any(w in t for w in ["food", "restaurant", "dhaba", "mithai", "bakery"]):
+        elif any(w in t for w in ["food", "restaurant", "dhaba", "mithai", "bakery", "catering", "hotel"]):
             extracted["business_type"] = "food_processing"
+        elif any(w in t for w in ["beauty", "parlour", "parlor", "salon", "barber", "hair"]):
+            extracted["business_type"] = "salon"
+        elif any(w in t for w in ["welding", "fabrication", "loha", "workshop", "garage", "mechanic", "repair"]):
+            extracted["business_type"] = "workshop"
+        elif any(w in t for w in ["electric", "electrical", "wiring", "electronics"]):
+            extracted["business_type"] = "electrical"
 
         # 2. Business Stage extraction
         if any(w in t for w in ["shuru", "naya", "new", "start", "fresh"]):
@@ -119,7 +152,8 @@ class InterviewService:
         lang = (turn_req.language or "en").lower()
         prompt_list = CORE_FIELD_PROMPTS.get(lang) or CORE_FIELD_PROMPTS.get("en")
         
-        extracted = cls.extract_fields_from_utterance(turn_req.text)
+        req_text = turn_req.get_text() if hasattr(turn_req, "get_text") else (getattr(turn_req, "text", "") or "")
+        extracted = cls.extract_fields_from_utterance(req_text)
         
         # Merge existing with newly extracted
         merged = existing_attributes.copy()
