@@ -1,5 +1,5 @@
 """
-Entrepreneur Mitra - Streamlit Application Entrypoint
+Entrepreneur Mitra - Streamlit Citizen Portal
 SIH26092: AI-Driven Scheme Matching for Marginalized Entrepreneurs
 Ministry of Social Justice and Empowerment (MoSJE)
 """
@@ -27,58 +27,95 @@ st.markdown("""
         height: 5px;
         width: 100%;
         background: linear-gradient(90deg, #FF9933 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, #138808 66.6%);
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         border-radius: 2px;
     }
     .header-banner {
         background: linear-gradient(135deg, #0F2C59 0%, #0A1C38 100%);
         color: white;
-        padding: 20px 24px;
-        border-radius: 12px;
+        padding: 22px 26px;
+        border-radius: 14px;
         margin-bottom: 20px;
-    }
-    .metric-box {
-        background-color: #F8F9FA;
-        border: 1px solid #E2E8F0;
-        border-radius: 10px;
-        padding: 14px;
-        text-align: center;
-    }
-    .stat-val {
-        font-size: 24px;
-        font-weight: 800;
-        color: #0F2C59;
-    }
-    .stat-lbl {
-        font-size: 12px;
-        color: #64748B;
-        font-weight: 600;
+        box-shadow: 0 4px 16px rgba(15, 44, 89, 0.1);
     }
     .scheme-card {
         border: 1px solid #E2E8F0;
         border-left: 6px solid #0B6E4F;
-        border-radius: 12px;
-        padding: 18px;
-        margin-bottom: 16px;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 18px;
         background: #FFFFFF;
+        box-shadow: 0 2px 8px rgba(15, 44, 89, 0.04);
     }
 </style>
 <div class="top-tricolor"></div>
 """, unsafe_allow_html=True)
 
-# 3. Header & Anti-Scam Advisory
-st.markdown("""
+# 3. Sidebar: Multi-Language Selector & Dynamic Profile
+st.sidebar.title("🌐 भाषा एवं प्रोफ़ाइल (Language & Profile)")
+
+selected_lang = st.sidebar.selectbox(
+    "पसंदीदा भाषा (Preferred Language)",
+    [
+        "🇮🇳 हिन्दी (Hindi)",
+        "🇬🇧 English",
+        "🇮🇳 Hinglish (हिंग्लिश)",
+        "🇮🇳 मराठी (Marathi)",
+        "🇮🇳 বাংলা (Bengali)",
+        "🇮🇳 ગુજરાતી (Gujarati)",
+        "🇮🇳 தமிழ் (Tamil)",
+        "🇮🇳 తెలుగు (Telugu)",
+        "🇮🇳 ਪੰਜਾਬੀ (Punjabi)"
+    ],
+    index=0
+)
+
+# Optional Sample Demo Profile Button
+if st.sidebar.button("⚡ त्वरित नमूना भरें (Load Sample Profile)", use_container_width=True):
+    st.session_state["name"] = "राहुल शर्मा (Rahul Sharma)"
+    st.session_state["business"] = "सिलाई व परिधान कार्यशाला (Tailoring Workshop)"
+    st.session_state["project_cost"] = 350000
+    st.session_state["income"] = 160000
+    st.session_state["category"] = "OBC"
+    st.session_state["state"] = "Uttar Pradesh"
+    st.session_state["district"] = "Meerut"
+    st.session_state["age"] = 30
+    st.sidebar.success("नमूना प्रोफ़ाइल सफलतापूर्वक लोड हो गया!")
+
+# Dynamic User Inputs
+name = st.sidebar.text_input(
+    "आवेदक का नाम (Applicant Name)",
+    value=st.session_state.get("name", ""),
+    placeholder="जैसे: आपका नाम / e.g. Priya Sharma"
+)
+display_name = name.strip() if name.strip() else "उद्यमी (Entrepreneur)"
+
+business = st.sidebar.text_input(
+    "व्यवसाय या कार्य विचार (Business / Trade)",
+    value=st.session_state.get("business", ""),
+    placeholder="जैसे: बढ़ईगीरी, सिलाई, किराना, वर्कशॉप"
+)
+
+category = st.sidebar.selectbox("सामाजिक वर्ग (Social Category)", ["OBC", "SC", "ST", "DNT", "GENERAL"], index=0)
+project_cost = st.sidebar.number_input("अनुमानित परियोजना लागत (₹)", min_value=10000, max_value=5000000, value=st.session_state.get("project_cost", 500000), step=25000)
+income = st.sidebar.number_input("वार्षिक पारिवारिक आय (₹)", min_value=0, max_value=2000000, value=st.session_state.get("income", 180000), step=10000)
+state = st.sidebar.text_input("राज्य (State)", value=st.session_state.get("state", "Uttar Pradesh"))
+district = st.sidebar.text_input("जिला (District)", value=st.session_state.get("district", "Bijnor"))
+age = st.sidebar.slider("आयु (Age)", 18, 70, value=st.session_state.get("age", 30))
+
+# 4. Header & Anti-Scam Advisory
+st.markdown(f"""
 <div class="header-banner">
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
-            <span style="font-size: 11px; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 12px; font-weight: 700; text-transform: uppercase;">
+            <span style="font-size: 11px; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 12px; font-weight: 700; text-transform: uppercase;">
                 भारत सरकार | Ministry of Social Justice and Empowerment (MoSJE)
             </span>
-            <h1 style="font-size: 28px; font-weight: 900; margin-top: 6px; margin-bottom: 4px; color: #FFFFFF;">
-                उद्यमी मित्र (Entrepreneur Mitra)
+            <h1 style="font-size: 26px; font-weight: 900; margin-top: 6px; margin-bottom: 4px; color: #FFFFFF;">
+                उद्यमी मित्र — नमस्ते {display_name} जी!
             </h1>
-            <p style="font-size: 14px; color: #CBD5E1; margin: 0;">
-                SIH26092 • AI-Driven Scheme Matching & Concessional Credit Access for Marginalized Entrepreneurs
+            <p style="font-size: 13px; color: #CBD5E1; margin: 0;">
+                वंचित एवं पिछड़े वर्ग के उद्यमियों हेतु AI-संचालित रियायती ऋण, ब्याज अनुदान एवं कौशल विकास योजनाएं
             </p>
         </div>
         <div style="font-size: 42px;">🏛️</div>
@@ -88,50 +125,23 @@ st.markdown("""
 
 st.warning("🛡️ **सचेत रहें (Official Anti-Scam Advisory):** सरकारी योजनाओं के आवेदन हेतु कभी भी किसी दलाल को कोई शुल्क न दें और न ही OTP साझा करें। समस्त MoSJE / NBCFDC सेवाएं पूर्णतः निःशुल्क हैं।")
 
-# 4. Sidebar: Entrepreneur Profile Inputs & Demo Persona Quick Load
-st.sidebar.title("👤 उद्यमी प्रोफ़ाइल (Entrepreneur Profile)")
-
-if st.sidebar.button("✨ लोड करें: रमेश कुमार डेमो प्रोफ़ाइल", use_container_width=True, type="primary"):
-    st.session_state["name"] = "Ramesh Kumar"
-    st.session_state["business"] = "बढ़ईगीरी एवं लकड़ी कार्यशाला (Carpentry Workshop)"
-    st.session_state["project_cost"] = 500000
-    st.session_state["income"] = 180000
-    st.session_state["category"] = "OBC"
-    st.session_state["state"] = "Uttar Pradesh"
-    st.session_state["district"] = "Bijnor"
-    st.session_state["age"] = 32
-    st.session_state["education"] = "10th Pass"
-    st.sidebar.success("रमेश कुमार (OBC बढ़ई, बिजनौर) का प्रोफ़ाइल सफलतापूर्वक लोड हुआ!")
-
-name = st.sidebar.text_input("आवेदक का नाम (Name)", value=st.session_state.get("name", "Ramesh Kumar"))
-business = st.sidebar.text_input("व्यवसाय प्रकार (Business)", value=st.session_state.get("business", "बढ़ईगीरी एवं लकड़ी कार्यशाला"))
-category = st.sidebar.selectbox("सामाजिक वर्ग (Social Category)", ["OBC", "SC", "ST", "DNT", "GENERAL"], index=0)
-project_cost = st.sidebar.number_input("अनुमानित परियोजना लागत (₹)", min_value=10000, max_value=5000000, value=st.session_state.get("project_cost", 500000), step=25000)
-income = st.sidebar.number_input("वार्षिक पारिवारिक आय (₹)", min_value=0, max_value=2000000, value=st.session_state.get("income", 180000), step=10000)
-state = st.sidebar.text_input("राज्य (State)", value=st.session_state.get("state", "Uttar Pradesh"))
-district = st.sidebar.text_input("जिला (District)", value=st.session_state.get("district", "Bijnor"))
-age = st.sidebar.slider("आयु (Age)", 18, 70, value=st.session_state.get("age", 32))
-
 # 5. Main Application Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
     "🎯 स्मार्ट योजना अनुशंसाएं (Smart Matches)",
     "🧮 वित्तीय ईएमआई कैलकुलेटर (Financial Calculator)",
     "📍 भू-स्थानिक पार्टनर लोकेटर (Partner Map)",
-    "🎙️ लाइव वॉइस वेब ऐप (Interactive App)"
+    "🎙️ लाइव वॉइस वेब ऐप (Interactive PWA)"
 ])
 
 # -----------------------------------------------------------------------------
 # TAB 1: Smart Scheme Recommender
 # -----------------------------------------------------------------------------
 with tab1:
-    st.subheader("स्मार्ट योजना अनुशंसाएं (Ranked Concessional Schemes)")
+    st.subheader(f"स्मार्ट योजना अनुशंसाएं — {display_name} के लिए")
     st.caption("पारदर्शी 6-कारकीय वेटेज मॉडल (Category, Income, Project, Location, Education, Age) द्वारा जांची गई आधिकारिक योजनाएं")
 
-    # Evaluation against verified MoSJE schemes
     is_nbcfdc_eligible = (category == "OBC") and (income <= 300000) and (project_cost <= 1500000) and (18 <= age <= 55)
-
-    # Scheme 1: NBCFDC General Term Loan
-    score_nbcfdc = 96 if is_nbcfdc_eligible else 45
+    score_nbcfdc = 96 if is_nbcfdc_eligible else 50
     status_color = "#0B6E4F" if is_nbcfdc_eligible else "#DC2626"
 
     st.markdown(f"""
@@ -139,7 +149,7 @@ with tab1:
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
                 <span style="background: #E8EEF5; color: #0F2C59; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">
-                    NBCFDC-GTL-001 • Ministry of Social Justice and Empowerment
+                    NBCFDC-GTL-001 • MoSJE
                 </span>
                 <h3 style="margin-top: 6px; margin-bottom: 2px; color: #1E293B;">
                     NBCFDC General Term Loan Scheme (सामान्य सावधि ऋण योजना)
@@ -164,7 +174,6 @@ with tab1:
 
     with st.expander("🔍 पात्रता विश्लेषण एवं नियम निष्पादन (Rule Trace - Zero Hallucination Audit)", expanded=True):
         st.markdown("**शून्य-भ्रम गारंटी (Zero-Hallucination Verified):** यह परिणाम AI के अनुमान पर नहीं, बल्कि MoSJE राजपत्र और NBCFDC अधिकृत नियमों के कोड-आधारित निष्पादन पर आधारित है।")
-        
         c1, c2 = st.columns(2)
         with c1:
             st.success(f"✓ **लक्षित वर्ग:** {category} (NBCFDC Guidelines Clause 3a)")
@@ -175,7 +184,6 @@ with tab1:
 
     st.markdown("---")
 
-    # Scheme 2: PM DAKSH
     st.markdown("""
     <div class="scheme-card" style="border-left-color: #0F2C59;">
         <span style="background: #E8EEF5; color: #0F2C59; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">
@@ -199,7 +207,7 @@ with tab1:
 # TAB 2: Financial Calculator & What-If Simulator
 # -----------------------------------------------------------------------------
 with tab2:
-    st.subheader("वित्तीय सामर्थ्य एवं ईएमआई कैलकुलेटर (Projected EMI Calculator)")
+    st.subheader(f"वित्तीय सामर्थ्य एवं ईएमआई कैलकुलेटर — {display_name}")
     st.caption("मोराटोरियम, मार्जिन मनी (5%) एवं रियायती ब्याज दर के आधार पर मासिक किस्त की वास्तविक गणना")
 
     col_left, col_right = st.columns([1, 1])
@@ -212,7 +220,6 @@ with tab2:
         calc_income = st.slider("आवेदक की अनुमानित मासिक आय (₹)", min_value=5000, max_value=100000, value=20000, step=2500)
 
     with col_right:
-        # Financial Math Formula
         monthly_r = (calc_rate / 100) / 12
         rep_months = max(1, calc_tenure - calc_mora)
         mora_interest = calc_amount * (calc_rate / 100) * (calc_mora / 12)
@@ -229,7 +236,7 @@ with tab2:
             <div style="text-align: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 12px;">
                 <span style="font-size: 11px; text-transform: uppercase; color: #CBD5E1; font-weight: 700;">प्रक्षेपित मासिक ईएमआई (Projected Monthly EMI)</span>
                 <div style="font-size: 34px; font-weight: 900; color: #FFFFFF; margin: 4px 0;">₹{round(projected_emi):,}</div>
-                <span style="font-size: 11px; color: #94A3B8;">*मोराटोरियम छूट अवधि (6 महीने) के बाद लागू</span>
+                <span style="font-size: 11px; color: #94A3B8;">*मोराटोरियम छूट अवधि ({calc_mora} महीने) के बाद लागू</span>
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; font-size: 12px;">
                 <div style="background: rgba(255,255,255,0.08); padding: 10px; border-radius: 8px;">
@@ -256,11 +263,11 @@ with tab2:
 # TAB 3: Geo-Spatial Channel Partner Locator
 # -----------------------------------------------------------------------------
 with tab3:
-    st.subheader("भू-स्थानिक अधिकृत चैनल पार्टनर लोकेटर (Channel Partner Locator)")
+    st.subheader(f"भू-स्थानिक अधिकृत चैनल पार्टनर लोकेटर — {state}, {district}")
     st.caption("राज्य चैनलाइजिंग एजेंसी (SCA) एवं अधिकृत बैंक शाखाओं का सत्यापन एवं सीधा संपर्क")
 
     partners_data = [
-        {"name": "State Bank of India - Bijnor Main Branch", "lat": 29.3765, "lon": 78.1390, "type": "Bank", "distance_km": 4.2, "phone": "+91-1342-262100", "address": "Civil Lines, Bijnor UP"},
+        {"name": f"State Bank of India - {district} Main Branch", "lat": 29.3765, "lon": 78.1390, "type": "Bank", "distance_km": 4.2, "phone": "+91-1342-262100", "address": f"Civil Lines, {district} {state}"},
         {"name": "UP Backward Classes Dev Corp (UPBCDFC)", "lat": 26.8467, "lon": 80.9462, "type": "SCA", "distance_km": 380.0, "phone": "+91-522-2628490", "address": "Pariwahan Parisar, Lucknow UP"},
         {"name": "Punjab National Bank - Regional Rural Credit", "lat": 28.9845, "lon": 77.7064, "type": "Bank", "distance_km": 68.5, "phone": "+91-121-2510230", "address": "Delhi Road, Meerut UP"},
     ]

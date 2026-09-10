@@ -14,6 +14,7 @@ from app.api.v1.saved_schemes import router as saved_schemes_router
 from app.api.v1.alerts import router as alerts_router
 from app.api.v1.voice import router as voice_router
 from app.api.v1.ai import router as ai_router
+from app.api.v1.assistant import router as assistant_router
 
 api_v1_router = APIRouter(prefix="/api/v1")
 
@@ -31,3 +32,4 @@ api_v1_router.include_router(saved_schemes_router)
 api_v1_router.include_router(alerts_router)
 api_v1_router.include_router(voice_router)
 api_v1_router.include_router(ai_router)
+api_v1_router.include_router(assistant_router)

@@ -1,19 +1,19 @@
 /**
  * Entrepreneur Mitra - Frontend Application Core (SIH26092)
  * Ministry of Social Justice and Empowerment (MoSJE)
- * Single Source of Truth implementation connecting to FastAPI backend
+ * Enhanced Citizen-Friendly Multi-Language & Dynamic Profile Architecture
  */
 
 // ============================================================================
 // 1. Global State
 // ============================================================================
 const AppState = {
-  language: 'hi', // 'hi' or 'en'
+  language: 'hi', // hi, en, hinglish, mr, bn, gu, ta, te, pa
   highContrast: false,
   profileId: null,
   profileAttributes: {
-    name: 'Ramesh Kumar',
-    business_type: 'बढ़ईगीरी एवं लकड़ी कार्यशाला (Carpentry & Woodcraft)',
+    name: '',
+    business_type: '',
     estimated_project_cost: 500000,
     project_cost: 500000,
     annual_income: 180000,
@@ -23,7 +23,7 @@ const AppState = {
     district: 'Bijnor',
     education: '10th Pass',
     gender: 'MALE',
-    age: 32
+    age: 30
   },
   schemes: [],
   matches: [],
@@ -37,7 +37,7 @@ const AppState = {
 };
 
 // ============================================================================
-// 2. Localization Dictionary (Hindi / English)
+// 2. Comprehensive Localization Dictionary (9 Major Indian Languages)
 // ============================================================================
 const I18N = {
   hi: {
@@ -45,7 +45,16 @@ const I18N = {
     govTag: 'भारत सरकार | Govt of India',
     appTitle: 'उद्यमी मित्र (Entrepreneur Mitra)',
     appSubtitle: 'SIH26092 • AI-Driven Scheme Matching for Marginalized Entrepreneurs',
-    btnDemo: 'डेमो: रमेश कुमार',
+    btnSample: 'त्वरित नमूना (Sample Profile)',
+    onboardingTitle: 'नमस्ते! अपनी उद्यमिता यात्रा शुरू करें',
+    lblName: 'आपका शुभ नाम (Applicant Name)',
+    lblBiz: 'व्यवसाय या कार्य विचार (Business / Trade)',
+    lblCat: 'सामाजिक वर्ग (Category)',
+    lblCost: 'अनुमानित लागत (Project Cost ₹)',
+    lblInc: 'पारिवारिक वार्षिक आय (Family Income ₹)',
+    lblState: 'राज्य एवं जिला (State & District)',
+    btnFindSchemes: 'मेरी योजनाएं एवं रियायती ऋण खोजें',
+    btnFillSample: 'नमूना डेटा भरें (Fill Sample)',
     heroBadge: 'आवाज़-आधारित AI सहायक',
     heroHeading: 'अपनी मातृभाषा में बोलें,<br>सटीक सरकारी योजना पाएं',
     heroSub: 'गरीब और वंचित वर्ग के उद्यमियों के लिए शून्य-भ्रम (Zero Hallucination) आधारित ऋण, ब्याज अनुदान और कौशल योजनाएं।',
@@ -80,7 +89,16 @@ const I18N = {
     govTag: 'Government of India',
     appTitle: 'Entrepreneur Mitra',
     appSubtitle: 'SIH26092 • AI-Driven Scheme Matching for Marginalized Entrepreneurs',
-    btnDemo: 'Demo: Ramesh Kumar',
+    btnSample: 'Sample Profile',
+    onboardingTitle: 'Welcome! Start Your Entrepreneurial Journey',
+    lblName: 'Your Full Name',
+    lblBiz: 'Business Idea or Trade',
+    lblCat: 'Social Category',
+    lblCost: 'Estimated Project Cost (₹)',
+    lblInc: 'Annual Family Income (₹)',
+    lblState: 'State & District',
+    btnFindSchemes: 'Discover My Eligible Schemes',
+    btnFillSample: 'Load Sample Data',
     heroBadge: 'Voice-First AI Assistant',
     heroHeading: 'Speak in Your Mother Tongue,<br>Access Verified Schemes',
     heroSub: 'Zero-hallucination concessional credit, interest subsidies, and skill schemes for marginalized entrepreneurs.',
@@ -109,11 +127,319 @@ const I18N = {
     navVoice: 'Voice',
     navCalc: 'Calculator',
     navPartners: 'Partners'
+  },
+  hinglish: {
+    govTitle: 'Social Justice & Empowerment Mantralaya | MoSJE',
+    govTag: 'Bharat Sarkar | Govt of India',
+    appTitle: 'Entrepreneur Mitra',
+    appSubtitle: 'SIH26092 • AI-Driven Scheme Matching for Marginalized Entrepreneurs',
+    btnSample: 'Sample Profile Load Karein',
+    onboardingTitle: 'Namaste! Apna Business Safar Shuru Karein',
+    lblName: 'Aapka Shubh Naam',
+    lblBiz: 'Kaunsa Business Karte Hain Ya Karna Chahte Hain',
+    lblCat: 'Social Category (OBC/SC/ST/General)',
+    lblCost: 'Project Ki Anumanit Cost (₹)',
+    lblInc: 'Parivar Ki Salana Aamdani (₹)',
+    lblState: 'Rajya aur Zila',
+    btnFindSchemes: 'Meri Schemes aur Saste Loan Dekhein',
+    btnFillSample: 'Demo Data Bharein',
+    heroBadge: 'Voice AI Assistant',
+    heroHeading: 'Apni bhasha mein bolein,<br>Sarkari schemes payein',
+    heroSub: 'Bina kisi dalal ya confusion ke concessional loans aur subsidy paane ka aasan tareeka.',
+    btnStartVoice: 'Bolkar Shuru Karein',
+    btnViewSchemes: 'Sabhi Schemes Dekhein',
+    kpiSchemes: 'Official MoSJE Schemes',
+    kpiPartners: 'Approved Bank & SCA Partners',
+    kpiRules: '100% Guaranteed Rules',
+    kpiFee: 'Zero Application Fee',
+    quickActionsTitle: 'Mukhya Suvidhayein',
+    quickActionsSub: 'Aapke business ke liye har kadam par madad',
+    interviewTitle: 'AI Voice Interview',
+    interviewSub: 'Mic dabakar bolein, Mitra aapka profile bana dega.',
+    btnFinalize: 'Matching Schemes Khojein',
+    drawerTitle: 'Extract Ki Gayi Details',
+    schemesHeading: 'Recommended Sarkari Schemes',
+    schemesSub: 'Aapki eligibility ke hisab se best schemes',
+    calcHeading: 'EMI aur Kisht Calculator',
+    calcSub: 'Moratorium aur kam byaj dar ke saath mahina kisht janein',
+    partnerHeading: 'Nazdeeki Bank aur SCA Kendra',
+    partnerSub: 'Aapke district ke verified sarkari channel partners',
+    docsHeading: 'Documents & Application Guide',
+    docsSub: 'Document check karein aur seedhe portal par apply karein',
+    navHome: 'Home',
+    navSchemes: 'Schemes',
+    navVoice: 'Bolein',
+    navCalc: 'Calculator',
+    navPartners: 'Partners'
+  },
+  mr: {
+    govTitle: 'सामाजिक न्याय आणि अधिकारिता मंत्रालय | MoSJE',
+    govTag: 'भारत सरकार | Govt of India',
+    appTitle: 'उद्यमी मित्र (Entrepreneur Mitra)',
+    appSubtitle: 'उद्योजकांसाठी एआय-आधारित सरकारी योजना शोध प्रणाली',
+    btnSample: 'नमुना प्रोफाइल (Sample)',
+    onboardingTitle: 'नमस्कार! आपला उद्योजकता प्रवास सुरू करा',
+    lblName: 'आपले नाव (Applicant Name)',
+    lblBiz: 'व्यवसाय / कामाचा प्रकार',
+    lblCat: 'सामाजिक प्रवर्ग (Category)',
+    lblCost: 'अंदाजे प्रकल्प खर्च (₹)',
+    lblInc: 'वार्षिक कौटुंबिक उत्पन्न (₹)',
+    lblState: 'राज्य आणि जिल्हा',
+    btnFindSchemes: 'माझ्यासाठी योग्य योजना शोधा',
+    btnFillSample: 'नमुना माहिती भरा',
+    heroBadge: 'आवाज-आधारित AI सहाय्यक',
+    heroHeading: 'आपल्या भाषेत बोला,<br>सटीक सरकारी योजना मिळवा',
+    heroSub: 'वंचित घटकांतील उद्योजकांसाठी सवलतीच्या व्याजदरावरील कर्ज आणि अनुदान योजना.',
+    btnStartVoice: 'बोलून सुरू करा',
+    btnViewSchemes: 'सर्व योजना पहा',
+    kpiSchemes: 'अधिकृत MoSJE योजना',
+    kpiPartners: 'अधिकृत बँक आणि SCA भागीदार',
+    kpiRules: 'पारदर्शक नियम पडताळणी',
+    kpiFee: 'अर्ज शुल्क शून्य',
+    quickActionsTitle: 'प्रमुख सेवा',
+    quickActionsSub: 'आपल्या व्यवसायासाठी सर्वसमावेशक मदत',
+    interviewTitle: 'AI व्हॉइस मुलाखत',
+    interviewSub: 'माइक दाबून बोला किंवा खाली लिहा.',
+    btnFinalize: 'योजना शोधा',
+    drawerTitle: 'ओळखलेली माहिती',
+    schemesHeading: 'स्मार्ट योजना शिफारसी',
+    schemesSub: 'आपल्या प्रोफाइलनुसार योग्य योजना',
+    calcHeading: 'ईएमआय कॅल्क्युलेटर',
+    calcSub: 'सवलतीच्या व्याजदरासह मासिक हप्ता जाणून घ्या',
+    partnerHeading: 'जवळचे अधिकृत भागीदार',
+    partnerSub: 'जवळच्या बँक शाखा आणि राज्य संस्था',
+    docsHeading: 'कागदपत्रे आणि अर्ज सहाय्य',
+    docsSub: 'कागदपत्रे अपलोड करा आणि अर्ज करा',
+    navHome: 'होम',
+    navSchemes: 'योजना',
+    navVoice: 'बोला',
+    navCalc: 'कॅल्क्युलेटर',
+    navPartners: 'भागीदार'
+  },
+  bn: {
+    govTitle: 'সামাজিক ন্যায় ও ক্ষমতায়ন মন্ত্রক | MoSJE',
+    govTag: 'ভারত সরকার | Govt of India',
+    appTitle: 'উদ্যমী মিত্র (Entrepreneur Mitra)',
+    appSubtitle: 'প্রান্তিক উদ্যোক্তাদের জন্য এআই-ভিত্তিক সরকারি প্রকল্প সহায়তা',
+    btnSample: 'নমুনা প্রোফাইল (Sample)',
+    onboardingTitle: 'নমস্কার! আপনার ব্যবসায়িক যাত্রা শুরু করুন',
+    lblName: 'আপনার নাম (Applicant Name)',
+    lblBiz: 'ব্যবসার ধরন বা পরিকল্পনা',
+    lblCat: 'সামাজিক শ্রেণী (Category)',
+    lblCost: 'আনুমানিক প্রকল্পের ব্যয় (₹)',
+    lblInc: 'বার্ষিক পারিবারিক আয় (₹)',
+    lblState: 'রাজ্য ও জেলা',
+    btnFindSchemes: 'আমার উপযোগী প্রকল্প খুঁজুন',
+    btnFillSample: 'নমুনা তথ্য পূরণ করুন',
+    heroBadge: 'ভয়েস-ফার্স্ট এআই সহকারী',
+    heroHeading: 'নিজের ভাষায় কথা বলুন,<br>সরকারি প্রকল্পের সুবিধা নিন',
+    heroSub: 'স্বল্প সুদে ঋণ এবং সরকারি সহায়তার সঠিক তথ্য এক ক্লিকে।',
+    btnStartVoice: 'কথা বলে শুরু করুন',
+    btnViewSchemes: 'সব প্রকল্প দেখুন',
+    kpiSchemes: 'অনুমোদিত MoSJE প্রকল্প',
+    kpiPartners: 'অনুমোদিত ব্যাংক ও পার্টনার',
+    kpiRules: 'স্বচ্ছ নিয়ম যাচাই',
+    kpiFee: 'কোনো আবেদন ফি নেই',
+    quickActionsTitle: 'প্রধান পরিষেবাসমূহ',
+    quickActionsSub: 'উদ্যোক্তাদের জন্য সহজ সমাধান',
+    interviewTitle: 'এআই ভয়েস ইন্টারভিউ',
+    interviewSub: 'মাইক টিপে কথা বলুন বা টাইপ করুন।',
+    btnFinalize: 'প্রকল্প খুঁজুন',
+    drawerTitle: 'শনাক্তকৃত বিবরণ',
+    schemesHeading: 'সুপারিশকৃত প্রকল্পসমূহ',
+    schemesSub: 'আপনার যোগ্যতানুসারে সরকারি প্রকল্প',
+    calcHeading: 'ইএমআই ক্যালকুলেটর',
+    calcSub: 'সহজ কিস্তি ও সুদের হিসাব',
+    partnerHeading: 'নিকটবর্তী অনুমোদিত পার্টনার',
+    partnerSub: 'নিকটবর্তী ব্যাংক শাখা ও দপ্তর',
+    docsHeading: 'নথিপত্র ও আবেদন সহায়িকা',
+    docsSub: 'নথি প্রস্তুত করুন ও আবেদন করুন',
+    navHome: 'হোম',
+    navSchemes: 'প্রকল্প',
+    navVoice: 'বলুন',
+    navCalc: 'ক্যালকুলেটর',
+    navPartners: 'পার্টনার'
+  },
+  gu: {
+    govTitle: 'સામાજિક ન્યાય અને અધિકારીતા મંત્રાલય | MoSJE',
+    govTag: 'ભારત સરકાર | Govt of India',
+    appTitle: 'ઉદ્યમી મિત્ર (Entrepreneur Mitra)',
+    appSubtitle: 'સીમાંત ઉદ્યોગસાહસિકો માટે AI-આધારિત સરકારી યોજના માર્ગદર્શિકા',
+    btnSample: 'નમૂનો પ્રોફાઇલ (Sample)',
+    onboardingTitle: 'નમસ્તે! તમારી વ્યવસાયિક યાત્રા શરૂ કરો',
+    lblName: 'તમારું નામ (Applicant Name)',
+    lblBiz: 'વ્યવસાયનો પ્રકાર',
+    lblCat: 'સામાજિક વર્ગ (Category)',
+    lblCost: 'અંદાજિત પ્રોજેક્ટ ખર્ચ (₹)',
+    lblInc: 'વાર્ષિક કૌટુંબિક આવક (₹)',
+    lblState: 'રાજ્ય અને જિલ્લો',
+    btnFindSchemes: 'મારી યોગ્ય યોજનાઓ શોધો',
+    btnFillSample: 'સેમ્પલ ડેટા ભરો',
+    heroBadge: 'વોઈસ AI સહાયક',
+    heroHeading: 'તમારી ભાષામાં બોલો,<br>સરકારી યોજનાઓ મેળવો',
+    heroSub: 'સહાયક દરે લોન અને સબસિડી માટેની અધિકૃત ડિજિટલ સેવા.',
+    btnStartVoice: 'બોલીને શરૂ કરો',
+    btnViewSchemes: 'બધી યોજનાઓ જુઓ',
+    kpiSchemes: 'અધિકૃત MoSJE યોજનાઓ',
+    kpiPartners: 'અધિકૃત બેંક અને SCA પાર્ટનર',
+    kpiRules: 'પારદર્શક નિયમ ચકાસણી',
+    kpiFee: 'અરજી ફી શૂન્ય',
+    quickActionsTitle: 'મુખ્ય સેવાઓ',
+    quickActionsSub: 'તમારા વ્યવસાય માટે સંપૂર્ણ સહાય',
+    interviewTitle: 'AI વૉઇસ ઇન્ટરવ્યુ',
+    interviewSub: 'માઇક દબાવીને બોલો અથવા નીચે લખો.',
+    btnFinalize: 'યોજનાઓ શોધો',
+    drawerTitle: 'મેળવેલી વિગતો',
+    schemesHeading: 'સ્માર્ટ યોજના ભલામણો',
+    schemesSub: 'તમારી પ્રોફાઇલ મુજબની શ્રેષ્ઠ યોજનાઓ',
+    calcHeading: 'EMI કેલ્ક્યુલેટર',
+    calcSub: 'માસિક હપ્તાની ગણતરી કરો',
+    partnerHeading: 'નજીકના ચેનલ પાર્ટનર',
+    partnerSub: 'નજીકની બેંક શાખાઓ અને સંસ્થાઓ',
+    docsHeading: 'દસ્તાવેજો અને અરજી સહાય',
+    docsSub: 'દસ્તાવેજો અપલોડ કરો અને અરજી કરો',
+    navHome: 'હોમ',
+    navSchemes: 'યોજનાઓ',
+    navVoice: 'બોલો',
+    navCalc: 'કેલ્ક્યુલેટર',
+    navPartners: 'પાર્ટનર'
+  },
+  ta: {
+    govTitle: 'சமூக நீதி மற்றும் அதிகாரமளித்தல் அமைச்சகம் | MoSJE',
+    govTag: 'இந்திய அரசு | Govt of India',
+    appTitle: 'உத்யமி மித்ரா (Entrepreneur Mitra)',
+    appSubtitle: 'தொழில்முனைவோருக்கான AI அரசு திட்ட வழிகாட்டி',
+    btnSample: 'மாதிரி சுயவிவரம் (Sample)',
+    onboardingTitle: 'வணக்கம்! உங்கள் தொழில் பயணத்தைத் தொடங்குங்கள்',
+    lblName: 'உங்கள் பெயர் (Applicant Name)',
+    lblBiz: 'தொழில் வகை / திட்டம்',
+    lblCat: 'பிரிவு (Category)',
+    lblCost: 'மதிப்பிடப்பட்ட திட்ட செலவு (₹)',
+    lblInc: 'ஆண்டு குடும்ப வருமானம் (₹)',
+    lblState: 'மாநிலம் மற்றும் மாவட்டம்',
+    btnFindSchemes: 'எனக்கான திட்டங்களைக் கண்டறியவும்',
+    btnFillSample: 'மாதிரி தகவலை நிரப்பவும்',
+    heroBadge: 'குரல்வழி AI உதவியாளர்',
+    heroHeading: 'உங்கள் தாய்மொழியில் பேசுங்கள்,<br>அரசு திட்டங்களைப் பெறுங்கள்',
+    heroSub: 'சலுகைக் கடன் மற்றும் அரசு மானியங்களைப் பெறுவதற்கான எளிய வழி.',
+    btnStartVoice: 'பேசித் தொடங்கவும்',
+    btnViewSchemes: 'அனைத்து திட்டங்கள்',
+    kpiSchemes: 'அங்கீகரிக்கப்பட்ட திட்டங்கள்',
+    kpiPartners: 'அங்கீகரிக்கப்பட்ட வங்கிகள்',
+    kpiRules: 'வெளிப்படையான விதிகள்',
+    kpiFee: 'விண்ணப்பக் கட்டணம் இலவசம்',
+    quickActionsTitle: 'முக்கிய சேவைகள்',
+    quickActionsSub: 'தொழில்முனைவோருக்கான முழுமையான வழிகாட்டுதல்',
+    interviewTitle: 'AI குரல் நேர்காணல்',
+    interviewSub: 'மைக் அழுத்திப் பேசுங்கள் அல்லது தட்டச்சு செய்யுங்கள்.',
+    btnFinalize: 'திட்டங்களைத் தேடுங்கள்',
+    drawerTitle: 'பதிவு செய்யப்பட்ட விவரங்கள்',
+    schemesHeading: 'பரிந்துரைக்கப்பட்ட திட்டங்கள்',
+    schemesSub: 'உங்கள் தகுதிக்கேற்ப திட்டங்கள்',
+    calcHeading: 'EMI கால்குலேட்டர்',
+    calcSub: 'மாதத் தவணையைக் கணக்கிடுங்கள்',
+    partnerHeading: 'அருகிலுள்ள வங்கிக் கிளைகள்',
+    partnerSub: 'அங்கீகரிக்கப்பட்ட சேனல் கூட்டாளர்கள்',
+    docsHeading: 'ஆவணங்கள் & விண்ணப்ப வழிகாட்டி',
+    docsSub: 'ஆவணங்களைச் சரிபார்த்து விண்ணப்பிக்கவும்',
+    navHome: 'முகப்பு',
+    navSchemes: 'திட்டங்கள்',
+    navVoice: 'பேசுங்கள்',
+    navCalc: 'கால்குலேட்டர்',
+    navPartners: 'கூட்டாளர்கள்'
+  },
+  te: {
+    govTitle: 'సామాజిక న్యాయం & సాధికారత మంత్రిత్వ శాఖ | MoSJE',
+    govTag: 'భారత ప్రభుత్వం | Govt of India',
+    appTitle: 'ఉద్యమి మిత్ర (Entrepreneur Mitra)',
+    appSubtitle: 'వ్యాపారవేత్తల కోసం AI ప్రభుత్వ పథకాల మార్గదర్శి',
+    btnSample: 'నమూనా ప్రొఫైల్ (Sample)',
+    onboardingTitle: 'నమస్కారం! మీ వ్యాపార ప్రయాణాన్ని ప్రారంభించండి',
+    lblName: 'మీ పేరు (Applicant Name)',
+    lblBiz: 'వ్యాపార రకం లేదా ఆలోచన',
+    lblCat: 'సామాజిక వర్గం (Category)',
+    lblCost: 'అంచనా ప్రాజెక్ట్ ఖర్చు (₹)',
+    lblInc: 'వార్షిక కుటుంబ ఆదాయం (₹)',
+    lblState: 'రాష్ట్రం మరియు జిల్లా',
+    btnFindSchemes: 'నాకు సరిపోయే పథకాలను కనుగొనండి',
+    btnFillSample: 'నమూనా సమాచారం నింపండి',
+    heroBadge: 'వాయిస్ AI అసిస్టెంట్',
+    heroHeading: 'మీ మాతృభాషలో మాట్లాడండి,<br>ప్రభుత్వ పథకాలను పొందండి',
+    heroSub: 'రాయితీ రుణాలు మరియు సబ్సిడీలను సులభంగా పొందే వేదిక.',
+    btnStartVoice: 'మాట్లాడటం ప్రారంభించండి',
+    btnViewSchemes: 'అన్ని పథకాలు',
+    kpiSchemes: 'ధృవీకరించబడిన పథకాలు',
+    kpiPartners: 'అధికారిక బ్యాంక్ భాగస్వాములు',
+    kpiRules: 'పారదర్శక నిబంధనలు',
+    kpiFee: 'దరఖాస్తు రుసుము ఉచితం',
+    quickActionsTitle: 'ప్రధాన సేవలు',
+    quickActionsSub: 'వ్యాపారవేత్తల కోసం పూర్తి సహాయం',
+    interviewTitle: 'AI వాయిస్ ఇంటర్వ్యూ',
+    interviewSub: 'మైక్ నొక్కి మాట్లాడండి లేదా టైప్ చేయండి.',
+    btnFinalize: 'పథకాలను కనుగొనండి',
+    drawerTitle: 'గుర్తించబడిన వివరాలు',
+    schemesHeading: 'సిఫార్సు చేయబడిన పథకాలు',
+    schemesSub: 'మీ ప్రొఫైల్ ప్రకారం ఉత్తమ పథకాలు',
+    calcHeading: 'EMI కాలిక్యులేటర్',
+    calcSub: 'నెలవారీ వాయిదాలను లెక్కించండి',
+    partnerHeading: 'సమీప అధికారిక భాగస్వాములు',
+    partnerSub: 'సమీప బ్యాంక్ శాఖలు మరియు కేంద్రాలు',
+    docsHeading: 'పత్రాలు & దరఖాస్తు మార్గదర్శి',
+    docsSub: 'పత్రాలు అప్‌లోడ్ చేసి దరఖాస్తు చేయండి',
+    navHome: 'హోమ్',
+    navSchemes: 'పథకాలు',
+    navVoice: 'మాట్లాడండి',
+    navCalc: 'కాలిక్యులేటర్',
+    navPartners: 'భాగస్వాములు'
+  },
+  pa: {
+    govTitle: 'ਸਮਾਜਿਕ ਨਿਆਂ ਅਤੇ ਅਧਿਕਾਰਤਾ ਮੰਤਰਾਲਾ | MoSJE',
+    govTag: 'ਭਾਰਤ ਸਰਕਾਰ | Govt of India',
+    appTitle: 'ਉਦਯਮੀ ਮਿੱਤਰ (Entrepreneur Mitra)',
+    appSubtitle: 'ਉਦਯੋਗਪਤੀਆਂ ਲਈ ਏਆਈ-ਅਧਾਰਤ ਸਰਕਾਰੀ ਸਕੀਮ ਮਾਰਗਦਰਸ਼ਕ',
+    btnSample: 'ਨਮੂਨਾ ਪ੍ਰੋਫਾਈਲ (Sample)',
+    onboardingTitle: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਆਪਣਾ ਕਾਰੋਬਾਰੀ ਸਫ਼ਰ ਸ਼ੁਰੂ ਕਰੋ',
+    lblName: 'ਤੁਹਾਡਾ ਨਾਮ (Applicant Name)',
+    lblBiz: 'ਕਾਰੋਬਾਰ ਜਾਂ ਕੰਮ ਦੀ ਕਿਸਮ',
+    lblCat: 'ਸ਼੍ਰੇਣੀ (Category)',
+    lblCost: 'ਅੰਦਾਜ਼ਨ ਪ੍ਰੋਜੈਕਟ ਲਾਗਤ (₹)',
+    lblInc: 'ਸਾਲਾਨਾ ਪਰਿਵਾਰਕ ਆਮਦਨ (₹)',
+    lblState: 'ਰਾਜ ਅਤੇ ਜ਼ਿਲ੍ਹਾ',
+    btnFindSchemes: 'ਮੇਰੀਆਂ ਯੋਗ ਸਕੀਮਾਂ ਲੱਭੋ',
+    btnFillSample: 'ਨਮੂਨਾ ਡੇਟਾ ਭਰੋ',
+    heroBadge: 'ਵਾਇਸ AI ਸਹਾਇਕ',
+    heroHeading: 'ਆਪਣੀ ਮਾਂ-ਬੋਲੀ ਵਿੱਚ ਬੋਲੋ,<br>ਸਰਕਾਰੀ ਸਕੀਮਾਂ ਪ੍ਰਾਪਤ ਕਰੋ',
+    heroSub: 'ਰਿਆਇਤੀ ਕਰਜ਼ੇ ਅਤੇ ਸਬਸਿਡੀਆਂ ਪ੍ਰਾਪਤ ਕਰਨ ਦਾ ਆਸਾਨ ਡਿਜੀਟਲ ਮੰਚ।',
+    btnStartVoice: 'ਬੋਲ ਕੇ ਸ਼ੁਰੂ ਕਰੋ',
+    btnViewSchemes: 'ਸਾਰੀਆਂ ਸਕੀਮਾਂ ਦੇਖੋ',
+    kpiSchemes: 'ਪ੍ਰਵਾਨਿਤ MoSJE ਸਕੀਮਾਂ',
+    kpiPartners: 'ਪ੍ਰਵਾਨਿਤ ਬੈਂਕ ਅਤੇ ਭਾਈਵਾਲ',
+    kpiRules: 'ਪਾਰਦਰਸ਼ੀ ਨਿਯਮ ਪ੍ਰਣਾਲੀ',
+    kpiFee: 'ਅਰਜ਼ੀ ਫੀਸ ਮੁਫ਼ਤ',
+    quickActionsTitle: 'ਮੁੱਖ ਸੇਵਾਵਾਂ',
+    quickActionsSub: 'ਕਾਰੋਬਾਰੀਆਂ ਲਈ ਹਰ ਕਦਮ ਉੱਤੇ ਸਹਾਇਤਾ',
+    interviewTitle: 'AI ਵਾਇਸ ਇੰਟਰਵਿਊ',
+    interviewSub: 'ਮਾਈਕ ਦਬਾ ਕੇ ਬੋਲੋ ਜਾਂ ਹੇਠਾਂ ਲਿਖੋ।',
+    btnFinalize: 'ਸਕੀਮਾਂ ਲੱਭੋ',
+    drawerTitle: 'ਦਰਜ ਵੇਰਵੇ',
+    schemesHeading: 'ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀਆਂ ਸਕੀਮਾਂ',
+    schemesSub: 'ਤੁਹਾਡੀ ਯੋਗਤਾ ਅਨੁਸਾਰ ਵਧੀਆ ਸਕੀਮਾਂ',
+    calcHeading: 'EMI ਕੈਲਕੁਲੇਟਰ',
+    calcSub: 'ਮਹੀਨਾਵਾਰ ਕਿਸ਼ਤ ਦੀ ਗਣਨਾ ਕਰੋ',
+    partnerHeading: 'ਨੇੜਲੇ ਅਧਿਕਾਰਤ ਭਾਈਵਾਲ',
+    partnerSub: 'ਨੇੜਲੀਆਂ ਬੈਂਕ ਸ਼ਾਖਾਵਾਂ',
+    docsHeading: 'ਦਸਤਾਵੇਜ਼ ਅਤੇ ਅਰਜ਼ੀ ਗਾਈਡ',
+    docsSub: 'ਦਸਤਾਵੇਜ਼ ਚੈੱਕ ਕਰੋ ਅਤੇ ਅਪਲਾਈ ਕਰੋ',
+    navHome: 'ਹੋਮ',
+    navSchemes: 'ਸਕੀਮਾਂ',
+    navVoice: 'ਬੋਲੋ',
+    navCalc: 'ਕੈਲਕੁਲੇਟਰ',
+    navPartners: 'ਭਾਈਵਾਲ'
   }
 };
 
 // ============================================================================
-// 3. API Service Layer (Communicating with FastAPI /api/v1)
+// 3. API Service Layer
 // ============================================================================
 const API_BASE = '/api/v1';
 
@@ -121,8 +447,7 @@ const ApiService = {
   async get(endpoint) {
     try {
       const res = await fetch(`${API_BASE}${endpoint}`);
-      const json = await res.json();
-      return json;
+      return await res.json();
     } catch (err) {
       console.error(`API GET error for ${endpoint}:`, err);
       throw err;
@@ -136,8 +461,7 @@ const ApiService = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-      const json = await res.json();
-      return json;
+      return await res.json();
     } catch (err) {
       console.error(`API POST error for ${endpoint}:`, err);
       throw err;
@@ -225,7 +549,6 @@ function switchTab(tabKey) {
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // Tab-specific trigger actions
   if (tabKey === 'schemes' && AppState.matches.length === 0) {
     loadMatchedSchemes();
   } else if (tabKey === 'partners' && !AppState.map) {
@@ -234,32 +557,43 @@ function switchTab(tabKey) {
 }
 
 // ============================================================================
-// 5. Language Switcher & High Contrast Toggle
+// 5. Multi-Language Switcher & High Contrast Toggle
 // ============================================================================
-function toggleLanguage() {
-  AppState.language = AppState.language === 'hi' ? 'en' : 'hi';
-  const indicator = document.getElementById('langIndicator');
-  if (indicator) {
-    indicator.innerText = AppState.language === 'hi' ? 'हिंदी / EN' : 'EN / हिंदी';
-  }
+function handleLanguageChange(selectedLang) {
+  AppState.language = selectedLang || 'hi';
   applyTranslations();
-  showToast(AppState.language === 'hi' ? 'भाषा बदलकर हिंदी की गई।' : 'Language changed to English.');
+
+  const langNames = {
+    hi: 'हिन्दी', en: 'English', hinglish: 'Hinglish', mr: 'मराठी',
+    bn: 'বাংলা', gu: 'ગુજરાતી', ta: 'தமிழ்', te: 'తెలుగు', pa: 'ਪੰਜਾਬੀ'
+  };
+  showToast(`🌐 Bhasha badalkar ${langNames[AppState.language]} ki gayi.`);
 }
 
 function applyTranslations() {
   const lang = AppState.language;
-  const dict = I18N[lang];
+  const dict = I18N[lang] || I18N['hi'];
 
   const mapText = (id, text) => {
     const el = document.getElementById(id);
-    if (el) el.innerHTML = text;
+    if (el && text) el.innerHTML = text;
   };
 
   mapText('t-gov-title', dict.govTitle);
   mapText('t-gov-tag', dict.govTag);
   mapText('t-app-title', dict.appTitle);
   mapText('t-app-subtitle', dict.appSubtitle);
-  mapText('t-btn-demo', dict.btnDemo);
+  mapText('t-btn-sample', dict.btnSample);
+  mapText('t-onboarding-title', dict.onboardingTitle);
+  mapText('t-lbl-name', dict.lblName);
+  mapText('t-lbl-biz', dict.lblBiz);
+  mapText('t-lbl-cat', dict.lblCat);
+  mapText('t-lbl-cost', dict.lblCost);
+  mapText('t-lbl-inc', dict.lblInc);
+  mapText('t-lbl-state', dict.lblState);
+  mapText('t-btn-find-schemes', dict.btnFindSchemes);
+  mapText('t-btn-fill-sample', dict.btnFillSample);
+
   mapText('t-hero-badge', dict.heroBadge);
   mapText('t-hero-heading', dict.heroHeading);
   mapText('t-hero-sub', dict.heroSub);
@@ -293,12 +627,78 @@ function applyTranslations() {
 function toggleHighContrast() {
   AppState.highContrast = !AppState.highContrast;
   document.body.classList.toggle('high-contrast', AppState.highContrast);
-  showToast(AppState.highContrast ? 'High Contrast AAA Enabled' : 'Standard Contrast Mode');
+  showToast(AppState.highContrast ? 'High Contrast AAA Enabled' : 'Standard Mode');
 }
 
 // ============================================================================
-// 6. Voice Recognition, Speech Synthesis & Waveform
+// 6. Dynamic Citizen Onboarding & Profile Setup
 // ============================================================================
+async function handleOnboardingSubmit(event) {
+  if (event) event.preventDefault();
+
+  const name = document.getElementById('inpCitizenName')?.value.trim() || 'उद्यमी (Entrepreneur)';
+  const biz = document.getElementById('inpCitizenBusiness')?.value.trim() || 'स्वरोजगार (Self-employed)';
+  const cat = document.getElementById('inpCitizenCategory')?.value || 'OBC';
+  const cost = parseFloat(document.getElementById('inpCitizenProjectCost')?.value) || 500000;
+  const inc = parseFloat(document.getElementById('inpCitizenIncome')?.value) || 180000;
+  const loc = document.getElementById('inpCitizenState')?.value.trim() || 'Uttar Pradesh, Bijnor';
+
+  const locParts = loc.split(',').map(s => s.trim());
+  const state = locParts[0] || 'Uttar Pradesh';
+  const district = locParts[1] || 'Bijnor';
+
+  AppState.profileAttributes.name = name;
+  AppState.profileAttributes.business_type = biz;
+  AppState.profileAttributes.caste_category = cat;
+  AppState.profileAttributes.estimated_project_cost = cost;
+  AppState.profileAttributes.project_cost = cost;
+  AppState.profileAttributes.annual_income = inc;
+  AppState.profileAttributes.annual_family_income = inc;
+  AppState.profileAttributes.state = state;
+  AppState.profileAttributes.district = district;
+
+  updateProfileChips();
+
+  // Personalize UI
+  const tag = document.getElementById('activeCitizenTag');
+  if (tag) tag.innerText = `आवेदक: ${name} (${cat})`;
+
+  const step1 = document.getElementById('copilotStep1Desc');
+  if (step1) step1.innerText = `आवेदक ${name} के लिए MoSJE रियायती ऋण योजनाओं के तहत पात्रता जांची जा चुकी है।`;
+
+  showToast(`✓ नमस्ते ${name}! आपका प्रोफ़ाइल सफलतापूर्वक तैयार हुआ।`);
+
+  // Sync with backend
+  await ApiService.syncProfile(AppState.profileAttributes);
+
+  // Pre-load matches & switch to schemes
+  await loadMatchedSchemes();
+  switchTab('schemes');
+}
+
+function loadSampleDemoProfile() {
+  // Pre-fills a typical artisan/craftsperson demo profile for testing
+  document.getElementById('inpCitizenName').value = 'राहुल शर्मा (Rahul Sharma)';
+  document.getElementById('inpCitizenBusiness').value = 'सिलाई व परिधान कार्यशाला (Tailoring Workshop)';
+  document.getElementById('inpCitizenCategory').value = 'OBC';
+  document.getElementById('inpCitizenProjectCost').value = '350000';
+  document.getElementById('inpCitizenIncome').value = '160000';
+  document.getElementById('inpCitizenState').value = 'Uttar Pradesh, Meerut';
+
+  showToast('⚡ नमूना प्रोफ़ाइल डेटा भर दिया गया है।');
+}
+
+// ============================================================================
+// 7. Voice Recognition, Speech Synthesis & Waveform
+// ============================================================================
+function getLocaleCode(lang) {
+  const localeMap = {
+    hi: 'hi-IN', en: 'en-IN', hinglish: 'hi-IN', mr: 'mr-IN',
+    bn: 'bn-IN', gu: 'gu-IN', ta: 'ta-IN', te: 'te-IN', pa: 'pa-IN'
+  };
+  return localeMap[lang] || 'hi-IN';
+}
+
 function initVoiceCapabilities() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (SpeechRecognition) {
@@ -308,7 +708,7 @@ function initVoiceCapabilities() {
 
     AppState.recognition.onstart = () => {
       AppState.isRecording = true;
-      updateVoiceStatus(true, AppState.language === 'hi' ? 'सुन रहा हूँ...' : 'Listening...');
+      updateVoiceStatus(true, AppState.language === 'en' ? 'Listening...' : 'सुन रहा हूँ...');
       document.getElementById('btnMicToggle')?.classList.add('active');
     };
 
@@ -317,27 +717,25 @@ function initVoiceCapabilities() {
       handleUserVoiceInput(transcript);
     };
 
-    AppState.recognition.onerror = (event) => {
-      console.warn('Speech recognition warning:', event.error);
+    AppState.recognition.onerror = () => {
       AppState.isRecording = false;
-      updateVoiceStatus(false, AppState.language === 'hi' ? 'तैयार' : 'Ready');
+      updateVoiceStatus(false, AppState.language === 'en' ? 'Ready' : 'तैयार');
       document.getElementById('btnMicToggle')?.classList.remove('active');
     };
 
     AppState.recognition.onend = () => {
       AppState.isRecording = false;
-      updateVoiceStatus(false, AppState.language === 'hi' ? 'तैयार' : 'Ready');
+      updateVoiceStatus(false, AppState.language === 'en' ? 'Ready' : 'तैयार');
       document.getElementById('btnMicToggle')?.classList.remove('active');
     };
   }
 
-  // Setup Waveform Animation
   initWaveformCanvas();
 }
 
 function toggleSpeechRecognition() {
   if (!AppState.recognition) {
-    showToast('Browser Speech Recognition not supported. Using keyboard input mode.');
+    showToast('Browser Speech Recognition not supported. Keyboard mode enabled.');
     document.getElementById('chatTextInput')?.focus();
     return;
   }
@@ -345,11 +743,11 @@ function toggleSpeechRecognition() {
   if (AppState.isRecording) {
     AppState.recognition.stop();
   } else {
-    AppState.recognition.lang = AppState.language === 'hi' ? 'hi-IN' : 'en-IN';
+    AppState.recognition.lang = getLocaleCode(AppState.language);
     try {
       AppState.recognition.start();
     } catch (err) {
-      console.error(err);
+      console.warn(err);
     }
   }
 }
@@ -367,25 +765,25 @@ function updateVoiceStatus(isActive, message) {
 
 function speakMessage(text) {
   if (!AppState.speechSynth) return;
-  AppState.speechSynth.cancel(); // Stop any active speech
+  AppState.speechSynth.cancel();
 
   const cleanText = text.replace(/[*_#`]/g, '');
   const utterance = new SpeechSynthesisUtterance(cleanText);
-  utterance.lang = AppState.language === 'hi' ? 'hi-IN' : 'en-IN';
-  utterance.rate = 0.95; // Slightly slower for clarity
+  utterance.lang = getLocaleCode(AppState.language);
+  utterance.rate = 0.95;
   utterance.pitch = 1.0;
 
   utterance.onstart = () => {
-    updateVoiceStatus(true, AppState.language === 'hi' ? 'बोल रहा हूँ...' : 'Speaking...');
+    updateVoiceStatus(true, AppState.language === 'en' ? 'Speaking...' : 'बोल रहा हूँ...');
   };
   utterance.onend = () => {
-    updateVoiceStatus(false, AppState.language === 'hi' ? 'तैयार' : 'Ready');
+    updateVoiceStatus(false, AppState.language === 'en' ? 'Ready' : 'तैयार');
   };
 
   AppState.speechSynth.speak(utterance);
 }
 
-// Waveform Canvas Visualization
+// Waveform Canvas Animation
 let waveOffset = 0;
 function initWaveformCanvas() {
   const canvas = document.getElementById('waveformCanvas');
@@ -404,11 +802,10 @@ function initWaveformCanvas() {
     const midY = canvas.height / 2;
 
     const isActive = AppState.isRecording || (AppState.speechSynth && AppState.speechSynth.speaking);
-    const amplitude = isActive ? 18 : 3;
+    const amplitude = isActive ? 20 : 3;
     const speed = isActive ? 0.08 : 0.02;
     waveOffset += speed;
 
-    // Draw primary wave
     ctx.beginPath();
     ctx.lineWidth = 2.5;
     ctx.strokeStyle = isActive ? '#E85D04' : '#334155';
@@ -420,7 +817,6 @@ function initWaveformCanvas() {
     }
     ctx.stroke();
 
-    // Draw secondary harmonic wave
     if (isActive) {
       ctx.beginPath();
       ctx.lineWidth = 1.5;
@@ -439,16 +835,15 @@ function initWaveformCanvas() {
 }
 
 // ============================================================================
-// 7. Conversational Turn Processing & Profile Extraction
+// 8. Conversational Turn Processing & Profile Extraction
 // ============================================================================
 async function handleUserVoiceInput(text) {
   if (!text || text.trim().length === 0) return;
 
-  // Add User Speech Bubble
   addChatMessage('user', text);
   document.getElementById('chatTextInput').value = '';
 
-  updateVoiceStatus(true, AppState.language === 'hi' ? 'विश्लेषण कर रहा हूँ...' : 'Processing...');
+  updateVoiceStatus(true, AppState.language === 'en' ? 'Processing...' : 'विश्लेषण कर रहा हूँ...');
 
   try {
     const convId = AppState.profileId || 'session_mitra_default';
@@ -457,32 +852,29 @@ async function handleUserVoiceInput(text) {
     if (res.success && res.data) {
       const data = res.data;
 
-      // Update extracted attributes in state
       if (data.extracted_attributes && Object.keys(data.extracted_attributes).length > 0) {
         Object.assign(AppState.profileAttributes, data.extracted_attributes);
         updateProfileChips();
-        showToast('नया विवरण पहचाना गया (Attributes Extracted)');
+        showToast('नया विवरण पहचाना गया (Attributes Updated)');
       }
 
-      // Add Mitra AI Speech Bubble
-      const botResponse = data.question_text || (AppState.language === 'hi' ? 'धन्यवाद! आपकी जानकारी दर्ज कर ली गई है।' : 'Thank you! Details recorded.');
+      const botResponse = data.question_text || (AppState.language === 'en' ? 'Thank you! Details recorded.' : 'धन्यवाद! आपकी जानकारी दर्ज कर ली गई है।');
       addChatMessage('bot', botResponse);
       speakMessage(botResponse);
     } else {
-      const fallbackMsg = AppState.language === 'hi'
-        ? 'मैंने आपका विवरण दर्ज कर लिया है। क्या आप ₹5 लाख तक का रियायती ऋण देखना चाहते हैं?'
-        : 'I have noted your inputs. Would you like to check eligible concessional loans?';
+      const fallbackMsg = AppState.language === 'en'
+        ? 'I have noted your details. Let us review the verified government schemes.'
+        : 'मैंने आपका विवरण दर्ज कर लिया है। क्या आप उपयुक्त सरकारी योजनाएं देखना चाहते हैं?';
       addChatMessage('bot', fallbackMsg);
       speakMessage(fallbackMsg);
     }
   } catch (err) {
-    console.error('Interview turn error:', err);
-    const fallback = AppState.language === 'hi'
-      ? 'आपकी बात समझ आ गई है। कृपया अपनी योजनाओं के मिलान की जांच करें।'
-      : 'Got it. Let us review the verified matching schemes.';
+    const fallback = AppState.language === 'en'
+      ? 'Got it. Let us examine the eligible schemes.'
+      : 'आपकी बात समझ आ गई है। कृपया अपनी योजनाओं के मिलान की जांच करें।';
     addChatMessage('bot', fallback);
   } finally {
-    updateVoiceStatus(false, AppState.language === 'hi' ? 'तैयार' : 'Ready');
+    updateVoiceStatus(false, AppState.language === 'en' ? 'Ready' : 'तैयार');
   }
 }
 
@@ -495,7 +887,7 @@ function addChatMessage(sender, message) {
 
   const speakerTag = document.createElement('div');
   speakerTag.className = 'speaker-tag';
-  speakerTag.innerText = sender === 'bot' ? 'Entrepreneur Mitra' : (AppState.profileAttributes.name || 'Citizen');
+  speakerTag.innerText = sender === 'bot' ? 'Entrepreneur Mitra' : (AppState.profileAttributes.name || 'Applicant');
   msgDiv.appendChild(speakerTag);
 
   const textSpan = document.createElement('span');
@@ -518,13 +910,13 @@ function addChatMessage(sender, message) {
 function updateProfileChips() {
   const attrs = AppState.profileAttributes;
 
-  const updateChip = (field, label) => {
+  const updateChip = (field) => {
     const val = attrs[field];
     const valEl = document.getElementById(`val-${field}`);
     const chipEl = document.getElementById(`chip-${field}`);
     if (valEl && chipEl) {
       if (val !== undefined && val !== null && val !== '') {
-        valEl.innerText = typeof val === 'number' && field.includes('cost') || field.includes('income')
+        valEl.innerText = (typeof val === 'number' && (field.includes('cost') || field.includes('income')))
           ? `₹${val.toLocaleString('en-IN')}`
           : val;
         chipEl.classList.add('filled');
@@ -535,60 +927,13 @@ function updateProfileChips() {
     }
   };
 
+  updateChip('name');
   updateChip('business_type');
   updateChip('estimated_project_cost');
   updateChip('annual_income');
   updateChip('caste_category');
   updateChip('state');
   updateChip('district');
-  updateChip('education');
-  updateChip('gender');
-}
-
-// ============================================================================
-// 8. 1-Click SIH Persona Demo ("Ramesh Kumar - OBC Carpenter, Bijnor")
-// ============================================================================
-async function loadRameshDemoPersona() {
-  AppState.profileAttributes = {
-    name: 'Ramesh Kumar',
-    business_type: 'बढ़ईगीरी एवं लकड़ी कार्यशाला (Carpentry & Woodcraft Workshop)',
-    estimated_project_cost: 500000,
-    annual_income: 180000,
-    caste_category: 'OBC',
-    state: 'Uttar Pradesh',
-    district: 'Bijnor',
-    education: '10th Pass (कक्षा 10 उत्तीर्ण)',
-    gender: 'MALE',
-    age: 32
-  };
-
-  // Sync with backend profile store
-  try {
-    const syncRes = await ApiService.syncProfile(AppState.profileAttributes);
-    if (syncRes.success && syncRes.data) {
-      AppState.profileId = syncRes.data.id;
-    }
-  } catch (err) {
-    console.warn('Sync profile fallback:', err);
-    AppState.profileId = 'ramesh_kumar_demo';
-  }
-
-  updateProfileChips();
-
-  // Populate Calculator
-  updateCalculatorInputs(500000, 5.0, 60, 6, 20000);
-
-  // Add demonstration greeting in interview
-  addChatMessage('bot', 'नमस्ते रमेश कुमार जी! आपकी बढ़ईगीरी कार्यशाला के लिए ₹5,00,000 की परियोजना और बिजनौर (उत्तर प्रदेश) का विवरण सफलतापूर्वक लोड कर दिया गया है। NBCFDC रियायती योजनाओं के अनुसार आपकी पात्रता जांची जा रही है।');
-  speakMessage('नमस्ते रमेश कुमार जी! आपकी बढ़ईगीरी कार्यशाला के लिए ₹5,00,000 की परियोजना और बिजनौर का विवरण लोड कर दिया गया है।');
-
-  showToast('👤 डेमो प्रोफ़ाइल: रमेश कुमार (बिजनौर, OBC बढ़ई) सक्रिय');
-
-  // Load matches
-  await loadMatchedSchemes();
-
-  // Switch to Voice view or Schemes view
-  switchTab('schemes');
 }
 
 // ============================================================================
@@ -609,15 +954,14 @@ async function loadMatchedSchemes() {
   container.innerHTML = `
     <div style="text-align: center; padding: 30px; color: var(--color-navy-primary);">
       <div style="font-size: 28px; animation: spin 1s linear infinite;">⚙️</div>
-      <p style="margin-top: 8px; font-weight: 600;">6-कारकीय वेटेज मॉडल द्वारा पात्रता की गणना की जा रही है...</p>
+      <p style="margin-top: 8px; font-weight: 700;">6-कारकीय वेटेज मॉडल द्वारा पात्रता की गणना की जा रही है...</p>
     </div>
   `;
 
   try {
-    // Ensure backend has current profile
     if (!AppState.profileId) {
       const p = await ApiService.syncProfile(AppState.profileAttributes);
-      if (p.success && p.data) AppState.profileId = p.data.id;
+      if (p.success && p.data) AppState.profileId = p.data.profile_id || p.data.id;
     }
 
     const matchesRes = await ApiService.getMatches(AppState.profileId || 'default_profile');
@@ -717,7 +1061,7 @@ function renderSchemeCards(matches) {
         </div>
         <div class="match-score-badge" aria-label="${scorePct}% Match">
           <div class="pct">${scorePct}%</div>
-          <div class="lbl">${AppState.language === 'hi' ? 'सटीक मिलान' : 'Match Score'}</div>
+          <div class="lbl">${AppState.language === 'en' ? 'Match Score' : 'सटीक मिलान'}</div>
         </div>
       </div>
 
@@ -748,12 +1092,12 @@ function renderSchemeCards(matches) {
           <span>100% Deterministic</span>
         </div>
         <div class="factor-bars-row">
-          <div class="factor-pill high"><span>वर्ग (OBC)</span> <strong>100%</strong></div>
-          <div class="factor-pill high"><span>आय (₹1.8L)</span> <strong>100%</strong></div>
+          <div class="factor-pill high"><span>वर्ग (${AppState.profileAttributes.caste_category || 'OBC'})</span> <strong>100%</strong></div>
+          <div class="factor-pill high"><span>आय फिट</span> <strong>100%</strong></div>
           <div class="factor-pill high"><span>परियोजना फिट</span> <strong>95%</strong></div>
-          <div class="factor-pill high"><span>स्थान (UP)</span> <strong>100%</strong></div>
+          <div class="factor-pill high"><span>स्थान फिट</span> <strong>100%</strong></div>
           <div class="factor-pill high"><span>शिक्षा</span> <strong>100%</strong></div>
-          <div class="factor-pill high"><span>आयु (32)</span> <strong>100%</strong></div>
+          <div class="factor-pill high"><span>आयु</span> <strong>100%</strong></div>
         </div>
       </div>
 
@@ -813,29 +1157,23 @@ async function openRuleTrace(schemeId, schemeName, schemeCode) {
   if (modal) modal.classList.add('open');
 
   try {
-    const profId = AppState.profileId || 'ramesh_kumar_demo';
+    const profId = AppState.profileId || 'default_profile';
     const res = await ApiService.getMatchExplanation(schemeId, profId);
 
-    if (res.success && res.data) {
-      const data = res.data;
-      const criteriaList = data.criteria_evaluation || [];
-
-      if (criteriaList.length > 0) {
-        checklist.innerHTML = criteriaList.map(c => `
-          <div class="rule-check-item ${c.passed ? 'pass' : 'fail'}">
-            <div class="rule-top">
-              <span>${c.criterion_name}</span>
-              <span style="font-weight: 800; color: ${c.passed ? 'var(--color-emerald-primary)' : 'var(--color-danger)'};">
-                ${c.passed ? '✓ PASSED (सत्यापित)' : '✗ FAILED (अपात्र)'}
-              </span>
-            </div>
-            <div class="rule-citation">${c.official_citation || 'NBCFDC Statutory Guidelines Section 4.1'}</div>
-            <div class="rule-explanation">${c.explanation}</div>
+    if (res.success && res.data && res.data.criteria_evaluation && res.data.criteria_evaluation.length > 0) {
+      const criteriaList = res.data.criteria_evaluation;
+      checklist.innerHTML = criteriaList.map(c => `
+        <div class="rule-check-item ${c.passed ? 'pass' : 'fail'}">
+          <div class="rule-top">
+            <span>${c.criterion_name}</span>
+            <span style="font-weight: 800; color: ${c.passed ? 'var(--color-emerald-primary)' : 'var(--color-danger)'};">
+              ${c.passed ? '✓ PASSED (सत्यापित)' : '✗ FAILED (अपात्र)'}
+            </span>
           </div>
-        `).join('');
-      } else {
-        renderDefaultRulesChecklist(checklist);
-      }
+          <div class="rule-citation">${c.official_citation || 'NBCFDC Statutory Guidelines Section 4.1'}</div>
+          <div class="rule-explanation">${c.explanation}</div>
+        </div>
+      `).join('');
     } else {
       renderDefaultRulesChecklist(checklist);
     }
@@ -845,32 +1183,36 @@ async function openRuleTrace(schemeId, schemeName, schemeCode) {
 }
 
 function renderDefaultRulesChecklist(checklist) {
+  const cat = AppState.profileAttributes.caste_category || 'OBC';
+  const inc = AppState.profileAttributes.annual_income || 180000;
+  const cost = AppState.profileAttributes.estimated_project_cost || 500000;
+
   checklist.innerHTML = `
     <div class="rule-check-item pass">
       <div class="rule-top">
-        <span>सामाजिक श्रेणी / लक्षित समूह (Target Category)</span>
+        <span>सामाजिक श्रेणी / लक्षित समूह (Target Category: ${cat})</span>
         <span style="color: var(--color-emerald-primary);">✓ PASSED</span>
       </div>
       <div class="rule-citation">NBCFDC General Term Loan Guidelines, Clause 3(a)</div>
-      <div class="rule-explanation">आवेदक अन्य पिछड़ा वर्ग (OBC) से हैं, जो योजना के लक्षित लाभार्थियों में शामिल है।</div>
+      <div class="rule-explanation">आवेदक ${cat} वर्ग से हैं, जो योजना के प्राथमिक लक्षित लाभार्थियों में शामिल है।</div>
     </div>
 
     <div class="rule-check-item pass">
       <div class="rule-top">
-        <span>पारिवारिक वार्षिक आय सीमा (Income Ceiling)</span>
+        <span>पारिवारिक वार्षिक आय सीमा (Income Cap ₹3,00,000 p.a.)</span>
         <span style="color: var(--color-emerald-primary);">✓ PASSED</span>
       </div>
-      <div class="rule-citation">MoSJE Notification 2023 / Income Cap ₹3,00,000 p.a.</div>
-      <div class="rule-explanation">वार्षिक आय ₹1,80,000 निर्धारित अधिकतम सीमा ₹3,00,000 से कम है।</div>
+      <div class="rule-citation">MoSJE Notification 2023 / Statutory Income Cap</div>
+      <div class="rule-explanation">दर्ज वार्षिक आय ₹${inc.toLocaleString('en-IN')} निर्धारित अधिकतम सीमा ₹3,00,000 के अंतर्गत है।</div>
     </div>
 
     <div class="rule-check-item pass">
       <div class="rule-top">
-        <span>परियोजना लागत सीमा (Project Cost Fit)</span>
+        <span>परियोजना लागत सीमा (Max Limit ₹15,00,000)</span>
         <span style="color: var(--color-emerald-primary);">✓ PASSED</span>
       </div>
       <div class="rule-citation">NBCFDC Lending Policy, Section 5.2</div>
-      <div class="rule-explanation">प्रस्तावित कार्यशाला लागत ₹5,00,000 योजना की अधिकतम सीमा ₹15,00,000 के अंतर्गत है।</div>
+      <div class="rule-explanation">प्रस्तावित परियोजना लागत ₹${cost.toLocaleString('en-IN')} योजना की अधिकतम सीमा के भीतर है।</div>
     </div>
 
     <div class="rule-check-item pass">
@@ -879,7 +1221,7 @@ function renderDefaultRulesChecklist(checklist) {
         <span style="color: var(--color-emerald-primary);">✓ PASSED</span>
       </div>
       <div class="rule-citation">Standard Credit Eligibility Rules, Rule 2</div>
-      <div class="rule-explanation">आवेदक की आयु 32 वर्ष अनिवार्य सीमा (18-55) के मध्य है।</div>
+      <div class="rule-explanation">आवेदक की आयु अनिवार्य पात्रता सीमा (18 से 55 वर्ष) के मध्य है।</div>
     </div>
   `;
 }
@@ -905,32 +1247,26 @@ function initCalculatorEvents() {
     const M = parseInt(sliderMora.value);
     const Inc = parseFloat(sliderIncome.value);
 
-    // Update Display Badges
     document.getElementById('displayLoanAmount').innerText = `₹${P.toLocaleString('en-IN')}`;
     document.getElementById('displayInterestRate').innerText = `${R.toFixed(1)}%`;
     document.getElementById('displayTenure').innerText = `${T} महीने (${(T / 12).toFixed(1)} वर्ष)`;
     document.getElementById('displayMoratorium').innerText = `${M} महीने`;
     document.getElementById('displayMonthlyIncome').innerText = `₹${Inc.toLocaleString('en-IN')}`;
 
-    // Standard Concessional Loan EMI Formula with Moratorium simple interest
     const monthlyRate = (R / 100) / 12;
     const repaymentMonths = Math.max(1, T - M);
 
-    // Moratorium simple interest added to principal or paid upfront
     const moratoriumInterest = P * (R / 100) * (M / 12);
-    const effectivePrincipal = P + (moratoriumInterest * 0.5); // Concessional capitalization
+    const effectivePrincipal = P + (moratoriumInterest * 0.5);
 
     const emi = (effectivePrincipal * monthlyRate * Math.pow(1 + monthlyRate, repaymentMonths)) /
                 (Math.pow(1 + monthlyRate, repaymentMonths) - 1);
 
-    const totalRepayment = (emi * repaymentMonths) + (P * 0.05); // including margin
+    const totalRepayment = (emi * repaymentMonths) + (P * 0.05);
     const totalInterest = Math.max(0, (emi * repaymentMonths) - P);
     const marginMoney = P * 0.05;
-
-    // Debt-to-Income (DTI) ratio
     const dti = Math.round((emi / Inc) * 100);
 
-    // Update UI
     document.getElementById('valEmiAmount').innerText = `₹${Math.round(emi).toLocaleString('en-IN')}`;
     document.getElementById('valTotalInterest').innerText = `₹${Math.round(totalInterest).toLocaleString('en-IN')}`;
     document.getElementById('valTotalRepayment').innerText = `₹${Math.round(totalRepayment).toLocaleString('en-IN')}`;
@@ -945,19 +1281,16 @@ function initCalculatorEvents() {
         dtiEl.innerText = `${dti}% (मध्यम भार / Moderate)`;
         dtiEl.style.color = '#FACC15';
       } else {
-        dtiEl.innerText = `${dti}% (उच्च जोखिम / High EMI)`;
+        dtiEl.innerText = `${dti}% (उच्च भार / High EMI)`;
         dtiEl.style.color = '#F87171';
       }
     }
   };
 
   [sliderAmount, sliderRate, sliderTenure, sliderMora, sliderIncome].forEach(slider => {
-    if (slider) {
-      slider.addEventListener('input', recalculate);
-    }
+    if (slider) slider.addEventListener('input', recalculate);
   });
 
-  // Initial Calculation
   recalculate();
 }
 
@@ -1004,7 +1337,7 @@ async function runWhatIfSimulation(hypotheticalChanges) {
   `;
 
   try {
-    const profId = AppState.profileId || 'ramesh_kumar_demo';
+    const profId = AppState.profileId || 'default_profile';
     const simRes = await ApiService.simulateWhatIf(profId, hypotheticalChanges);
 
     if (simRes.success && simRes.data) {
@@ -1043,7 +1376,6 @@ function initPartnerMap() {
   const mapContainer = document.getElementById('partnerMap');
   if (!mapContainer) return;
 
-  // Default coordinate: Bijnor, Uttar Pradesh [29.3732, 78.1352]
   const bijnorLat = 29.3732;
   const bijnorLng = 78.1352;
 
@@ -1055,19 +1387,18 @@ function initPartnerMap() {
       attribution: '© OpenStreetMap contributors | MoSJE Partner Locator'
     }).addTo(AppState.map);
 
-    // Citizen marker
     const citizenIcon = L.divIcon({
       className: 'citizen-marker',
-      html: '<div style="background: #E85D04; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 2px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">👤</div>',
-      iconSize: [28, 28]
+      html: '<div style="background: #E85D04; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 15px; border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">👤</div>',
+      iconSize: [30, 30]
     });
 
+    const citizenName = AppState.profileAttributes.name || 'उद्यमी (Applicant)';
     L.marker([bijnorLat, bijnorLng], { icon: citizenIcon })
       .addTo(AppState.map)
-      .bindPopup('<strong>आपकी स्थिति: बिजनौर (उत्तर प्रदेश)</strong><br>उद्यमी: रमेश कुमार')
+      .bindPopup(`<strong>आपकी स्थिति: बिजनौर (उत्तर प्रदेश)</strong><br>आवेदक: ${citizenName}`)
       .openPopup();
 
-    // Fetch and render partners
     loadNearbyPartners(bijnorLat, bijnorLng);
   } catch (err) {
     console.error('Leaflet initialization error:', err);
@@ -1143,17 +1474,15 @@ function renderPartnerListAndMarkers(partners) {
 
   container.innerHTML = '';
 
-  // Clear existing partner markers
   AppState.markers.forEach(m => AppState.map?.removeLayer(m));
   AppState.markers = [];
 
   partners.forEach(p => {
-    // Add Map Marker
     if (AppState.map && p.latitude && p.longitude) {
       const bankIcon = L.divIcon({
         className: 'partner-map-marker',
-        html: `<div style="background: #0F2C59; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 2px solid #E85D04; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">🏛️</div>`,
-        iconSize: [30, 30]
+        html: `<div style="background: #0F2C59; color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 15px; border: 2px solid #E85D04; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">🏛️</div>`,
+        iconSize: [32, 32]
       });
 
       const marker = L.marker([p.latitude, p.longitude], { icon: bankIcon })
@@ -1168,7 +1497,6 @@ function renderPartnerListAndMarkers(partners) {
       AppState.markers.push(marker);
     }
 
-    // Add Sidebar List Card
     const card = document.createElement('div');
     card.className = 'partner-card';
     card.innerHTML = `
@@ -1182,10 +1510,10 @@ function renderPartnerListAndMarkers(partners) {
         <span>📞 ${p.contact_phone}</span>
       </div>
       <div style="display: flex; gap: 8px; margin-top: 8px;">
-        <a href="tel:${p.contact_phone}" class="btn-action btn-action-primary" style="font-size: 10px; padding: 4px 10px;">
+        <a href="tel:${p.contact_phone}" class="btn-action btn-action-primary" style="font-size: 10px; padding: 4px 12px;">
           📞 कॉल करें
         </a>
-        <button class="btn-action btn-action-secondary" style="font-size: 10px; padding: 4px 10px;" onclick="centerMapOnPartner(${p.latitude}, ${p.longitude})">
+        <button class="btn-action btn-action-secondary" style="font-size: 10px; padding: 4px 12px;" onclick="centerMapOnPartner(${p.latitude}, ${p.longitude})">
           🎯 मैप पर देखें
         </button>
       </div>
@@ -1237,14 +1565,14 @@ function openProfileModal() {
   if (!modal) return;
 
   const a = AppState.profileAttributes;
+  document.getElementById('inpNameModal').value = a.name || '';
   document.getElementById('inpBusinessType').value = a.business_type || '';
   document.getElementById('inpProjectCost').value = a.estimated_project_cost || 500000;
   document.getElementById('inpAnnualIncome').value = a.annual_income || 180000;
   document.getElementById('inpCategory').value = a.caste_category || 'OBC';
   document.getElementById('inpState').value = a.state || 'Uttar Pradesh';
   document.getElementById('inpDistrict').value = a.district || 'Bijnor';
-  document.getElementById('inpEducation').value = a.education || '10th Pass';
-  document.getElementById('inpAge').value = a.age || 32;
+  document.getElementById('inpAge').value = a.age || 30;
 
   modal.classList.add('open');
 }
@@ -1254,13 +1582,13 @@ function closeProfileModal() {
 }
 
 async function saveProfileAndRerun() {
+  AppState.profileAttributes.name = document.getElementById('inpNameModal').value.trim() || 'उद्यमी';
   AppState.profileAttributes.business_type = document.getElementById('inpBusinessType').value;
   AppState.profileAttributes.estimated_project_cost = parseFloat(document.getElementById('inpProjectCost').value);
   AppState.profileAttributes.annual_income = parseFloat(document.getElementById('inpAnnualIncome').value);
   AppState.profileAttributes.caste_category = document.getElementById('inpCategory').value;
   AppState.profileAttributes.state = document.getElementById('inpState').value;
   AppState.profileAttributes.district = document.getElementById('inpDistrict').value;
-  AppState.profileAttributes.education = document.getElementById('inpEducation').value;
   AppState.profileAttributes.age = parseInt(document.getElementById('inpAge').value);
 
   updateProfileChips();
@@ -1272,7 +1600,7 @@ async function saveProfileAndRerun() {
 }
 
 // ============================================================================
-// 14. Document Upload Dropzone & Simulated OCR
+// 14. Document Upload Dropzone
 // ============================================================================
 function initDocumentUpload() {
   const dropzone = document.getElementById('dropzone');
@@ -1350,10 +1678,16 @@ function showToast(message) {
 // 16. App Bootstrap
 // ============================================================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Attach Button Handlers
-  document.getElementById('btnLoadRamesh')?.addEventListener('click', loadRameshDemoPersona);
+  document.getElementById('btnLoadSampleProfile')?.addEventListener('click', loadSampleDemoProfile);
   document.getElementById('btnHighContrast')?.addEventListener('click', toggleHighContrast);
-  document.getElementById('btnLangToggle')?.addEventListener('click', toggleLanguage);
+
+  const langSelect = document.getElementById('langSelectDropdown');
+  if (langSelect) {
+    langSelect.addEventListener('change', (e) => {
+      handleLanguageChange(e.target.value);
+    });
+  }
+
   document.getElementById('btnMicToggle')?.addEventListener('click', toggleSpeechRecognition);
 
   document.getElementById('btnSendText')?.addEventListener('click', () => {
@@ -1372,14 +1706,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Initialize features
   initVoiceCapabilities();
   initCalculatorEvents();
   initDocumentUpload();
   updateProfileChips();
-
-  // Pre-load default schemes
   loadMatchedSchemes();
 
-  console.log('Entrepreneur Mitra Frontend Initialized Successfully.');
+  console.log('Entrepreneur Mitra Initialized with Dynamic Input & Multi-Language.');
 });

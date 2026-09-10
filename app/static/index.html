@@ -41,22 +41,30 @@
       </div>
 
       <div class="header-controls">
-        <!-- 1-Click SIH Ramesh Demo Persona -->
-        <button class="btn-control btn-persona" id="btnLoadRamesh" title="Load Pre-configured Demo Persona (Ramesh Kumar - OBC Carpenter)">
-          <span>👤</span>
-          <span id="t-btn-demo">डेमो: रमेश कुमार</span>
+        <!-- Sample Profile Quick Load Button -->
+        <button class="btn-control btn-persona" id="btnLoadSampleProfile" title="त्वरित परीक्षण हेतु नमूना प्रोफ़ाइल भरें (Load Sample Profile for Testing)">
+          <span>⚡</span>
+          <span id="t-btn-sample">त्वरित नमूना (Sample Profile)</span>
         </button>
 
         <!-- High Contrast AAA Toggle -->
         <button class="btn-control" id="btnHighContrast" aria-label="Toggle High Contrast" title="High Contrast Mode (WCAG AAA)">
           <span>👁️</span>
-          <span class="hide-mobile">AAA</span>
+          <span>AAA</span>
         </button>
 
-        <!-- Language Switcher -->
-        <button class="btn-control" id="btnLangToggle" aria-label="Switch Language" title="Switch between Hindi and English">
-          <span id="langIndicator">हिंदी / EN</span>
-        </button>
+        <!-- Comprehensive Multi-Language Dropdown (Top Spoken Indian Languages) -->
+        <select class="lang-dropdown-select" id="langSelectDropdown" aria-label="Select Preferred Language">
+          <option value="hi" selected>🇮🇳 हिन्दी (Hindi)</option>
+          <option value="en">🇬🇧 English</option>
+          <option value="hinglish">🇮🇳 Hinglish (हिंग्लिश)</option>
+          <option value="mr">🇮🇳 मराठी (Marathi)</option>
+          <option value="bn">🇮🇳 বাংলা (Bengali)</option>
+          <option value="gu">🇮🇳 ગુજરાતી (Gujarati)</option>
+          <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
+          <option value="te">🇮🇳 తెలుగు (Telugu)</option>
+          <option value="pa">🇮🇳 ਪੰਜਾਬੀ (Punjabi)</option>
+        </select>
       </div>
     </div>
   </header>
@@ -75,6 +83,72 @@
 
     <!-- VIEW 1: HOME / DASHBOARD -->
     <section id="view-home" class="tab-view active" role="tabpanel">
+      
+      <!-- CITIZEN ONBOARDING & PROFILE SETUP CARD (Dynamic User Input) -->
+      <div class="onboarding-card">
+        <div class="onboarding-header">
+          <h3>
+            <span>📝</span>
+            <span id="t-onboarding-title">नमस्ते! अपनी उद्यमिता यात्रा शुरू करें</span>
+          </h3>
+          <span style="font-size: 11px; color: var(--color-emerald-primary); font-weight: 700;">
+            ✓ 100% निःशुल्क एवं सुरक्षित MoSJE सहायता
+          </span>
+        </div>
+
+        <form id="onboardingForm" onsubmit="handleOnboardingSubmit(event)">
+          <div class="onboarding-grid">
+            <div class="form-field">
+              <label for="inpCitizenName" id="t-lbl-name">आपका शुभ नाम (Applicant Name)</label>
+              <input type="text" id="inpCitizenName" placeholder="जैसे: राहुल शर्मा / Priya Sharma" required>
+            </div>
+
+            <div class="form-field">
+              <label for="inpCitizenBusiness" id="t-lbl-biz">व्यवसाय या कार्य विचार (Business / Trade)</label>
+              <input type="text" id="inpCitizenBusiness" placeholder="जैसे: बढ़ईगीरी, सिलाई, किराना, वर्कशॉप" required>
+            </div>
+
+            <div class="form-field">
+              <label for="inpCitizenCategory" id="t-lbl-cat">सामाजिक वर्ग (Category)</label>
+              <select id="inpCitizenCategory">
+                <option value="OBC" selected>अन्य पिछड़ा वर्ग (OBC)</option>
+                <option value="SC">अनुसूचित जाति (SC)</option>
+                <option value="ST">अनुसूचित जनजाति (ST)</option>
+                <option value="DNT">विमुक्त घुमंतू जनजाति (DNT)</option>
+                <option value="GENERAL">सामान्य (General / EWS)</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="inpCitizenProjectCost" id="t-lbl-cost">अनुमानित लागत (Project Cost ₹)</label>
+              <input type="number" id="inpCitizenProjectCost" placeholder="जैसे: 500000" min="10000" max="10000000" value="500000" required>
+            </div>
+
+            <div class="form-field">
+              <label for="inpCitizenIncome" id="t-lbl-inc">पारिवारिक वार्षिक आय (Family Income ₹)</label>
+              <input type="number" id="inpCitizenIncome" placeholder="जैसे: 180000" min="0" max="5000000" value="180000" required>
+            </div>
+
+            <div class="form-field">
+              <label for="inpCitizenState" id="t-lbl-state">राज्य एवं जिला (State & District)</label>
+              <input type="text" id="inpCitizenState" value="Uttar Pradesh, Bijnor" placeholder="राज्य, जिला" required>
+            </div>
+          </div>
+
+          <div class="onboarding-actions">
+            <button type="button" class="btn-action btn-action-secondary" onclick="loadSampleDemoProfile()">
+              <span>⚡</span>
+              <span id="t-btn-fill-sample">नमूना डेटा भरें (Fill Sample)</span>
+            </button>
+
+            <button type="submit" class="btn-primary-hero">
+              <span>🚀</span>
+              <span id="t-btn-find-schemes">मेरी योजनाएं एवं रियायती ऋण खोजें</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
       <!-- Hero Banner -->
       <div class="hero-banner">
         <span class="hero-badge">
@@ -205,8 +279,8 @@
             <div class="chat-header-info">
               <span style="font-size: 20px;">🤖</span>
               <div>
-                <strong>उद्यमी मित्र (Mitra AI)</strong>
-                <div style="font-size: 11px; color: var(--color-text-secondary);">MoSJE Assistant</div>
+                <strong>उद्यमी मित्र (Mitra Assistant)</strong>
+                <div style="font-size: 11px; color: var(--color-text-secondary);" id="activeCitizenTag">MoSJE Citizen Voice Assistant</div>
               </div>
             </div>
             <div class="status-pill" id="voiceStatusPill">
@@ -225,7 +299,7 @@
           <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
             <div class="chat-message bot">
               <div class="speaker-tag">Entrepreneur Mitra</div>
-              <span id="initialBotGreeting">नमस्ते! मैं उद्यमी मित्र हूँ। सामाजिक न्याय और अधिकारिता मंत्रालय की योजनाओं से आपको जोड़ने में मदद करूँगा। कृपया बताएं, आप किस प्रकार का व्यवसाय करते हैं या नया काम शुरू करना चाहते हैं?</span>
+              <span id="initialBotGreeting">नमस्ते! मैं उद्यमी मित्र हूँ। सामाजिक न्याय और अधिकारिता मंत्रालय की योजनाओं से आपको जोड़ने में मदद करूँगा। कृपया अपना शुभ नाम बताएं और बताएं कि आप किस व्यवसाय के लिए ऋण या सहायता खोज रहे हैं?</span>
               <span class="speak-btn" onclick="speakMessage(document.getElementById('initialBotGreeting').innerText)" title="Play voice audio">🔊</span>
             </div>
           </div>
@@ -235,7 +309,7 @@
             <button class="btn-mic" id="btnMicToggle" aria-label="Start Voice Recording" title="माइक शुरू करने के लिए क्लिक करें (Click to Speak)">
               <span>🎙️</span>
             </button>
-            <input type="text" class="chat-input" id="chatTextInput" placeholder="यहाँ बोलें या अपनी भाषा में टाइप करें..." aria-label="User response input">
+            <input type="text" class="chat-input" id="chatTextInput" placeholder="यहाँ बोलें या अपनी भाषा में लिखें (जैसे: मेरा नाम राहुल है...)" aria-label="User response input">
             <button class="btn-send" id="btnSendText">भेजें</button>
           </div>
         </div>
@@ -247,6 +321,10 @@
             <button class="btn-action btn-action-secondary" style="font-size: 11px; padding: 2px 8px;" onclick="openProfileModal()">संपादित करें</button>
           </div>
           <div class="field-chips-list" id="extractedChipsList">
+            <div class="attr-chip" id="chip-name">
+              <span class="label">आवेदक का नाम (Name)</span>
+              <span class="value" id="val-name">—</span>
+            </div>
             <div class="attr-chip" id="chip-business_type">
               <span class="label">व्यवसाय प्रकार (Business)</span>
               <span class="value" id="val-business_type">—</span>
@@ -270,14 +348,6 @@
             <div class="attr-chip" id="chip-district">
               <span class="label">जिला (District)</span>
               <span class="value" id="val-district">—</span>
-            </div>
-            <div class="attr-chip" id="chip-education">
-              <span class="label">शिक्षा (Education)</span>
-              <span class="value" id="val-education">—</span>
-            </div>
-            <div class="attr-chip" id="chip-gender">
-              <span class="label">लिंग (Gender)</span>
-              <span class="value" id="val-gender">—</span>
             </div>
           </div>
 
@@ -308,7 +378,6 @@
 
       <!-- Schemes List Container -->
       <div class="scheme-cards-list" id="schemesListContainer">
-        <!-- Rendered via JavaScript -->
         <div style="text-align: center; padding: 40px; color: var(--color-text-secondary);">
           योजनाएं लोड हो रही हैं...
         </div>
@@ -327,7 +396,6 @@
       <div class="calc-grid">
         <!-- Interactive Controls -->
         <div class="calc-panel">
-          <!-- Loan Amount Slider -->
           <div class="form-group">
             <div class="form-label-row">
               <label for="sliderLoanAmount" class="form-label" id="t-lbl-loanamt">ऋण राशि (Loan Amount)</label>
@@ -336,7 +404,6 @@
             <input type="range" class="range-slider" id="sliderLoanAmount" min="25000" max="2500000" step="25000" value="500000">
           </div>
 
-          <!-- Interest Rate Slider -->
           <div class="form-group">
             <div class="form-label-row">
               <label for="sliderInterestRate" class="form-label" id="t-lbl-interest">रियायती ब्याज दर (Interest Rate % p.a.)</label>
@@ -345,7 +412,6 @@
             <input type="range" class="range-slider" id="sliderInterestRate" min="3.0" max="14.0" step="0.5" value="5.0">
           </div>
 
-          <!-- Tenure Slider -->
           <div class="form-group">
             <div class="form-label-row">
               <label for="sliderTenure" class="form-label" id="t-lbl-tenure">अवधि (Tenure in Months)</label>
@@ -354,7 +420,6 @@
             <input type="range" class="range-slider" id="sliderTenure" min="12" max="120" step="6" value="60">
           </div>
 
-          <!-- Moratorium Slider -->
           <div class="form-group">
             <div class="form-label-row">
               <label for="sliderMoratorium" class="form-label" id="t-lbl-moratorium">मोराटोरियम छूट अवधि (Moratorium Months)</label>
@@ -363,7 +428,6 @@
             <input type="range" class="range-slider" id="sliderMoratorium" min="0" max="18" step="1" value="6">
           </div>
 
-          <!-- Stated Monthly Income for DTI -->
           <div class="form-group">
             <div class="form-label-row">
               <label for="inputMonthlyIncome" class="form-label" id="t-lbl-monthlyincome">आवेदक की अनुमानित मासिक आय</label>
@@ -564,15 +628,15 @@
           <div style="display: flex; flex-direction: column; gap: 14px; font-size: var(--font-size-sm);">
             <div style="border-left: 3px solid var(--color-emerald-primary); padding-left: 12px;">
               <strong>चरण 1: पात्रता एवं दस्तावेज सत्यापन</strong>
-              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
-                आपकी पात्रता NBCFDC-GTL-001 योजना के तहत 96% सत्यापित हो चुकी है।
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);" id="copilotStep1Desc">
+                आपकी पात्रता MoSJE रियायती ऋण योजनाओं के अंतर्गत जांची जा चुकी है।
               </p>
             </div>
 
             <div style="border-left: 3px solid var(--color-saffron-primary); padding-left: 12px;">
               <strong>चरण 2: अधिकृत पार्टनर का चयन</strong>
               <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
-                बिजनौर के लिए आपकी निकटतम अधिकृत बैंक शाखा: <strong>State Bank of India Bijnor Branch</strong> (दूरी 4.2 किमी) या UPBCDFC लखनऊ है।
+                आपकी निकटतम अधिकृत बैंक शाखा: <strong>State Bank of India Bijnor Branch</strong> (दूरी 4.2 किमी) या UPBCDFC लखनऊ है।
               </p>
             </div>
 
@@ -636,9 +700,7 @@
           <strong style="font-size: var(--font-size-base);" id="ruleSchemeName">NBCFDC General Term Loan Scheme</strong>
         </div>
 
-        <div class="rules-checklist" id="ruleChecklistContainer">
-          <!-- Populated dynamically via JS -->
-        </div>
+        <div class="rules-checklist" id="ruleChecklistContainer"></div>
 
         <div style="text-align: right; margin-top: 10px;">
           <button class="btn-action btn-action-primary" onclick="closeRuleTraceModal()">समझ गया (Understood)</button>
@@ -657,8 +719,12 @@
       <div class="modal-body">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
           <div>
+            <label class="form-label" style="font-size: 11px;">आवेदक का नाम (Name)</label>
+            <input type="text" class="chat-input" id="inpNameModal" value="">
+          </div>
+          <div>
             <label class="form-label" style="font-size: 11px;">व्यवसाय प्रकार (Business)</label>
-            <input type="text" class="chat-input" id="inpBusinessType" value="बढ़ईगीरी एवं लकड़ी कार्यशाला (Carpentry)">
+            <input type="text" class="chat-input" id="inpBusinessType" value="">
           </div>
           <div>
             <label class="form-label" style="font-size: 11px;">अनुमानित परियोजना लागत (₹)</label>
@@ -675,7 +741,7 @@
               <option value="SC">अनुसूचित जाति (SC)</option>
               <option value="ST">अनुसूचित जनजाति (ST)</option>
               <option value="DNT">विमुक्त घुमंतू जनजाति (DNT)</option>
-              <option value="GENERAL">सामान्य (General)</option>
+              <option value="GENERAL">सामान्य (General / EWS)</option>
             </select>
           </div>
           <div>
@@ -687,12 +753,8 @@
             <input type="text" class="chat-input" id="inpDistrict" value="Bijnor">
           </div>
           <div>
-            <label class="form-label" style="font-size: 11px;">शैक्षणिक योग्यता (Education)</label>
-            <input type="text" class="chat-input" id="inpEducation" value="10th Pass (कक्षा 10 उत्तीर्ण)">
-          </div>
-          <div>
             <label class="form-label" style="font-size: 11px;">आयु (Age in years)</label>
-            <input type="number" class="chat-input" id="inpAge" value="32">
+            <input type="number" class="chat-input" id="inpAge" value="30">
           </div>
         </div>
 
