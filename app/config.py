@@ -17,6 +17,10 @@ class Settings(BaseSettings):
     
     # Database
     DATABASE_URL: str = "sqlite:///./entrepreneur_mitra.db"
+    SUPABASE_DATABASE_URL: str = ""
+    DB_POOL_SIZE: int = 10
+    DB_MAX_OVERFLOW: int = 20
+    DB_POOL_TIMEOUT: int = 30
     
     # Storage
     UPLOAD_DIR: str = "./uploads"
@@ -39,6 +43,13 @@ class Settings(BaseSettings):
     MOCK_VOICE: bool = True
     MOCK_OCR: bool = True
     
+    # DigiLocker Requester Integration
+    DIGILOCKER_CLIENT_ID: str = ""
+    DIGILOCKER_CLIENT_SECRET: str = ""
+    DIGILOCKER_REDIRECT_URI: str = "http://127.0.0.1:8000/api/v1/documents/digilocker/callback"
+    DIGILOCKER_ENVIRONMENT: str = "sandbox"  # 'sandbox' or 'production'
+    DIGILOCKER_SCOPES: str = "read:income read:caste read:aadhaar"
+
     # AI Engine Settings
     LLM_BASE_URL: str = "http://localhost:11434"
     LLM_MODEL: str = "llama3"

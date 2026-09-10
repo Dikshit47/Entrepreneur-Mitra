@@ -47,14 +47,16 @@ def verify_digilocker_document(request: DigiLockerVerifyRequest, db: Session = D
 @router.get("/verification-status", response_model=ApiResponse[DocumentVerificationStatusResponse])
 def get_verification_status(
     user_id: Optional[str] = None,
+    lang: str = "en",
     db: Session = Depends(get_db),
     current_user: Optional[User] = Depends(get_optional_current_user)
 ):
     """
     Get consolidated verification status and readiness score across mandatory MoSJE documents.
+    Supports multilingual document titles with zero language leak.
     """
     target_user_id = user_id or (current_user.id if current_user else None)
-    status_summary = DocumentVerificationService.get_user_verification_status(db, target_user_id)
+    status_summary = DocumentVerificationService.get_user_verification_status(db, target_user_id, lang=lang)
     return ApiResponse.success_response(status_summary)
 
 

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entrepreneur Mitra | उद्यमी मित्र - MoSJE</title>
+  <title data-i18n="gov.appName">Entrepreneur Mitra - MoSJE</title>
   
   <!-- Favicon / Meta -->
   <meta name="description" content="AI-Driven Scheme Matching and Concessional Loan Access for Marginalized Entrepreneurs - Ministry of Social Justice and Empowerment">
@@ -24,9 +24,9 @@
   <div class="gov-sub-bar" role="region" aria-label="Official Government Header">
     <span>
       <span>🇮🇳</span>
-      <strong id="t-gov-title">सामाजिक न्याय और अधिकारिता मंत्रालय | MoSJE</strong>
+      <strong id="t-gov-title" data-i18n="gov.title">Ministry of Social Justice and Empowerment | MoSJE</strong>
     </span>
-    <span class="tag-official" id="t-gov-tag">भारत सरकार | Govt of India</span>
+    <span class="tag-official" id="t-gov-tag" data-i18n="gov.tag">Government of India</span>
   </div>
 
   <!-- Main App Header -->
@@ -35,16 +35,16 @@
       <div class="brand-group">
         <div class="emblem-icon" aria-hidden="true">🏛️</div>
         <div class="brand-titles">
-          <h1 id="t-app-title">उद्यमी मित्र (Entrepreneur Mitra)</h1>
-          <p id="t-app-subtitle">SIH26092 • AI-Driven Scheme Matching for Marginalized Entrepreneurs</p>
+          <h1 id="t-app-title" data-i18n="gov.appName">Entrepreneur Mitra</h1>
+          <p id="t-app-subtitle" data-i18n="gov.appSubtitle">SIH26092 • AI-Driven Scheme Matching for Marginalized Entrepreneurs</p>
         </div>
       </div>
 
       <div class="header-controls">
         <!-- Sample Profile Quick Load Button -->
-        <button class="btn-control btn-persona" id="btnLoadSampleProfile" title="त्वरित परीक्षण हेतु नमूना प्रोफ़ाइल भरें (Load Sample Profile for Testing)">
+        <button class="btn-control btn-persona" id="btnLoadSampleProfile" data-i18n-title="common.sample" title="Sample Profile (1-Click Demo)">
           <span>⚡</span>
-          <span id="t-btn-sample">त्वरित नमूना (Sample Profile)</span>
+          <span id="t-btn-sample" data-i18n="common.sample">Sample Profile (1-Click Demo)</span>
         </button>
 
         <!-- High Contrast AAA Toggle -->
@@ -53,17 +53,11 @@
           <span>AAA</span>
         </button>
 
-        <!-- Comprehensive Multi-Language Dropdown (Top Spoken Indian Languages) -->
+        <!-- Multi-Language Dropdown -->
         <select class="lang-dropdown-select" id="langSelectDropdown" aria-label="Select Preferred Language">
-          <option value="hi" selected>🇮🇳 हिन्दी (Hindi)</option>
-          <option value="en">🇬🇧 English</option>
+          <option value="en" selected>🇬🇧 English</option>
+          <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
           <option value="hinglish">🇮🇳 Hinglish (हिंग्लिश)</option>
-          <option value="mr">🇮🇳 मराठी (Marathi)</option>
-          <option value="bn">🇮🇳 বাংলা (Bengali)</option>
-          <option value="gu">🇮🇳 ગુજરાતી (Gujarati)</option>
-          <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
-          <option value="te">🇮🇳 తెలుగు (Telugu)</option>
-          <option value="pa">🇮🇳 ਪੰਜਾਬੀ (Punjabi)</option>
         </select>
       </div>
     </div>
@@ -76,74 +70,74 @@
     <div class="advisory-card" role="alert">
       <span class="icon" aria-hidden="true">🛡️</span>
       <div>
-        <strong id="t-advisory-title">सचेत रहें (Official Anti-Scam Advisory):</strong>
-        <span id="t-advisory-desc">सरकारी योजनाओं के आवेदन हेतु कभी भी किसी दलाल या बिचौलिए को कोई शुल्क न दें और न ही OTP साझा करें। समस्त MoSJE / NBCFDC सेवाएं पूर्णतः निःशुल्क हैं।</span>
+        <strong id="t-advisory-title" data-i18n="advisory.title">Stay Alert (Official Anti-Scam Advisory):</strong>
+        <span id="t-advisory-desc" data-i18n="advisory.desc">Never pay any fee or share OTP with any broker or intermediary for government schemes. All MoSJE / NBCFDC services are completely free of cost.</span>
       </div>
     </div>
 
     <!-- VIEW 1: HOME / DASHBOARD -->
     <section id="view-home" class="tab-view active" role="tabpanel">
       
-      <!-- CITIZEN ONBOARDING & PROFILE SETUP CARD (Dynamic User Input) -->
+      <!-- CITIZEN ONBOARDING & PROFILE SETUP CARD -->
       <div class="onboarding-card">
         <div class="onboarding-header">
           <h3>
             <span>📝</span>
-            <span id="t-onboarding-title">नमस्ते! अपनी उद्यमिता यात्रा शुरू करें</span>
+            <span id="t-onboarding-title" data-i18n="onboarding.title">Welcome! Begin Your Entrepreneurial Journey</span>
           </h3>
-          <span style="font-size: 11px; color: var(--color-emerald-primary); font-weight: 700;">
-            ✓ 100% निःशुल्क एवं सुरक्षित MoSJE सहायता
+          <span style="font-size: 11px; color: var(--color-emerald-primary); font-weight: 700;" data-i18n="onboarding.freeTag">
+            ✓ 100% Free & Secure MoSJE Support
           </span>
         </div>
 
         <form id="onboardingForm" onsubmit="handleOnboardingSubmit(event)">
           <div class="onboarding-grid">
             <div class="form-field">
-              <label for="inpCitizenName" id="t-lbl-name">आपका शुभ नाम (Applicant Name)</label>
-              <input type="text" id="inpCitizenName" placeholder="जैसे: राहुल शर्मा / Priya Sharma" required>
+              <label for="inpCitizenName" id="t-lbl-name" data-i18n="onboarding.name">Applicant Full Name</label>
+              <input type="text" id="inpCitizenName" data-i18n-placeholder="onboarding.namePlaceholder" placeholder="e.g., Rahul Sharma / Priya Sharma" required>
             </div>
 
             <div class="form-field">
-              <label for="inpCitizenBusiness" id="t-lbl-biz">व्यवसाय या कार्य विचार (Business / Trade)</label>
-              <input type="text" id="inpCitizenBusiness" placeholder="जैसे: बढ़ईगीरी, सिलाई, किराना, वर्कशॉप" required>
+              <label for="inpCitizenBusiness" id="t-lbl-biz" data-i18n="onboarding.business">Business Idea or Trade</label>
+              <input type="text" id="inpCitizenBusiness" data-i18n-placeholder="onboarding.businessPlaceholder" placeholder="e.g., Carpentry, Tailoring, Grocery, Workshop" required>
             </div>
 
             <div class="form-field">
-              <label for="inpCitizenCategory" id="t-lbl-cat">सामाजिक वर्ग (Category)</label>
+              <label for="inpCitizenCategory" id="t-lbl-cat" data-i18n="onboarding.category">Social Category</label>
               <select id="inpCitizenCategory">
-                <option value="OBC" selected>अन्य पिछड़ा वर्ग (OBC)</option>
-                <option value="SC">अनुसूचित जाति (SC)</option>
-                <option value="ST">अनुसूचित जनजाति (ST)</option>
-                <option value="DNT">विमुक्त घुमंतू जनजाति (DNT)</option>
-                <option value="GENERAL">सामान्य (General / EWS)</option>
+                <option value="OBC" selected id="opt-cat-obc" data-i18n="onboarding.catOBC">Other Backward Classes (OBC)</option>
+                <option value="SC" id="opt-cat-sc" data-i18n="onboarding.catSC">Scheduled Caste (SC)</option>
+                <option value="ST" id="opt-cat-st" data-i18n="onboarding.catST">Scheduled Tribe (ST)</option>
+                <option value="DNT" id="opt-cat-dnt" data-i18n="onboarding.catDNT">De-Notified / Nomadic Tribe (DNT)</option>
+                <option value="GENERAL" id="opt-cat-gen" data-i18n="onboarding.catGeneral">General / EWS</option>
               </select>
             </div>
 
             <div class="form-field">
-              <label for="inpCitizenProjectCost" id="t-lbl-cost">अनुमानित लागत (Project Cost ₹)</label>
-              <input type="number" id="inpCitizenProjectCost" placeholder="जैसे: 500000" min="10000" max="10000000" value="500000" required>
+              <label for="inpCitizenProjectCost" id="t-lbl-cost" data-i18n="onboarding.cost">Estimated Project Cost (₹)</label>
+              <input type="number" id="inpCitizenProjectCost" data-i18n-placeholder="onboarding.costPlaceholder" placeholder="e.g., 500000" min="10000" max="10000000" value="500000" required>
             </div>
 
             <div class="form-field">
-              <label for="inpCitizenIncome" id="t-lbl-inc">पारिवारिक वार्षिक आय (Family Income ₹)</label>
-              <input type="number" id="inpCitizenIncome" placeholder="जैसे: 180000" min="0" max="5000000" value="180000" required>
+              <label for="inpCitizenIncome" id="t-lbl-inc" data-i18n="onboarding.income">Annual Family Income (₹)</label>
+              <input type="number" id="inpCitizenIncome" data-i18n-placeholder="onboarding.incomePlaceholder" placeholder="e.g., 180000" min="0" max="5000000" value="180000" required>
             </div>
 
             <div class="form-field">
-              <label for="inpCitizenState" id="t-lbl-state">राज्य एवं जिला (State & District)</label>
-              <input type="text" id="inpCitizenState" value="Uttar Pradesh, Bijnor" placeholder="राज्य, जिला" required>
+              <label for="inpCitizenState" id="t-lbl-state" data-i18n="onboarding.location">State & District</label>
+              <input type="text" id="inpCitizenState" value="Uttar Pradesh, Bijnor" data-i18n-placeholder="onboarding.locationPlaceholder" placeholder="e.g., Uttar Pradesh, Bijnor" required>
             </div>
           </div>
 
           <div class="onboarding-actions">
             <button type="button" class="btn-action btn-action-secondary" onclick="loadSampleDemoProfile()">
               <span>⚡</span>
-              <span id="t-btn-fill-sample">नमूना डेटा भरें (Fill Sample)</span>
+              <span id="t-btn-fill-sample" data-i18n="onboarding.btnSample">Fill Sample Data (OBC Carpenter)</span>
             </button>
 
             <button type="submit" class="btn-primary-hero">
               <span>🚀</span>
-              <span id="t-btn-find-schemes">मेरी योजनाएं एवं रियायती ऋण खोजें</span>
+              <span id="t-btn-find-schemes" data-i18n="onboarding.btnFind">Discover My Eligible Schemes</span>
             </button>
           </div>
         </form>
@@ -153,20 +147,20 @@
       <div class="hero-banner">
         <span class="hero-badge">
           <span>✨</span>
-          <span id="t-hero-badge">आवाज़-आधारित AI सहायक</span>
+          <span id="t-hero-badge" data-i18n="hero.badge">Voice-First AI Assistant</span>
         </span>
-        <h2 id="t-hero-heading">अपनी मातृभाषा में बोलें,<br>सटीक सरकारी योजना पाएं</h2>
-        <p id="t-hero-sub">
-          गरीब और वंचित वर्ग के उद्यमियों के लिए शून्य-भ्रम (Zero Hallucination) आधारित ऋण, ब्याज अनुदान और कौशल योजनाएं। 
+        <h2 id="t-hero-heading" data-i18n="hero.heading">Speak in Your Language,<br>Discover Authentic Government Schemes</h2>
+        <p id="t-hero-sub" data-i18n="hero.sub">
+          Zero-hallucination concessional loans, margin money, and interest subsidies for marginalized entrepreneurs (SC, OBC, Safai Karamcharis, Divyangjan).
         </p>
         <div class="hero-actions">
           <button class="btn-primary-hero" onclick="switchTab('voice')">
             <span>🎙️</span>
-            <span id="t-btn-start-voice">बोलकर शुरू करें (Voice Interview)</span>
+            <span id="t-btn-start-voice" data-i18n="hero.btnVoice">Start Voice Interview</span>
           </button>
           <button class="btn-secondary-hero" onclick="switchTab('schemes')">
             <span>📋</span>
-            <span id="t-btn-view-schemes">सभी योजनाएं देखें</span>
+            <span id="t-btn-view-schemes" data-i18n="hero.btnSchemes">Browse All Schemes</span>
           </button>
         </div>
       </div>
@@ -176,16 +170,16 @@
         <div class="metric-card">
           <div class="metric-icon blue" aria-hidden="true">📜</div>
           <div class="metric-data">
-            <div class="num" id="statSchemesCount">3</div>
-            <div class="lbl" id="t-kpi-schemes">अधिकृत MoSJE योजनाएं</div>
+            <div class="num" id="statSchemesCount">11</div>
+            <div class="lbl" id="t-kpi-schemes" data-i18n="kpi.schemes">Verified MoSJE Schemes</div>
           </div>
         </div>
 
         <div class="metric-card">
           <div class="metric-icon green" aria-hidden="true">📍</div>
           <div class="metric-data">
-            <div class="num" id="statPartnersCount">3</div>
-            <div class="lbl" id="t-kpi-partners">चयनित चैनल पार्टनर (SCA/बैंक)</div>
+            <div class="num" id="statPartnersCount">8</div>
+            <div class="lbl" id="t-kpi-partners" data-i18n="kpi.partners">Designated Channel Partners (SCA/Bank)</div>
           </div>
         </div>
 
@@ -193,7 +187,7 @@
           <div class="metric-icon orange" aria-hidden="true">⚡</div>
           <div class="metric-data">
             <div class="num">100%</div>
-            <div class="lbl" id="t-kpi-rules">पारदर्शी नियम सत्यापन (Rule Engine)</div>
+            <div class="lbl" id="t-kpi-rules" data-i18n="kpi.rules">Transparent Rule Verification (Rule Engine)</div>
           </div>
         </div>
 
@@ -201,7 +195,7 @@
           <div class="metric-icon blue" aria-hidden="true">💰</div>
           <div class="metric-data">
             <div class="num">₹0</div>
-            <div class="lbl" id="t-kpi-fee">आवेदन शुल्क (निःशुल्क सेवा)</div>
+            <div class="lbl" id="t-kpi-fee" data-i18n="kpi.fee">Application Fee (100% Free)</div>
           </div>
         </div>
       </div>
@@ -209,8 +203,8 @@
       <!-- Quick Shortcuts Grid -->
       <div class="section-header">
         <div class="section-title">
-          <h2 id="t-quick-actions-title">मुख्य सेवाएं (Key Services)</h2>
-          <p id="t-quick-actions-sub">आपकी उद्यमिता यात्रा के लिए एकीकृत सहायता</p>
+          <h2 id="t-quick-actions-title" data-i18n="quickActions.title">Key Services</h2>
+          <p id="t-quick-actions-sub" data-i18n="quickActions.sub">Integrated assistance for your entrepreneurial journey</p>
         </div>
       </div>
 
@@ -218,40 +212,40 @@
         <div class="metric-card" style="cursor: pointer;" onclick="switchTab('voice')">
           <div class="metric-icon orange">🎙️</div>
           <div>
-            <strong id="t-svc-voice">AI वॉइस इंटरव्यू</strong>
-            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-voice-sub">बोलकर अपना विवरण दें</p>
+            <strong id="t-svc-voice" data-i18n="quickActions.voice">AI Voice Interview</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-voice-sub" data-i18n="quickActions.voiceSub">Speak naturally to register your details</p>
           </div>
         </div>
 
         <div class="metric-card" style="cursor: pointer;" onclick="switchTab('schemes')">
           <div class="metric-icon green">🎯</div>
           <div>
-            <strong id="t-svc-schemes">स्मार्ट योजना मिलान</strong>
-            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-schemes-sub">6-कारकीय वेटेज स्कोरिंग</p>
+            <strong id="t-svc-schemes" data-i18n="quickActions.schemes">Smart Scheme Matching</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-schemes-sub" data-i18n="quickActions.schemesSub">Transparent 6-factor weighted scoring</p>
           </div>
         </div>
 
         <div class="metric-card" style="cursor: pointer;" onclick="switchTab('calc')">
           <div class="metric-icon blue">🧮</div>
           <div>
-            <strong id="t-svc-calc">वित्तीय ईएमआई कैलकुलेटर</strong>
-            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-calc-sub">मोराटोरियम सहित किस्त जानें</p>
+            <strong id="t-svc-calc" data-i18n="quickActions.calc">Financial EMI Calculator</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-calc-sub" data-i18n="quickActions.calcSub">Calculate instalments including moratorium</p>
           </div>
         </div>
 
         <div class="metric-card" style="cursor: pointer;" onclick="switchTab('partners')">
           <div class="metric-icon green">🗺️</div>
           <div>
-            <strong id="t-svc-partners">निकटतम पार्टनर खोजें</strong>
-            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-partners-sub">SCA और बैंक शाखाएं</p>
+            <strong id="t-svc-partners" data-i18n="quickActions.partners">Find Nearest Partner</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-partners-sub" data-i18n="quickActions.partnersSub">State Channelising Agencies & Banks</p>
           </div>
         </div>
 
         <div class="metric-card" style="cursor: pointer;" onclick="switchTab('docs')">
           <div class="metric-icon orange">📂</div>
           <div>
-            <strong id="t-svc-docs">दस्तावेज़ और आवेदन</strong>
-            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-docs-sub">OCR और 5-चरणीय कोपायलट</p>
+            <strong id="t-svc-docs" data-i18n="quickActions.docs">Documents & Copilot</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary);" id="t-svc-docs-sub" data-i18n="quickActions.docsSub">DigiLocker vault & 5-step guidance</p>
           </div>
         </div>
       </div>
@@ -261,13 +255,13 @@
     <section id="view-voice" class="tab-view" role="tabpanel">
       <div class="section-header">
         <div class="section-title">
-          <h2 id="t-interview-title">संवादात्मक AI वॉइस इंटरव्यू</h2>
-          <p id="t-interview-sub">माइक दबाकर बोलें या नीचे टेक्स्ट लिखें। मित्र आपके विवरण को स्वचालित रूप से तैयार करेगा।</p>
+          <h2 id="t-interview-title" data-i18n="interview.title">Conversational Voice Interview</h2>
+          <p id="t-interview-sub" data-i18n="interview.sub">Press the microphone to speak or type in the chatbox below. Mitra will extract and verify your profile attributes in real time.</p>
         </div>
         <div>
           <button class="btn-action btn-action-primary" id="btnMatchFromInterview" onclick="finalizeInterviewAndMatch()">
             <span>✨</span>
-            <span id="t-btn-finalize">योजनाएं खोजें (Find Matches)</span>
+            <span id="t-btn-finalize" data-i18n="interview.btnFinalize">Discover Eligible Schemes</span>
           </button>
         </div>
       </div>
@@ -279,74 +273,74 @@
             <div class="chat-header-info">
               <span style="font-size: 20px;">🤖</span>
               <div>
-                <strong>उद्यमी मित्र (Mitra Assistant)</strong>
+                <strong data-i18n="gov.appName">Entrepreneur Mitra</strong>
                 <div style="font-size: 11px; color: var(--color-text-secondary);" id="activeCitizenTag">MoSJE Citizen Voice Assistant</div>
               </div>
             </div>
             <div class="status-pill" id="voiceStatusPill">
               <span class="status-dot" id="statusDot"></span>
-              <span id="voiceStatusText">तैयार (Ready)</span>
+              <span id="voiceStatusText" data-i18n="interview.ready">Ready (Press microphone to speak)</span>
             </div>
           </div>
 
           <!-- Waveform Canvas -->
           <div class="waveform-box">
             <canvas id="waveformCanvas"></canvas>
-            <div class="waveform-tip" id="waveformTip">ध्वनि तरंगे (Audio Waveform Active During Speech)</div>
+            <div class="waveform-tip" id="waveformTip">Audio Waveform Active During Speech</div>
           </div>
 
           <!-- Messages Stream -->
           <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
             <div class="chat-message bot">
-              <div class="speaker-tag">Entrepreneur Mitra</div>
-              <span id="initialBotGreeting">नमस्ते! मैं उद्यमी मित्र हूँ। सामाजिक न्याय और अधिकारिता मंत्रालय की योजनाओं से आपको जोड़ने में मदद करूँगा। कृपया अपना शुभ नाम बताएं और बताएं कि आप किस व्यवसाय के लिए ऋण या सहायता खोज रहे हैं?</span>
+              <div class="speaker-tag" data-i18n="gov.appName">Entrepreneur Mitra</div>
+              <span id="initialBotGreeting" data-i18n="interview.initialGreeting">Hello! I am Entrepreneur Mitra. I will help connect you to concessional schemes of the Ministry of Social Justice and Empowerment. Please tell me your name and what enterprise you want to start or expand?</span>
               <span class="speak-btn" onclick="speakMessage(document.getElementById('initialBotGreeting').innerText)" title="Play voice audio">🔊</span>
             </div>
           </div>
 
           <!-- Input Controls -->
           <div class="chat-controls">
-            <button class="btn-mic" id="btnMicToggle" aria-label="Start Voice Recording" title="माइक शुरू करने के लिए क्लिक करें (Click to Speak)">
+            <button class="btn-mic" id="btnMicToggle" aria-label="Start Voice Recording" data-i18n-title="common.speak" title="Speak Now">
               <span>🎙️</span>
             </button>
-            <input type="text" class="chat-input" id="chatTextInput" placeholder="यहाँ बोलें या अपनी भाषा में लिखें (जैसे: मेरा नाम राहुल है...)" aria-label="User response input">
-            <button class="btn-send" id="btnSendText">भेजें</button>
+            <input type="text" class="chat-input" id="chatTextInput" data-i18n-placeholder="interview.micPrompt" placeholder="Press microphone and speak clearly in your chosen language..." aria-label="User response input">
+            <button class="btn-send" id="btnSendText" data-i18n="common.send">Send</button>
           </div>
         </div>
 
         <!-- Live Extracted Attributes Drawer -->
         <aside class="extracted-drawer">
           <div class="drawer-header">
-            <h3 id="t-drawer-title">पहचाने गए विवरण (Extracted Profile)</h3>
-            <button class="btn-action btn-action-secondary" style="font-size: 11px; padding: 2px 8px;" onclick="openProfileModal()">संपादित करें</button>
+            <h3 id="t-drawer-title" data-i18n="interview.drawerTitle">Extracted Citizen Profile</h3>
+            <button class="btn-action btn-action-secondary" style="font-size: 11px; padding: 2px 8px;" onclick="openProfileModal()" data-i18n="common.edit">Edit</button>
           </div>
           <div class="field-chips-list" id="extractedChipsList">
             <div class="attr-chip" id="chip-name">
-              <span class="label">आवेदक का नाम (Name)</span>
+              <span class="label" data-i18n="interview.attrName">Applicant Name</span>
               <span class="value" id="val-name">—</span>
             </div>
             <div class="attr-chip" id="chip-business_type">
-              <span class="label">व्यवसाय प्रकार (Business)</span>
+              <span class="label" data-i18n="interview.attrBiz">Business Type</span>
               <span class="value" id="val-business_type">—</span>
             </div>
             <div class="attr-chip" id="chip-estimated_project_cost">
-              <span class="label">अनुमानित लागत (Project Cost)</span>
+              <span class="label" data-i18n="interview.attrCost">Project Cost</span>
               <span class="value" id="val-estimated_project_cost">—</span>
             </div>
             <div class="attr-chip" id="chip-annual_income">
-              <span class="label">वार्षिक आय (Family Income)</span>
+              <span class="label" data-i18n="interview.attrIncome">Family Income</span>
               <span class="value" id="val-annual_income">—</span>
             </div>
             <div class="attr-chip" id="chip-caste_category">
-              <span class="label">सामाजिक वर्ग (Category)</span>
+              <span class="label" data-i18n="interview.attrCat">Category</span>
               <span class="value" id="val-caste_category">—</span>
             </div>
             <div class="attr-chip" id="chip-state">
-              <span class="label">राज्य (State)</span>
+              <span class="label" data-i18n="interview.attrState">State</span>
               <span class="value" id="val-state">—</span>
             </div>
             <div class="attr-chip" id="chip-district">
-              <span class="label">जिला (District)</span>
+              <span class="label" data-i18n="interview.attrDist">District</span>
               <span class="value" id="val-district">—</span>
             </div>
           </div>
@@ -354,7 +348,7 @@
           <div style="margin-top: 14px;">
             <button class="btn-primary-hero" style="width: 100%; justify-content: center; font-size: var(--font-size-sm);" onclick="finalizeInterviewAndMatch()">
               <span>🎯</span>
-              <span id="t-btn-run-matching">पात्र योजनाएं देखें</span>
+              <span id="t-btn-run-matching" data-i18n="interview.btnRunMatching">View Eligible Schemes</span>
             </button>
           </div>
         </aside>
@@ -365,21 +359,21 @@
     <section id="view-schemes" class="tab-view" role="tabpanel">
       <div class="section-header">
         <div class="section-title">
-          <h2 id="t-schemes-heading">स्मार्ट योजना अनुशंसाएं (Smart Recommendations)</h2>
-          <p id="t-schemes-sub">आपके प्रोफ़ाइल के अनुसार रैंक की गई आधिकारिक MoSJE योजनाएं (पारदर्शी 6-कारकीय मॉडल)</p>
+          <h2 id="t-schemes-heading" data-i18n="schemes.heading">Smart Scheme Recommendations</h2>
+          <p id="t-schemes-sub" data-i18n="schemes.sub">Ranked according to statutory MoSJE guidelines using our transparent 6-factor deterministic weighting model.</p>
         </div>
         <div style="display: flex; gap: 8px;">
           <button class="btn-action btn-action-secondary" onclick="loadMatchedSchemes()">
             <span>🔄</span>
-            <span>ताज़ा करें (Refresh)</span>
+            <span data-i18n="common.refresh">Refresh</span>
           </button>
         </div>
       </div>
 
       <!-- Schemes List Container -->
       <div class="scheme-cards-list" id="schemesListContainer">
-        <div style="text-align: center; padding: 40px; color: var(--color-text-secondary);">
-          योजनाएं लोड हो रही हैं...
+        <div style="text-align: center; padding: 40px; color: var(--color-text-secondary);" data-i18n="schemes.loading">
+          Calculating eligibility using 6-factor weighted deterministic model...
         </div>
       </div>
     </section>
@@ -388,8 +382,8 @@
     <section id="view-calc" class="tab-view" role="tabpanel">
       <div class="section-header">
         <div class="section-title">
-          <h2 id="t-calc-heading">वित्तीय सामर्थ्य एवं ईएमआई कैलकुलेटर</h2>
-          <p id="t-calc-sub">मोराटोरियम, मार्जिन मनी एवं ऋण सीमा के आधार पर मासिक किस्त की वास्तविक गणना</p>
+          <h2 id="t-calc-heading" data-i18n="calc.heading">Financial Affordability & EMI Calculator</h2>
+          <p id="t-calc-sub" data-i18n="calc.sub">Exact monthly instalment calculation including moratorium, margin money, and debt-to-income affordability gauge.</p>
         </div>
       </div>
 
@@ -398,7 +392,7 @@
         <div class="calc-panel">
           <div class="form-group">
             <div class="form-label-row">
-              <label for="sliderLoanAmount" class="form-label" id="t-lbl-loanamt">ऋण राशि (Loan Amount)</label>
+              <label for="sliderLoanAmount" class="form-label" id="t-lbl-loanamt" data-i18n="calc.loanAmount">Loan Amount</label>
               <span class="form-val-display" id="displayLoanAmount">₹5,00,000</span>
             </div>
             <input type="range" class="range-slider" id="sliderLoanAmount" min="25000" max="2500000" step="25000" value="500000">
@@ -406,7 +400,7 @@
 
           <div class="form-group">
             <div class="form-label-row">
-              <label for="sliderInterestRate" class="form-label" id="t-lbl-interest">रियायती ब्याज दर (Interest Rate % p.a.)</label>
+              <label for="sliderInterestRate" class="form-label" id="t-lbl-interest" data-i18n="calc.interestRate">Concessional Interest Rate (% p.a.)</label>
               <span class="form-val-display" id="displayInterestRate">5.0%</span>
             </div>
             <input type="range" class="range-slider" id="sliderInterestRate" min="3.0" max="14.0" step="0.5" value="5.0">
@@ -414,23 +408,23 @@
 
           <div class="form-group">
             <div class="form-label-row">
-              <label for="sliderTenure" class="form-label" id="t-lbl-tenure">अवधि (Tenure in Months)</label>
-              <span class="form-val-display" id="displayTenure">60 महीने (5 वर्ष)</span>
+              <label for="sliderTenure" class="form-label" id="t-lbl-tenure" data-i18n="calc.tenure">Repayment Tenure</label>
+              <span class="form-val-display" id="displayTenure">60 months (5.0 years)</span>
             </div>
             <input type="range" class="range-slider" id="sliderTenure" min="12" max="120" step="6" value="60">
           </div>
 
           <div class="form-group">
             <div class="form-label-row">
-              <label for="sliderMoratorium" class="form-label" id="t-lbl-moratorium">मोराटोरियम छूट अवधि (Moratorium Months)</label>
-              <span class="form-val-display" id="displayMoratorium">6 महीने</span>
+              <label for="sliderMoratorium" class="form-label" id="t-lbl-moratorium" data-i18n="calc.moratorium">Moratorium Grace Period</label>
+              <span class="form-val-display" id="displayMoratorium">6 months</span>
             </div>
             <input type="range" class="range-slider" id="sliderMoratorium" min="0" max="18" step="1" value="6">
           </div>
 
           <div class="form-group">
             <div class="form-label-row">
-              <label for="inputMonthlyIncome" class="form-label" id="t-lbl-monthlyincome">आवेदक की अनुमानित मासिक आय</label>
+              <label for="inputMonthlyIncome" class="form-label" id="t-lbl-monthlyincome" data-i18n="calc.monthlyIncome">Applicant Estimated Monthly Income</label>
               <span class="form-val-display" id="displayMonthlyIncome">₹20,000</span>
             </div>
             <input type="range" class="range-slider" id="inputMonthlyIncome" min="5000" max="100000" step="5000" value="20000">
@@ -440,32 +434,32 @@
         <!-- Calculated Results Panel -->
         <div class="calc-results-card">
           <div class="emi-hero">
-            <div class="lbl" id="t-lbl-projectedemi">प्रक्षेपित मासिक ईएमआई (Projected Monthly EMI)</div>
+            <div class="lbl" id="t-lbl-projectedemi" data-i18n="calc.projectedEmi">Projected Monthly EMI</div>
             <div class="amount" id="valEmiAmount">₹9,436</div>
-            <div class="sub" id="valEmiNote">*मोराटोरियम अवधि के बाद लागू</div>
+            <div class="sub" id="valEmiNote" data-i18n="calc.moraNote">*Applicable after grace moratorium period</div>
           </div>
 
           <div class="calc-stats-row">
             <div class="stat-box">
-              <div class="title" id="t-lbl-totinterest">कुल देय ब्याज</div>
+              <div class="title" id="t-lbl-totinterest" data-i18n="calc.totalInterest">Total Interest Payable</div>
               <div class="val" id="valTotalInterest">₹66,138</div>
             </div>
             <div class="stat-box">
-              <div class="title" id="t-lbl-totrepayment">कुल पुनर्भुगतान राशि</div>
+              <div class="title" id="t-lbl-totrepayment" data-i18n="calc.totalRepayment">Total Repayment Amount</div>
               <div class="val" id="valTotalRepayment">₹5,66,138</div>
             </div>
             <div class="stat-box">
-              <div class="title" id="t-lbl-marginmoney">उद्यमी अंशदान (मार्जिन 5%)</div>
+              <div class="title" id="t-lbl-marginmoney" data-i18n="calc.marginMoney">Promoter Margin (5%)</div>
               <div class="val" id="valMarginMoney">₹25,000</div>
             </div>
             <div class="stat-box">
-              <div class="title" id="t-lbl-dti">सामर्थ्य अनुपात (DTI Ratio)</div>
-              <div class="val" id="valDtiRatio" style="color: #4ADE80;">47% (सामर्थ्य सीमा)</div>
+              <div class="title" id="t-lbl-dti" data-i18n="calc.dtiRatio">Affordability (DTI Ratio)</div>
+              <div class="val" id="valDtiRatio" style="color: #4ADE80;">47% (Safe Affordability)</div>
             </div>
           </div>
 
-          <div style="background: rgba(255,255,255,0.1); padding: 10px 14px; border-radius: var(--radius-md); font-size: 11px;">
-            ℹ️ MoSJE/NBCFDC रियायती योजनाओं में व्यावसायिक बैंकों की तुलना में 4% से 7% तक ब्याज की सीधी बचत होती है।
+          <div style="background: rgba(255,255,255,0.1); padding: 10px 14px; border-radius: var(--radius-md); font-size: 11px;" data-i18n="calc.concessionNotice">
+            MoSJE / NBCFDC concessional schemes provide 4% to 7% direct interest savings compared to commercial market rates.
           </div>
         </div>
       </div>
@@ -473,29 +467,29 @@
       <!-- What-If Diff Simulator -->
       <div class="whatif-container">
         <div class="section-title">
-          <h3 id="t-whatif-title">"क्या होगा यदि?" परिदृश्य सिम्युलेटर (What-If Scenario Simulator)</h3>
-          <p id="t-whatif-sub">विभिन्न परिस्थितियों में अपनी पात्रता और ईएमआई की तुलना करें (Zero DB Mutation)</p>
+          <h3 id="t-whatif-title" data-i18n="whatif.title">'What-If?' Scenario Simulator</h3>
+          <p id="t-whatif-sub" data-i18n="whatif.sub">Compare eligibility and EMI under hypothetical scenarios without modifying your saved database profile.</p>
         </div>
 
         <div style="display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap;">
           <button class="btn-action btn-action-secondary" onclick="runWhatIfSimulation({estimated_project_cost: 1000000})">
-            📈 यदि परियोजना ₹10 लाख हो?
+            📈 <span data-i18n="whatif.btnCost10L">What if project cost is ₹10 Lakh?</span>
           </button>
           <button class="btn-action btn-action-secondary" onclick="runWhatIfSimulation({annual_income: 250000})">
-            💼 यदि आय ₹2.5 लाख हो?
+            💼 <span data-i18n="whatif.btnIncome25L">What if family income is ₹2.5 Lakh?</span>
           </button>
           <button class="btn-action btn-action-secondary" onclick="runWhatIfSimulation({gender: 'FEMALE'})">
-            👩 यदि महिला उद्यमी संचालित करे (1% अतिरिक्त छूट)?
+            👩 <span data-i18n="whatif.btnFemale">What if led by female entrepreneur (1% rebate)?</span>
           </button>
         </div>
 
         <div class="diff-compare-grid" id="whatifResultsContainer" style="display: none;">
           <div class="compare-column">
-            <h4 style="color: var(--color-navy-primary); margin-bottom: 6px;">वर्तमान प्रोफ़ाइल (Current)</h4>
+            <h4 style="color: var(--color-navy-primary); margin-bottom: 6px;" data-i18n="whatif.currentTitle">Current Profile</h4>
             <div id="whatifCurrentSummary" style="font-size: var(--font-size-sm);"></div>
           </div>
           <div class="compare-column hypothetical">
-            <h4 style="color: var(--color-saffron-primary); margin-bottom: 6px;">काल्पनिक परिदृश्य (Hypothetical)</h4>
+            <h4 style="color: var(--color-saffron-primary); margin-bottom: 6px;" data-i18n="whatif.hypoTitle">Hypothetical Scenario</h4>
             <div id="whatifHypoSummary" style="font-size: var(--font-size-sm);"></div>
           </div>
         </div>
@@ -506,13 +500,13 @@
     <section id="view-partners" class="tab-view" role="tabpanel">
       <div class="section-header">
         <div class="section-title">
-          <h2 id="t-partner-heading">भू-स्थानिक अधिकृत चैनल पार्टनर लोकेटर</h2>
-          <p id="t-partner-sub">निकटतम राज्य चैनलाइजिंग एजेंसी (SCA) एवं अधिकृत बैंक शाखाओं का सत्यापन एवं रूटिंग</p>
+          <h2 id="t-partner-heading" data-i18n="partners.heading">Geo-Spatial Authorized Channel Partner Locator</h2>
+          <p id="t-partner-sub" data-i18n="partners.sub">Verified State Channelising Agencies (SCAs) and Lead District Bank branches with routing.</p>
         </div>
         <div style="display: flex; gap: 8px;">
           <button class="btn-action btn-action-primary" onclick="detectUserLocation()">
             <span>📍</span>
-            <span id="t-btn-locate-me">मेरा स्थान उपयोग करें</span>
+            <span id="t-btn-locate-me" data-i18n="partners.btnLocateMe">Use My GPS Location</span>
           </button>
         </div>
       </div>
@@ -526,8 +520,8 @@
         <!-- Partners Directory Cards Scroll -->
         <div class="partners-list-panel">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <strong id="t-verified-partners-title">सत्यापित पार्टनर सूची</strong>
-            <span class="status-pill" id="partnerCountBadge">3 उपलब्ध</span>
+            <strong id="t-verified-partners-title" data-i18n="partners.verifiedListTitle">Verified Partner Directory</strong>
+            <span class="status-pill" id="partnerCountBadge">8 available</span>
           </div>
 
           <div class="partners-cards-scroll" id="partnersListContainer">
@@ -541,8 +535,8 @@
     <section id="view-docs" class="tab-view" role="tabpanel">
       <div class="section-header">
         <div class="section-title">
-          <h2 id="t-docs-heading">दस्तावेज़ वॉल्ट एवं आवेदन कोपायलट</h2>
-          <p id="t-docs-sub">दस्तावेज़ अपलोड करें, ओसीआर सत्यापन देखें और 5-चरणीय आवेदन प्रक्रिया का पालन करें</p>
+          <h2 id="t-docs-heading" data-i18n="docs.heading">Document Vault & Application Copilot</h2>
+          <p id="t-docs-sub" data-i18n="docs.sub">Verify authoritative credentials with DigiLocker or upload certificates for manual verification.</p>
         </div>
       </div>
 
@@ -550,43 +544,43 @@
       <div class="stepper-nav" aria-label="Application Steps">
         <div class="step-node done">
           <div class="step-circle">1</div>
-          <div class="step-label">पात्रता जांच</div>
+          <div class="step-label" data-i18n="docs.step1">Eligibility Check</div>
         </div>
         <div class="step-node active">
           <div class="step-circle">2</div>
-          <div class="step-label">दस्तावेज़ तैयारी</div>
+          <div class="step-label" data-i18n="docs.step2">Document Prep</div>
         </div>
         <div class="step-node">
           <div class="step-circle">3</div>
-          <div class="step-label">पार्टनर चयन</div>
+          <div class="step-label" data-i18n="docs.step3">Partner Selection</div>
         </div>
         <div class="step-node">
           <div class="step-circle">4</div>
-          <div class="step-label">पोर्टल आवेदन</div>
+          <div class="step-label" data-i18n="docs.step4">Portal Application</div>
         </div>
         <div class="step-node">
           <div class="step-circle">5</div>
-          <div class="step-label">स्वीकृति एवं वितरण</div>
+          <div class="step-label" data-i18n="docs.step5">Approval & DBT</div>
         </div>
       </div>
 
       <div class="doc-vault-grid">
         <!-- Document Upload & Vault -->
         <div class="calc-panel">
-          <h3 style="color: var(--color-navy-primary); margin-bottom: 12px;" id="t-upload-title">दस्तावेज़ अपलोड (Secure Vault)</h3>
+          <h3 style="color: var(--color-navy-primary); margin-bottom: 12px;" id="t-upload-title" data-i18n="docs.uploadTitle">Document Upload (Secure Vault)</h3>
           
           <div class="upload-dropzone" id="dropzone" onclick="document.getElementById('fileUploadInput').click()">
             <div class="drop-icon">📤</div>
-            <strong id="t-drop-prompt">प्रमाणपत्र या प्रोजेक्ट रिपोर्ट यहाँ अपलोड करें</strong>
-            <p style="font-size: 11px; color: var(--color-text-secondary); margin-top: 4px;">PDF, PNG, JPG (अधिकतम 10MB) - SHA-256 सुरक्षित</p>
+            <strong id="t-drop-prompt" data-i18n="docs.dropPrompt">Drop certificate or project proposal here</strong>
+            <p style="font-size: 11px; color: var(--color-text-secondary); margin-top: 4px;" data-i18n="docs.dropSub">PDF, PNG, JPG (Max 10MB) - SHA-256 Checksummed</p>
             <input type="file" id="fileUploadInput" style="display: none;" accept=".pdf,.png,.jpg,.jpeg">
           </div>
 
           <!-- Document Readiness Progress Bar -->
           <div class="readiness-container">
             <div style="display: flex; justify-content: space-between; align-items: center; font-size: var(--font-size-xs); font-weight: 700;">
-              <span id="t-readiness-label">दस्तावेज़ तत्परता स्कोर (Readiness Score)</span>
-              <span id="docReadinessText" style="color: var(--color-emerald-primary);">50% (2/4 सत्यापित)</span>
+              <span id="t-readiness-label" data-i18n="docs.readinessLabel">Document Readiness Score</span>
+              <span id="docReadinessText" style="color: var(--color-emerald-primary);">50% (2/4 verified)</span>
             </div>
             <div class="readiness-bar-bg">
               <div class="readiness-bar-fill" id="docReadinessBar" style="width: 50%;"></div>
@@ -595,29 +589,29 @@
 
           <div style="margin-top: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <div style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; color: var(--color-text-secondary);" id="t-checklist-title">
-                अनिवार्य दस्तावेज़ सत्यापन (MoSJE / NBCFDC)
+              <div style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; color: var(--color-text-secondary);" id="t-checklist-title" data-i18n="docs.checklistTitle">
+                Mandatory Document Verification (MoSJE / NBCFDC)
               </div>
-              <span class="badge-sandbox" title="SIH 2026 Evaluation: Simulated DigiLocker Requester Sandbox">
+              <span class="badge-sandbox" title="SIH 2026 Evaluation: Simulated DigiLocker Requester Sandbox" data-i18n="docs.sandboxTag">
                 ⚙️ DEMO / SANDBOX VERIFICATION
               </span>
             </div>
             
             <!-- Dynamic Document Trust Rows rendered via app.js -->
             <div id="documentStatusListContainer">
-              <div style="text-align: center; padding: 20px; color: var(--color-text-secondary);">
-                दस्तावेज़ सत्यापन स्थिति लोड हो रही है...
+              <div style="text-align: center; padding: 20px; color: var(--color-text-secondary);" data-i18n="common.loading">
+                Processing, please wait...
               </div>
             </div>
 
             <!-- Trust Hierarchy Legend -->
             <div style="background: rgba(15, 44, 89, 0.04); border: 1px dashed var(--color-border); border-radius: var(--radius-md); padding: 10px 14px; margin-top: 14px; font-size: 11px; color: var(--color-text-secondary);">
-              <strong style="color: var(--color-navy-primary);">🛡️ दस्तावेज़ विश्वसनीयता पदानुक्रम (Document Trust Hierarchy):</strong>
+              <strong style="color: var(--color-navy-primary);" data-i18n="docs.trustHierarchyTitle">🛡️ Document Trust Hierarchy:</strong>
               <div style="margin-top: 4px; line-height: 1.5;">
-                <div>1. <strong>DigiLocker Issuer-Backed</strong> (सर्वोच्च सत्यापन • 100% स्वीकार्य)</div>
-                <div>2. <strong>विभागीय पोर्टल सत्यापन</strong> • 3. <strong>सत्यापित अपलोड (SHA-256)</strong></div>
-                <div>4. <strong>मैन्युअल समीक्षा</strong> • 5. <strong>ओसीआर निष्कर्षण (पुष्टि आवश्यक)</strong></div>
-                <div>6. <strong>स्वयं घोषित जानकारी</strong> (निम्नतम विश्वास)</div>
+                <div data-i18n="docs.trustH1">1. DigiLocker Issuer-Backed (Highest Trust • 100% Accepted)</div>
+                <div data-i18n="docs.trustH2">2. Departmental Portal API • 3. Validated Upload (SHA-256 Checksum)</div>
+                <div data-i18n="docs.trustH3">4. Manual Admin Review • 5. OCR Extraction (Confirmation Required)</div>
+                <div data-i18n="docs.trustH4">6. Self-Declared Information (Lowest Trust Level)</div>
               </div>
             </div>
           </div>
@@ -625,47 +619,47 @@
 
         <!-- 5-Step Copilot Guidance Card -->
         <div class="calc-panel">
-          <h3 style="color: var(--color-navy-primary); margin-bottom: 12px;">MoSJE आवेदन सहायता (Application Copilot)</h3>
+          <h3 style="color: var(--color-navy-primary); margin-bottom: 12px;" data-i18n="copilot.title">MoSJE Application Copilot</h3>
 
           <div style="display: flex; flex-direction: column; gap: 14px; font-size: var(--font-size-sm);">
             <div style="border-left: 3px solid var(--color-emerald-primary); padding-left: 12px;">
-              <strong>चरण 1: पात्रता एवं दस्तावेज सत्यापन</strong>
-              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);" id="copilotStep1Desc">
-                आपकी पात्रता MoSJE रियायती ऋण योजनाओं के अंतर्गत जांची जा चुकी है।
+              <strong data-i18n="copilot.step1Title">Step 1: Eligibility & Document Readiness</strong>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);" id="copilotStep1Desc" data-i18n="copilot.step1Desc">
+                Your profile eligibility has been verified against MoSJE guidelines.
               </p>
             </div>
 
             <div style="border-left: 3px solid var(--color-saffron-primary); padding-left: 12px;">
-              <strong>चरण 2: अधिकृत पार्टनर का चयन</strong>
-              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
-                आपकी निकटतम अधिकृत बैंक शाखा: <strong>State Bank of India Bijnor Branch</strong> (दूरी 4.2 किमी) या UPBCDFC लखनऊ है।
+              <strong data-i18n="copilot.step2Title">Step 2: Channel Partner Routing</strong>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);" data-i18n="copilot.step2Desc">
+                Your nearest designated branch: State Bank of India Bijnor Main Branch or UPBCDFC Lucknow.
               </p>
             </div>
 
             <div style="border-left: 3px solid var(--color-navy-primary); padding-left: 12px;">
-              <strong>चरण 3: आधिकारिक MoSJE पोर्टल पर फॉर्म भरें</strong>
-              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
-                उद्यमी मित्र ने आपके प्रोफ़ाइल डेटा को तैयार कर दिया है। इसे आधिकारिक राष्ट्रीय पोर्टल पर सीधे सबमिट किया जा सकता है।
+              <strong data-i18n="copilot.step3Title">Step 3: Fill Official Portal Application</strong>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);" data-i18n="copilot.step3Desc">
+                Entrepreneur Mitra has prepared your pre-filled dossier for official portal submission.
               </p>
               <div style="margin-top: 8px;">
                 <a href="https://nbcfdc.gov.in" target="_blank" rel="noopener noreferrer" class="btn-action btn-action-primary" style="display: inline-flex;">
                   <span>🔗</span>
-                  <span>NBCFDC आधिकारिक पोर्टल पर जाएं</span>
+                  <span data-i18n="copilot.btnPortal">Go to Official Portal</span>
                 </a>
               </div>
             </div>
 
             <div style="border-left: 3px solid var(--color-border); padding-left: 12px;">
-              <strong>चरण 4: भौतिक सत्यापन व संस्तुति</strong>
-              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
-                फॉर्म की प्रति प्रिंट कर मूल दस्तावेजों के साथ चयनित शाखा में प्रस्तुत करें।
+              <strong data-i18n="copilot.step4Title">Step 4: Physical Verification & Forwarding</strong>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);" data-i18n="copilot.step4Desc">
+                Print the application and present original certificates at your designated branch.
               </p>
             </div>
 
             <div style="border-left: 3px solid var(--color-border); padding-left: 12px;">
-              <strong>चरण 5: ऋण स्वीकृति एवं डीबीटी वितरण</strong>
-              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">
-                स्वीकृति के उपरांत ऋण राशि आपके बैंक खाते में सीधे (DBT) अंतरित होगी।
+              <strong data-i18n="copilot.step5Title">Step 5: Sanction & DBT Disbursement</strong>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary);" data-i18n="copilot.step5Desc">
+                Upon sanction, concessional funds will be disbursed directly to your bank account via DBT.
               </p>
             </div>
           </div>
@@ -679,90 +673,90 @@
        MODALS
        ========================================================================== -->
 
-  <!-- Modal 1: Explainable Rule Trace Modal (Why Am I Eligible?) -->
+  <!-- Modal 1: Explainable Rule Trace Modal -->
   <div class="modal-backdrop" id="ruleTraceModal" role="dialog" aria-modal="true" aria-labelledby="ruleModalTitle">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 id="ruleModalTitle">पात्रता विश्लेषण एवं नियम निष्पादन (Rule Trace)</h3>
+        <h3 id="ruleModalTitle" data-i18n="modals.traceTitle">Eligibility Analysis & Rule Execution Trace</h3>
         <button class="btn-close" onclick="closeRuleTraceModal()" aria-label="Close modal">✕</button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="traceModalBody">
         <div class="zero-hallucination-seal">
           <span style="font-size: 20px;">🛡️</span>
           <div>
-            <strong>शून्य-भ्रम गारंटी (Zero-Hallucination Verified):</strong>
-            <p style="font-size: 11px; margin-top: 2px;">
-              यह परिणाम AI के अनुमान पर नहीं, बल्कि MoSJE के राजपत्र और अधिकृत नियमों के कोड-आधारित निष्पादन पर आधारित है।
+            <strong data-i18n="modals.zeroHallucinationTitle">Zero-Hallucination Statutory Guarantee:</strong>
+            <p style="font-size: 11px; margin-top: 2px;" data-i18n="modals.zeroHallucinationDesc">
+              This result is determined solely by deterministic code execution matching official gazette rules published by MoSJE/NBCFDC.
             </p>
           </div>
         </div>
 
         <div id="ruleSchemeHeader" style="background: var(--color-bg); padding: 10px 14px; border-radius: var(--radius-md);">
-          <div style="font-size: 11px; color: var(--color-text-secondary);" id="ruleSchemeCode">योजना कोड: NBCFDC-GTL-001</div>
+          <div style="font-size: 11px; color: var(--color-text-secondary);" id="ruleSchemeCode">Scheme Code: NBCFDC-GTL-001</div>
           <strong style="font-size: var(--font-size-base);" id="ruleSchemeName">NBCFDC General Term Loan Scheme</strong>
         </div>
 
         <div class="rules-checklist" id="ruleChecklistContainer"></div>
 
         <div style="text-align: right; margin-top: 10px;">
-          <button class="btn-action btn-action-primary" onclick="closeRuleTraceModal()">समझ गया (Understood)</button>
+          <button class="btn-action btn-action-primary" onclick="closeRuleTraceModal()" data-i18n="common.understood">Understood</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal 2: Edit / Confirm Profile Drawer -->
+  <!-- Modal 2: Edit Profile Modal -->
   <div class="modal-backdrop" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 id="profileModalTitle">उद्यमी प्रोफ़ाइल विवरण (Profile Details)</h3>
+        <h3 id="profileModalTitle" data-i18n="modals.profileTitle">Entrepreneur Profile Details</h3>
         <button class="btn-close" onclick="closeProfileModal()" aria-label="Close modal">✕</button>
       </div>
       <div class="modal-body">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
           <div>
-            <label class="form-label" style="font-size: 11px;">आवेदक का नाम (Name)</label>
+            <label class="form-label" style="font-size: 11px;" data-i18n="interview.attrName">Applicant Name</label>
             <input type="text" class="chat-input" id="inpNameModal" value="">
           </div>
           <div>
-            <label class="form-label" style="font-size: 11px;">व्यवसाय प्रकार (Business)</label>
+            <label class="form-label" style="font-size: 11px;" data-i18n="interview.attrBiz">Business Type</label>
             <input type="text" class="chat-input" id="inpBusinessType" value="">
           </div>
           <div>
-            <label class="form-label" style="font-size: 11px;">अनुमानित परियोजना लागत (₹)</label>
+            <label class="form-label" style="font-size: 11px;" data-i18n="interview.attrCost">Project Cost (₹)</label>
             <input type="number" class="chat-input" id="inpProjectCost" value="500000">
           </div>
           <div>
-            <label class="form-label" style="font-size: 11px;">वार्षिक पारिवारिक आय (₹)</label>
+            <label class="form-label" style="font-size: 11px;" data-i18n="interview.attrIncome">Family Income (₹)</label>
             <input type="number" class="chat-input" id="inpAnnualIncome" value="180000">
           </div>
           <div>
-            <label class="form-label" style="font-size: 11px;">सामाजिक वर्ग (Category)</label>
+            <label class="form-label" style="font-size: 11px;" data-i18n="interview.attrCat">Category</label>
             <select class="chat-input" id="inpCategory">
-              <option value="OBC" selected>अन्य पिछड़ा वर्ग (OBC)</option>
-              <option value="SC">अनुसूचित जाति (SC)</option>
-              <option value="ST">अनुसूचित जनजाति (ST)</option>
-              <option value="DNT">विमुक्त घुमंतू जनजाति (DNT)</option>
-              <option value="GENERAL">सामान्य (General / EWS)</option>
+              <option value="OBC" selected data-i18n="onboarding.catOBC">Other Backward Classes (OBC)</option>
+              <option value="SC" data-i18n="onboarding.catSC">Scheduled Caste (SC)</option>
+              <option value="ST" data-i18n="onboarding.catST">Scheduled Tribe (ST)</option>
+              <option value="DNT" data-i18n="onboarding.catDNT">De-Notified Tribe (DNT)</option>
+              <option value="GENERAL" data-i18n="onboarding.catGeneral">General / EWS</option>
             </select>
           </div>
           <div>
-            <label class="form-label" style="font-size: 11px;">राज्य (State)</label>
+            <label class="form-label" style="font-size: 11px;" data-i18n="interview.attrState">State</label>
             <input type="text" class="chat-input" id="inpState" value="Uttar Pradesh">
           </div>
           <div>
-            <label class="form-label" style="font-size: 11px;">जिला (District)</label>
+            <label class="form-label" style="font-size: 11px;" data-i18n="interview.attrDist">District</label>
             <input type="text" class="chat-input" id="inpDistrict" value="Bijnor">
           </div>
           <div>
-            <label class="form-label" style="font-size: 11px;">आयु (Age in years)</label>
+            <label class="form-label" style="font-size: 11px;" data-i18n="interview.attrAge">Age (in years)</label>
             <input type="number" class="chat-input" id="inpAge" value="30">
           </div>
         </div>
 
         <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;">
-          <button class="btn-action btn-action-secondary" onclick="closeProfileModal()">रद्द करें</button>
-          <button class="btn-action btn-action-primary" onclick="saveProfileAndRerun()">सहेजें और मिलान करें</button>
+          <button class="btn-action btn-action-secondary" onclick="closeProfileModal()" data-i18n="modals.btnCancel">Cancel</button>
+          <button class="btn-action btn-action-primary" onclick="saveProfileAndRerun()" data-i18n="modals.btnSaveRerun">Save & Re-run Matching</button>
         </div>
       </div>
     </div>
@@ -774,8 +768,8 @@
       <div class="modal-header" style="background: #0056B3; color: white;">
         <div style="display: flex; align-items: center; gap: 8px;">
           <span>🔐</span>
-          <h3 id="dlModalTitle" style="color: white; font-size: var(--font-size-base); margin: 0;">
-            DigiLocker दस्तावेज़ सत्यापन (Sandbox Mode)
+          <h3 id="dlModalTitle" style="color: white; font-size: var(--font-size-base); margin: 0;" data-i18n="modals.dlTitle">
+            DigiLocker Document Verification (Sandbox Mode)
           </h3>
         </div>
         <button class="modal-close-btn" onclick="closeDigiLockerModal()" style="color: white;" aria-label="Close Modal">&times;</button>
@@ -786,38 +780,38 @@
         <div class="advisory-card" style="background: #FEF3C7; border-color: #F59E0B; color: #92400E; padding: 10px 14px;">
           <span style="font-size: 18px;">⚙️</span>
           <div style="font-size: 11px; line-height: 1.4;">
-            <strong>SIH 2026 Evaluation Notice (Sandbox Mode):</strong><br>
-            यह एक सिम्युलेटेड डिजीलॉकर रिक्वेस्टर सैंडबॉक्स है। लाइव MeitY प्रोडक्शन क्रेडेंशियल के बिना प्रामाणिक API प्रारूप में सत्यापन प्रदर्शित किया जा रहा है।
+            <strong data-i18n="modals.dlNoticeTitle">SIH 2026 Evaluation Notice (Sandbox Mode):</strong><br>
+            <span data-i18n="modals.dlNoticeDesc">This is a simulated DigiLocker Requester Sandbox. Realistic verification in official API format is demonstrated without live MeitY production credentials.</span>
           </div>
         </div>
 
         <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 14px; font-size: var(--font-size-sm);">
           <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-            <span style="color: var(--color-text-secondary);">सत्यापित किया जाने वाला दस्तावेज़:</span>
-            <strong id="dlModalDocName" style="color: var(--color-navy-primary);">जाति प्रमाण पत्र</strong>
+            <span style="color: var(--color-text-secondary);" data-i18n="modals.dlDocToVerify">Document to be Verified:</span>
+            <strong id="dlModalDocName" style="color: var(--color-navy-primary);">Caste Certificate</strong>
           </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-            <span style="color: var(--color-text-secondary);">आवेदक का नाम:</span>
-            <strong id="dlModalCitizenName">रमेश कुमार</strong>
+            <span style="color: var(--color-text-secondary);" data-i18n="modals.dlCitizenName">Applicant Name:</span>
+            <strong id="dlModalCitizenName">Ramesh Kumar</strong>
           </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-            <span style="color: var(--color-text-secondary);">आधार संदर्भ:</span>
+            <span style="color: var(--color-text-secondary);" data-i18n="modals.dlAadhaarRef">Aadhaar Reference:</span>
             <span>XXXX-XXXX-4321</span>
           </div>
           <div style="display: flex; justify-content: space-between;">
-            <span style="color: var(--color-text-secondary);">जारीकर्ता प्राधिकारी:</span>
-            <span>राजस्व विभाग, उत्तर प्रदेश शासन</span>
+            <span style="color: var(--color-text-secondary);" data-i18n="modals.dlIssuer">Issuing Authority:</span>
+            <span id="dlModalIssuerName">Revenue Department, Government of Uttar Pradesh</span>
           </div>
         </div>
 
-        <p style="font-size: 11px; color: var(--color-text-secondary); line-height: 1.4; margin: 0;">
-          सहमति देकर आप अधिकृत सरकारी जारीकर्ता से डिजिटल रूप से हस्ताक्षरित XML/PDF प्रमाणपत्र को सीधे प्राप्त करने की अनुमति देते हैं (Trust Hierarchy Rank 1).
+        <p style="font-size: 11px; color: var(--color-text-secondary); line-height: 1.4; margin: 0;" data-i18n="modals.dlConsentNote">
+          By giving consent, you authorize Entrepreneur Mitra to fetch your digitally signed certificate directly from the issuing authority (Trust Hierarchy Rank 1).
         </p>
 
         <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
-          <button class="btn-action btn-action-secondary" onclick="closeDigiLockerModal()">रद्द करें (Cancel)</button>
+          <button class="btn-action btn-action-secondary" onclick="closeDigiLockerModal()" data-i18n="modals.btnCancel">Cancel</button>
           <button class="btn-digilocker" id="btnConfirmDigiLocker" onclick="executeDigiLockerVerification()">
-            <span>🔐 सहमति दें एवं सत्यापित करें</span>
+            <span data-i18n="modals.btnConfirmDL">🔐 Give Consent & Verify with DigiLocker</span>
           </button>
         </div>
       </div>
@@ -828,12 +822,12 @@
   <nav class="bottom-nav-bar" aria-label="Mobile Navigation">
     <button class="nav-item-btn active" id="nav-home" onclick="switchTab('home')">
       <span class="nav-icon">🏠</span>
-      <span id="t-nav-home">होम</span>
+      <span id="t-nav-home" data-i18n="nav.home">Home</span>
     </button>
 
     <button class="nav-item-btn" id="nav-schemes" onclick="switchTab('schemes')">
       <span class="nav-icon">📋</span>
-      <span id="t-nav-schemes">योजनाएं</span>
+      <span id="t-nav-schemes" data-i18n="nav.schemes">Schemes</span>
     </button>
 
     <!-- Center Floating Action Button for Mic -->
@@ -841,17 +835,17 @@
       <div class="nav-icon-circle">
         <span>🎙️</span>
       </div>
-      <span id="t-nav-voice" style="margin-top: 2px;">बोलें</span>
+      <span id="t-nav-voice" data-i18n="nav.voice" style="margin-top: 2px;">Voice</span>
     </button>
 
     <button class="nav-item-btn" id="nav-calc" onclick="switchTab('calc')">
       <span class="nav-icon">🧮</span>
-      <span id="t-nav-calc">कैलकुलेटर</span>
+      <span id="t-nav-calc" data-i18n="nav.calc">Calculator</span>
     </button>
 
     <button class="nav-item-btn" id="nav-partners" onclick="switchTab('partners')">
       <span class="nav-icon">📍</span>
-      <span id="t-nav-partners">पार्टनर</span>
+      <span id="t-nav-partners" data-i18n="nav.partners">Partners</span>
     </button>
   </nav>
 
