@@ -37,7 +37,11 @@ class EligibilityCheckRequest(BaseModel):
 class WhatIfSimulateRequest(BaseModel):
     profile_id: str
     scheme_id: Optional[str] = None
-    hypothetical_changes: Dict[str, Any]
+    hypothetical_changes: Optional[Dict[str, Any]] = None
+    hypothetical_attributes: Optional[Dict[str, Any]] = None
+
+    def get_changes(self) -> Dict[str, Any]:
+        return self.hypothetical_changes or self.hypothetical_attributes or {}
 
 
 class WhatIfResultOut(BaseModel):

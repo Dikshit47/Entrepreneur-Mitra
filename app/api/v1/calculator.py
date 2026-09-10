@@ -16,3 +16,25 @@ def calculate_projected_emi(calc_in: EMICalculatorRequest):
     """
     result = CalculatorService.calculate_emi(calc_in)
     return ApiResponse.success_response(result)
+
+
+from fastapi import Depends
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app.schemas.eligibility import WhatIfSimulateRequest, WhatIfResultOut
+from app.services.eligibility_service import EligibilityService
+
+
+@router.post("/what-if", response_model=ApiResponse[WhatIfResultOut])
+def simulate_calculator_what_if(
+    req: WhatIfSimulateRequest,
+    db: Session = Depends(get_db)
+):
+    """Simulate hypothetical financial/eligibility scenario via Calculator."""
+    simulation = EligibilityService.simulate_what_if(
+        db,
+        profile_id=req.profile_id,
+        hypothetical_changes=req.get_changes(),
+        scheme_id=req.scheme_id
+    )
+    return ApiResponse.success_response(simulation)

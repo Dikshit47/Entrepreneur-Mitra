@@ -44,7 +44,7 @@ def simulate_what_if(
     simulation = EligibilityService.simulate_what_if(
         db,
         profile_id=req.profile_id,
-        hypothetical_changes=req.hypothetical_changes,
+        hypothetical_changes=req.get_changes(),
         scheme_id=req.scheme_id
     )
     return ApiResponse.success_response(simulation)
