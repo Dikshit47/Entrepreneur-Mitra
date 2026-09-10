@@ -76,6 +76,9 @@ class MatchingService:
             (doc_score * 0.10) +
             (pref_score * 0.05)
         )
+        # Ineligibility cap: an ineligible scheme must never show high confidence
+        if eval_result.status == "NOT_ELIGIBLE":
+            total_score = min(total_score, 30)
         total_score = max(0, min(100, total_score))
 
         breakdown = ScoreBreakdown(
@@ -90,9 +93,10 @@ class MatchingService:
         return total_score, breakdown
 
     @classmethod
-    def match_schemes_for_profile(cls, db: Session, profile_id: str) -> MatchResponse:
+    def match_schemes_for_profile(cls, db: Session, profile_id: str, lang: str = "en") -> MatchResponse:
         profile = ProfileService.get_profile(db, profile_id)
         attributes = profile.attributes
+        norm_lang = (lang or profile.preferred_language or "en").lower()
 
         schemes = db.query(Scheme).options(
             joinedload(Scheme.rules),
@@ -103,11 +107,18 @@ class MatchingService:
 
         results: List[MatchItem] = []
         for scheme in schemes:
-            eval_res = evaluate_scheme_rules(scheme, attributes)
+            eval_res = evaluate_scheme_rules(scheme, attributes, lang=norm_lang)
             total_score, breakdown = cls.calculate_score_breakdown(scheme, attributes, eval_res)
 
-            why_matched = [f"Rule '{r}' satisfied" for r in eval_res.matched_rules]
-            missing_reqs = [f"Provide '{m}'" for m in eval_res.missing_information]
+            if norm_lang == "hi":
+                why_matched = [f"'{r}' का पात्रता नियम संतुष्ट है" for r in eval_res.matched_rules]
+                missing_reqs = [f"'{m}' की जानकारी प्रदान करें" for m in eval_res.missing_information]
+            elif norm_lang == "hinglish":
+                why_matched = [f"Rule '{r}' satisfy ho gaya" for r in eval_res.matched_rules]
+                missing_reqs = [f"'{m}' ki information provide karein" for m in eval_res.missing_information]
+            else:
+                why_matched = [f"Rule '{r}' satisfied" for r in eval_res.matched_rules]
+                missing_reqs = [f"Provide '{m}'" for m in eval_res.missing_information]
 
             max_loan = scheme.benefits[0].max_value if scheme.benefits else None
             interest = scheme.benefits[0].interest_rate if scheme.benefits else None
@@ -146,7 +157,7 @@ class MatchingService:
         )
 
     @classmethod
-    def explain_match(cls, db: Session, scheme_id: str, profile_id: str) -> MatchExplanationOut:
+    def explain_match(cls, db: Session, scheme_id: str, profile_id: str, lang: str = "en") -> MatchExplanationOut:
         profile = ProfileService.get_profile(db, profile_id)
         scheme = db.query(Scheme).options(
             joinedload(Scheme.rules),
@@ -156,7 +167,8 @@ class MatchingService:
         if not scheme:
             raise NotFoundException(resource="Scheme", identifier=scheme_id)
 
-        eval_res = evaluate_scheme_rules(scheme, profile.attributes)
+        norm_lang = (lang or profile.preferred_language or "en").lower()
+        eval_res = evaluate_scheme_rules(scheme, profile.attributes, lang=norm_lang)
 
         explanation_criteria = []
         for c in eval_res.criteria:
@@ -167,10 +179,21 @@ class MatchingService:
                 source_id=c.source_id
             ))
 
-        summary = (
-            f"Aapki profile is scheme ke criteria ke anusar '{eval_res.status}' hai. "
-            f"{len(eval_res.matched_rules)} shartein poori hain, {len(eval_res.failed_rules)} anupayukt hain."
-        )
+        if norm_lang == "hi":
+            summary = (
+                f"आपकी प्रोफ़ाइल इस योजना के आधिकारिक मानदंडों के अनुसार '{eval_res.status}' है। "
+                f"{len(eval_res.matched_rules)} शर्तें पूरी हैं, {len(eval_res.failed_rules)} अस्वीकृत हैं।"
+            )
+        elif norm_lang == "hinglish":
+            summary = (
+                f"Aapki profile is scheme ke criteria ke anusar '{eval_res.status}' hai. "
+                f"{len(eval_res.matched_rules)} shartein poori hain, {len(eval_res.failed_rules)} anupayukt hain."
+            )
+        else:
+            summary = (
+                f"Your profile status for this scheme is '{eval_res.status}'. "
+                f"{len(eval_res.matched_rules)} conditions satisfied, {len(eval_res.failed_rules)} unsatisfied."
+            )
 
         return MatchExplanationOut(
             scheme_id=scheme.scheme_id,

@@ -1,0 +1,160 @@
+{
+  "common": {
+    "continue": "Continue",
+    "back": "Back",
+    "save": "Save Changes",
+    "cancel": "Cancel",
+    "submit": "Submit Application",
+    "verify": "Verify",
+    "upload": "Upload Document",
+    "calculate": "Calculate EMI",
+    "compare": "Compare Scenarios",
+    "apply": "Apply on Official Portal",
+    "start": "Get Started",
+    "speak": "Speak Now",
+    "retry": "Retry",
+    "confirm": "Confirm & Proceed",
+    "edit": "Edit Profile",
+    "loading": "Processing, please wait...",
+    "sample": "Sample Profile (1-Click Demo)"
+  },
+  "nav": {
+    "home": "Home",
+    "schemes": "Schemes",
+    "voice": "Voice Mitra",
+    "calc": "Calculator",
+    "partners": "Partners",
+    "docs": "Documents",
+    "applications": "Track Application"
+  },
+  "gov": {
+    "title": "Ministry of Social Justice and Empowerment | MoSJE",
+    "tag": "Government of India",
+    "appName": "Entrepreneur Mitra (उद्यमी मित्र)",
+    "appSubtitle": "SIH26092 • AI-Driven Scheme Matching for Marginalized Entrepreneurs",
+    "disclaimer": "Official MoSJE Concessional Credit and Scheme Advisory Portal. Zero Fee • Anti-Scam Protected."
+  },
+  "onboarding": {
+    "title": "Welcome! Begin Your Entrepreneurial Journey",
+    "subtitle": "Provide your primary details or speak into the microphone to discover tailored government financial schemes.",
+    "name": "Applicant Full Name",
+    "namePlaceholder": "e.g., Ramesh Kumar / Priya Sharma",
+    "business": "Business Idea or Trade",
+    "businessPlaceholder": "e.g., Tailoring, Dairy, Carpentry, Kirana Store",
+    "category": "Social Category",
+    "cost": "Estimated Project Cost (₹)",
+    "income": "Annual Family Income (₹)",
+    "location": "State & District",
+    "btnFind": "Discover My Eligible Schemes",
+    "btnSample": "Fill Sample Data (OBC Carpenter)"
+  },
+  "hero": {
+    "badge": "Voice-First AI Assistant",
+    "heading": "Speak in Your Language,<br>Discover Authentic Government Schemes",
+    "sub": "Zero-hallucination concessional loans, margin money, and interest subsidies for marginalized entrepreneurs (SC, OBC, Safai Karamcharis, Divyangjan).",
+    "btnVoice": "Start Voice Interview",
+    "btnSchemes": "Browse All Schemes"
+  },
+  "kpi": {
+    "schemes": "Verified MoSJE Schemes",
+    "partners": "Designated Channel Partners",
+    "rules": "Transparent Rule Engine",
+    "fee": "Application Fee (100% Free)"
+  },
+  "interview": {
+    "title": "Conversational Voice Interview",
+    "sub": "Press the microphone to speak or type in the chatbox. Mitra will extract and verify your profile attributes in real time.",
+    "btnFinalize": "Confirm Profile & Find Schemes",
+    "drawerTitle": "Extracted Citizen Profile",
+    "micPrompt": "Press microphone and speak clearly in your chosen language...",
+    "speaking": "Mitra AI is speaking...",
+    "processing": "Analyzing your response...",
+    "ready": "Ready to listen"
+  },
+  "schemes": {
+    "heading": "Smart Scheme Recommendations",
+    "sub": "Ranked according to statutory MoSJE guidelines using our transparent 6-factor deterministic weighting model.",
+    "matchScore": "Match Score",
+    "maxLoan": "Max Loan Assistance",
+    "interestRate": "Concessional Interest",
+    "moratorium": "Moratorium Period",
+    "tenure": "Repayment Tenure",
+    "factorBreakdown": "Transparent 6-Factor Score Breakdown",
+    "ruleTraceBtn": "View Transparent Statutory Trace",
+    "applyBtn": "Apply on Official Portal",
+    "calcBtn": "Open in EMI Calculator",
+    "locateBtn": "Find Nearest Bank Branch"
+  },
+  "eligibility": {
+    "eligible": "Eligible",
+    "partiallyEligible": "Partially Eligible",
+    "needsVerification": "Needs Verification",
+    "insufficientInfo": "Insufficient Information",
+    "notEligible": "Not Eligible",
+    "conflicting": "Conflicting Information",
+    "zeroHallucinationSeal": "Zero-Hallucination Deterministic Guarantee"
+  },
+  "calc": {
+    "heading": "Financial Affordability & EMI Calculator",
+    "sub": "Exact monthly instalment calculation including moratorium, margin money, and debt-to-income affordability gauge.",
+    "loanAmount": "Loan Amount (₹)",
+    "interestRate": "Concessional Interest Rate (% p.a.)",
+    "tenure": "Repayment Tenure (Months)",
+    "moratorium": "Moratorium Grace Period (Months)",
+    "monthlyIncome": "Applicant Monthly Income (₹)",
+    "projectedEmi": "Projected Monthly EMI",
+    "moraNote": "*Applicable after grace moratorium period",
+    "totalInterest": "Total Interest Payable",
+    "totalRepayment": "Total Repayment Amount",
+    "promoterMargin": "Promoter Margin Contribution (5%)",
+    "dtiRatio": "Debt-to-Income (DTI) Ratio",
+    "whatifTitle": "'What-If?' Scenario Simulator",
+    "whatifSub": "Test hypothetical changes (increased loan, female co-applicant rebate) in complete isolation without altering your profile."
+  },
+  "partners": {
+    "heading": "Geo-Spatial Authorized Channel Partner Locator",
+    "sub": "Verified State Channelising Agencies (SCAs), Lead District Banks, and Regional Rural Credit Centres.",
+    "locateMe": "Use My Current GPS Location",
+    "verifiedList": "Verified Partner Directory",
+    "statusLabel": "Branch Status",
+    "verificationRequired": "Current availability requires verification",
+    "distance": "Distance",
+    "call": "Call Partner",
+    "viewMap": "View on Map"
+  },
+  "documents": {
+    "heading": "Document Vault & Verification Architecture",
+    "sub": "Verify authoritative credentials with DigiLocker or upload certificates for manual verification.",
+    "uploadTitle": "Document Upload & DigiLocker Verification",
+    "dropPrompt": "Drag & drop certificate or click to browse",
+    "dropFormats": "PDF, PNG, JPG (Max 10MB) — SHA-256 Checksummed",
+    "verifyDigiLocker": "Verify with DigiLocker",
+    "digiLockerRecommended": "(Recommended • Fast & Paperless)",
+    "uploadManual": "Upload Manually",
+    "sandboxBadge": "Demo / Sandbox Verification Mode",
+    "status": {
+      "unverified": "Unverified",
+      "pending": "Verification Pending",
+      "digilockerVerified": "DigiLocker Verified",
+      "issuerVerified": "Issuer Department Verified",
+      "manualReview": "Under Manual Review",
+      "failed": "Verification Failed",
+      "expired": "Document Expired"
+    },
+    "trustHierarchy": {
+      "rank1": "Rank 1: Issuer-backed DigiLocker Verification (Highest Trust)",
+      "rank2": "Rank 2: Authoritative Department Portal Verification",
+      "rank3": "Rank 3: Validated Uploaded Certificate (SHA-256 Checksum)",
+      "rank4": "Rank 4: Administrative Manual Review",
+      "rank5": "Rank 5: OCR Extraction (Requires User Confirmation)",
+      "rank6": "Rank 6: Self-Declared Information (Lowest Trust)"
+    }
+  },
+  "errors": {
+    "network": "Network connection error. Please verify backend server is running.",
+    "validation": "Invalid input format. Please check required fields.",
+    "fileSize": "File exceeds maximum permitted size of 10MB.",
+    "fileType": "Unsupported file format. Please upload PDF, PNG, or JPG.",
+    "notFound": "Requested resource not found."
+  }
+}

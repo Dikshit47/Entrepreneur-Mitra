@@ -582,41 +582,43 @@
             <input type="file" id="fileUploadInput" style="display: none;" accept=".pdf,.png,.jpg,.jpeg">
           </div>
 
-          <div style="margin-top: 18px;">
-            <div style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 8px;">
-              आवश्यक दस्तावेज़ चेकलिस्ट (MoSJE / NBCFDC)
+          <!-- Document Readiness Progress Bar -->
+          <div class="readiness-container">
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: var(--font-size-xs); font-weight: 700;">
+              <span id="t-readiness-label">दस्तावेज़ तत्परता स्कोर (Readiness Score)</span>
+              <span id="docReadinessText" style="color: var(--color-emerald-primary);">50% (2/4 सत्यापित)</span>
+            </div>
+            <div class="readiness-bar-bg">
+              <div class="readiness-bar-fill" id="docReadinessBar" style="width: 50%;"></div>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; color: var(--color-text-secondary);" id="t-checklist-title">
+                अनिवार्य दस्तावेज़ सत्यापन (MoSJE / NBCFDC)
+              </div>
+              <span class="badge-sandbox" title="SIH 2026 Evaluation: Simulated DigiLocker Requester Sandbox">
+                ⚙️ DEMO / SANDBOX VERIFICATION
+              </span>
             </div>
             
-            <div class="doc-item-row">
-              <div>
-                <strong>जाति प्रमाण पत्र (Caste Certificate)</strong>
-                <div style="font-size: 11px; color: var(--color-text-secondary);">OBC / EBC प्राधिकृत प्रमाण</div>
+            <!-- Dynamic Document Trust Rows rendered via app.js -->
+            <div id="documentStatusListContainer">
+              <div style="text-align: center; padding: 20px; color: var(--color-text-secondary);">
+                दस्तावेज़ सत्यापन स्थिति लोड हो रही है...
               </div>
-              <span class="status-pill" style="color: var(--color-emerald-primary); border-color: var(--color-emerald-primary);">सत्यापित</span>
             </div>
 
-            <div class="doc-item-row">
-              <div>
-                <strong>आय प्रमाण पत्र (Income Certificate)</strong>
-                <div style="font-size: 11px; color: var(--color-text-secondary);">वार्षिक आय ₹3.00 लाख से कम</div>
+            <!-- Trust Hierarchy Legend -->
+            <div style="background: rgba(15, 44, 89, 0.04); border: 1px dashed var(--color-border); border-radius: var(--radius-md); padding: 10px 14px; margin-top: 14px; font-size: 11px; color: var(--color-text-secondary);">
+              <strong style="color: var(--color-navy-primary);">🛡️ दस्तावेज़ विश्वसनीयता पदानुक्रम (Document Trust Hierarchy):</strong>
+              <div style="margin-top: 4px; line-height: 1.5;">
+                <div>1. <strong>DigiLocker Issuer-Backed</strong> (सर्वोच्च सत्यापन • 100% स्वीकार्य)</div>
+                <div>2. <strong>विभागीय पोर्टल सत्यापन</strong> • 3. <strong>सत्यापित अपलोड (SHA-256)</strong></div>
+                <div>4. <strong>मैन्युअल समीक्षा</strong> • 5. <strong>ओसीआर निष्कर्षण (पुष्टि आवश्यक)</strong></div>
+                <div>6. <strong>स्वयं घोषित जानकारी</strong> (निम्नतम विश्वास)</div>
               </div>
-              <span class="status-pill" style="color: var(--color-emerald-primary); border-color: var(--color-emerald-primary);">सत्यापित</span>
-            </div>
-
-            <div class="doc-item-row">
-              <div>
-                <strong>आधार कार्ड / निवास प्रमाण पत्र</strong>
-                <div style="font-size: 11px; color: var(--color-text-secondary);">पहचान एवं निवास सत्यापन</div>
-              </div>
-              <span class="status-pill" style="color: var(--color-emerald-primary); border-color: var(--color-emerald-primary);">सत्यापित</span>
-            </div>
-
-            <div class="doc-item-row">
-              <div>
-                <strong>प्रोजेक्ट रिपोर्ट (Project Profile)</strong>
-                <div style="font-size: 11px; color: var(--color-text-secondary);">लागत, उपकरण एवं कार्यशील पूंजी</div>
-              </div>
-              <span class="status-pill" style="color: var(--color-saffron-primary); border-color: var(--color-saffron-primary);">अपलोड प्रतीक्षित</span>
             </div>
           </div>
         </div>
@@ -761,6 +763,62 @@
         <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;">
           <button class="btn-action btn-action-secondary" onclick="closeProfileModal()">रद्द करें</button>
           <button class="btn-action btn-action-primary" onclick="saveProfileAndRerun()">सहेजें और मिलान करें</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: DigiLocker Sandbox Consent Dialog -->
+  <div class="modal-overlay" id="digiLockerModal" role="dialog" aria-modal="true" aria-labelledby="dlModalTitle">
+    <div class="modal-container" style="max-width: 500px;">
+      <div class="modal-header" style="background: #0056B3; color: white;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span>🔐</span>
+          <h3 id="dlModalTitle" style="color: white; font-size: var(--font-size-base); margin: 0;">
+            DigiLocker दस्तावेज़ सत्यापन (Sandbox Mode)
+          </h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeDigiLockerModal()" style="color: white;" aria-label="Close Modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Safety / Transparency Alert -->
+        <div class="advisory-card" style="background: #FEF3C7; border-color: #F59E0B; color: #92400E; padding: 10px 14px;">
+          <span style="font-size: 18px;">⚙️</span>
+          <div style="font-size: 11px; line-height: 1.4;">
+            <strong>SIH 2026 Evaluation Notice (Sandbox Mode):</strong><br>
+            यह एक सिम्युलेटेड डिजीलॉकर रिक्वेस्टर सैंडबॉक्स है। लाइव MeitY प्रोडक्शन क्रेडेंशियल के बिना प्रामाणिक API प्रारूप में सत्यापन प्रदर्शित किया जा रहा है।
+          </div>
+        </div>
+
+        <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 14px; font-size: var(--font-size-sm);">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--color-text-secondary);">सत्यापित किया जाने वाला दस्तावेज़:</span>
+            <strong id="dlModalDocName" style="color: var(--color-navy-primary);">जाति प्रमाण पत्र</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--color-text-secondary);">आवेदक का नाम:</span>
+            <strong id="dlModalCitizenName">रमेश कुमार</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--color-text-secondary);">आधार संदर्भ:</span>
+            <span>XXXX-XXXX-4321</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--color-text-secondary);">जारीकर्ता प्राधिकारी:</span>
+            <span>राजस्व विभाग, उत्तर प्रदेश शासन</span>
+          </div>
+        </div>
+
+        <p style="font-size: 11px; color: var(--color-text-secondary); line-height: 1.4; margin: 0;">
+          सहमति देकर आप अधिकृत सरकारी जारीकर्ता से डिजिटल रूप से हस्ताक्षरित XML/PDF प्रमाणपत्र को सीधे प्राप्त करने की अनुमति देते हैं (Trust Hierarchy Rank 1).
+        </p>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+          <button class="btn-action btn-action-secondary" onclick="closeDigiLockerModal()">रद्द करें (Cancel)</button>
+          <button class="btn-digilocker" id="btnConfirmDigiLocker" onclick="executeDigiLockerVerification()">
+            <span>🔐 सहमति दें एवं सत्यापित करें</span>
+          </button>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
  * Single Source of Truth matching FastAPI Backend OpenAPI Specs
  */
 
-export type Language = 'hi' | 'en';
+export type Language = 'hi' | 'en' | 'hinglish';
 
 export interface ApiResponse<T> {
   success: boolean;

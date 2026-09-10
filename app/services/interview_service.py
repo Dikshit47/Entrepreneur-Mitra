@@ -3,15 +3,35 @@ import re
 from typing import Dict, Any, List, Tuple
 from app.schemas.interview import InterviewTurnRequest, InterviewTurnResponse
 
-CORE_FIELD_PROMPTS = [
-    ("business_type", "Aap kis tarah ka business karte hain ya shuru karna chahte hain? (Jaise Silai, Handicraft, Dairy, Dukaan)"),
-    ("project_cost", "Aapke business mein lagbhag kitne rupaye ki zaroorat hai?"),
-    ("state", "Aapka business kis rajya (State) mein sthit hai?"),
-    ("district", "Aap kis zila (District) mein apna business shuru karna chahte hain?"),
-    ("annual_family_income", "Aapke parivar ki saalana aamdani (Annual Family Income) lagbhag kitni hai?"),
-    ("caste_category", "Sarkari scheme labh ke liye, aap kis category se sambandhit hain? (SC / OBC / EWS / General)"),
-    ("business_stage", "Kya ye naya business hai ya pehle se chal raha hai?")
-]
+CORE_FIELD_PROMPTS: Dict[str, List[Tuple[str, str]]] = {
+    "en": [
+        ("business_type", "What type of business or trade do you operate or want to start? (e.g., Tailoring, Handicraft, Dairy, Retail store)"),
+        ("project_cost", "Approximately how much project funding or loan amount is required?"),
+        ("state", "In which state is your business or enterprise located?"),
+        ("district", "In which district are you establishing your business?"),
+        ("annual_family_income", "What is your approximate annual family income in Rupees?"),
+        ("caste_category", "For targeted government concessional schemes, which category do you belong to? (SC / OBC / EWS / General)"),
+        ("business_stage", "Is this a new startup venture or an existing enterprise expansion?")
+    ],
+    "hi": [
+        ("business_type", "आप किस प्रकार का व्यवसाय शुरू करना चाहते हैं या करते हैं? (जैसे सिलाई, हस्तशिल्प, डेयरी, दुकान)"),
+        ("project_cost", "आपके व्यवसाय के लिए लगभग कितनी वित्तीय सहायता या ऋण की आवश्यकता है?"),
+        ("state", "आपका व्यवसाय किस राज्य (State) में स्थित है?"),
+        ("district", "आप किस जिले (District) में अपना उद्यम स्थापित कर रहे हैं?"),
+        ("annual_family_income", "आपके परिवार की कुल वार्षिक आय (Annual Family Income) लगभग कितनी है?"),
+        ("caste_category", "सरकारी रियायती योजना लाभ हेतु आप किस सामाजिक वर्ग से हैं? (SC / OBC / EWS / सामान्य)"),
+        ("business_stage", "क्या यह नया व्यवसाय है अथवा पूर्व से चल रहे कार्य का विस्तार?")
+    ],
+    "hinglish": [
+        ("business_type", "Aap kis tarah ka business karte hain ya shuru karna chahte hain? (Jaise Silai, Handicraft, Dairy, Dukaan)"),
+        ("project_cost", "Aapke business mein lagbhag kitne rupaye ki zaroorat hai?"),
+        ("state", "Aapka business kis rajya (State) mein sthit hai?"),
+        ("district", "Aap kis zila (District) mein apna business shuru karna chahte hain?"),
+        ("annual_family_income", "Aapke parivar ki saalana aamdani (Annual Family Income) lagbhag kitni hai?"),
+        ("caste_category", "Sarkari scheme labh ke liye, aap kis category se sambandhit hain? (SC / OBC / EWS / General)"),
+        ("business_stage", "Kya ye naya business hai ya pehle se chal raha hai?")
+    ]
+}
 
 
 class InterviewService:
@@ -95,7 +115,10 @@ class InterviewService:
         turn_req: InterviewTurnRequest,
         existing_attributes: Dict[str, Any]
     ) -> InterviewTurnResponse:
-        """Processes one conversational turn and decides the next question."""
+        """Processes one conversational turn and decides the next question in selected language."""
+        lang = (turn_req.language or "en").lower()
+        prompt_list = CORE_FIELD_PROMPTS.get(lang) or CORE_FIELD_PROMPTS.get("en")
+        
         extracted = cls.extract_fields_from_utterance(turn_req.text)
         
         # Merge existing with newly extracted
@@ -105,28 +128,49 @@ class InterviewService:
         # Find next missing core field
         next_field = None
         next_prompt = None
-        for field, prompt in CORE_FIELD_PROMPTS:
+        for field, prompt in prompt_list:
             if field not in merged or merged[field] is None:
                 next_field = field
                 next_prompt = prompt
                 break
 
         # Calculate progress
-        filled_count = sum(1 for f, _ in CORE_FIELD_PROMPTS if f in merged and merged[f] is not None)
-        completeness = int((filled_count / len(CORE_FIELD_PROMPTS)) * 100)
+        filled_count = sum(1 for f, _ in prompt_list if f in merged and merged[f] is not None)
+        completeness = int((filled_count / len(prompt_list)) * 100)
 
         if next_field is None:
-            reply = (
-                "Dhanyawad! Aapki sabhi mukhya jaankari darj ho gayi hai. "
-                "Ab aap apni profile confirm karke eligible sarkari schemes dekh sakte hain."
-            )
+            if lang == "hi":
+                reply = (
+                    "धन्यवाद! आपकी सभी मुख्य जानकारी सफलतापूर्वक दर्ज कर ली गई है। "
+                    "अब आप अपनी प्रोफ़ाइल की पुष्टि करके उपयुक्त सरकारी योजनाओं की जांच कर सकते हैं।"
+                )
+            elif lang == "hinglish":
+                reply = (
+                    "Dhanyawad! Aapki sabhi mukhya jaankari darj ho gayi hai. "
+                    "Ab aap apni profile confirm karke eligible sarkari schemes dekh sakte hain."
+                )
+            else:
+                reply = (
+                    "Thank you! All your primary details have been successfully recorded. "
+                    "You can now confirm your profile to discover verified government schemes."
+                )
             state = "ready_for_matching"
         else:
             if extracted:
                 found_str = ", ".join(f"{k}: {v}" for k, v in extracted.items())
-                reply = f"Maine ye jaankari note kar li ({found_str}). {next_prompt}"
+                if lang == "hi":
+                    reply = f"मैंने यह जानकारी नोट कर ली ({found_str})। {next_prompt}"
+                elif lang == "hinglish":
+                    reply = f"Maine ye jaankari note kar li ({found_str}). {next_prompt}"
+                else:
+                    reply = f"I have recorded these details ({found_str}). {next_prompt}"
             else:
-                reply = f"Samajh gaya. {next_prompt}"
+                if lang == "hi":
+                    reply = f"समझ गया। {next_prompt}"
+                elif lang == "hinglish":
+                    reply = f"Samajh gaya. {next_prompt}"
+                else:
+                    reply = f"Understood. {next_prompt}"
             state = "in_progress"
 
         return InterviewTurnResponse(

@@ -1,0 +1,160 @@
+{
+  "common": {
+    "continue": "Aage Badhein",
+    "back": "Peeche Jayein",
+    "save": "Changes Save Karein",
+    "cancel": "Cancel Karein",
+    "submit": "Application Submit Karein",
+    "verify": "Verify Karein",
+    "upload": "Document Upload Karein",
+    "calculate": "EMI Calculate Karein",
+    "compare": "Scenario Compare Karein",
+    "apply": "Official Portal Par Apply Karein",
+    "start": "Shuru Karein",
+    "speak": "Ab Bolein",
+    "retry": "Dobara Try Karein",
+    "confirm": "Confirm Karke Aage Badhein",
+    "edit": "Profile Edit Karein",
+    "loading": "Processing ho rahi hai, please wait karein...",
+    "sample": "Sample Profile (1-Click Demo)"
+  },
+  "nav": {
+    "home": "Home",
+    "schemes": "Schemes",
+    "voice": "Voice Mitra",
+    "calc": "Calculator",
+    "partners": "Partners",
+    "docs": "Documents",
+    "applications": "Application Status"
+  },
+  "gov": {
+    "title": "Ministry of Social Justice and Empowerment | MoSJE",
+    "tag": "Government of India",
+    "appName": "Entrepreneur Mitra (उद्यमी मित्र)",
+    "appSubtitle": "SIH26092 • Marginalized Entrepreneurs Ke Liye AI Scheme Matching",
+    "disclaimer": "Official MoSJE Concessional Credit Portal. Zero Fee • Dalaalo Se Surakshit."
+  },
+  "onboarding": {
+    "title": "Namaste! Apni Business Journey Shuru Karein",
+    "subtitle": "Apni primary details enter karein ya mic me bolkar suitable sarkari loan schemes discover karein.",
+    "name": "Aapka Pura Naam",
+    "namePlaceholder": "Jaise: Ramesh Kumar / Priya Sharma",
+    "business": "Business Idea Ya Trade",
+    "businessPlaceholder": "Jaise: Silai, Dairy, Badhai, Kirana Dukaan",
+    "category": "Social Category (Caste)",
+    "cost": "Estimated Project Cost (₹)",
+    "income": "Annual Family Income (₹)",
+    "location": "State aur District",
+    "btnFind": "Meri Eligible Schemes Khojein",
+    "btnSample": "Sample Data Bharein (OBC Carpenter)"
+  },
+  "hero": {
+    "badge": "Voice-First AI Assistant",
+    "heading": "Apni Bhasha Me Bolein,<br>Sahi Sarkari Schemes Payein",
+    "sub": "Vanchit entrepreneurs (SC, OBC, Safai Karamchari, Divyangjan) ke liye zero-hallucination concessional loans aur subsidy.",
+    "btnVoice": "Bolkar Shuru Karein (Voice Interview)",
+    "btnSchemes": "Sabhi Schemes Dekhein"
+  },
+  "kpi": {
+    "schemes": "Verified MoSJE Schemes",
+    "partners": "Designated Channel Partners",
+    "rules": "Transparent Rule Engine",
+    "fee": "Application Fee (Bilkul Free)"
+  },
+  "interview": {
+    "title": "Conversational Voice Interview",
+    "sub": "Mic daba kar bolein ya neeche chatbox me likhein. Mitra aapki details ko real-time me record karega.",
+    "btnFinalize": "Profile Confirm Karein & Schemes Khojein",
+    "drawerTitle": "Extracted Citizen Profile",
+    "micPrompt": "Mic dabayein aur apni pasand ki bhasha me bolein...",
+    "speaking": "Mitra AI bol raha hai...",
+    "processing": "Analyze kiya ja raha hai...",
+    "ready": "Sunkar process karne ke liye taiyaar"
+  },
+  "schemes": {
+    "heading": "Smart Scheme Recommendations",
+    "sub": "Transparent 6-factor weighting model aur MoSJE guidelines ke according rank ki gayi official schemes.",
+    "matchScore": "Match Score",
+    "maxLoan": "Max Loan Limit",
+    "interestRate": "Concessional Interest",
+    "moratorium": "Moratorium Period",
+    "tenure": "Repayment Tenure",
+    "factorBreakdown": "Transparent 6-Factor Score Breakdown",
+    "ruleTraceBtn": "Transparent Rule Trace Dekhein",
+    "applyBtn": "Official Portal Par Apply Karein",
+    "calcBtn": "EMI Calculator Me Kholein",
+    "locateBtn": "Paas Ki Bank Branch Khojein"
+  },
+  "eligibility": {
+    "eligible": "Eligible (Patra)",
+    "partiallyEligible": "Partially Eligible",
+    "needsVerification": "Verification Zaroori Hai",
+    "insufficientInfo": "Adhoori Jaankari",
+    "notEligible": "Not Eligible (Apatra)",
+    "conflicting": "Conflicting Information",
+    "zeroHallucinationSeal": "Zero-Hallucination Legal Guarantee"
+  },
+  "calc": {
+    "heading": "Financial Affordability & EMI Calculator",
+    "sub": "Moratorium, margin money aur affordability ratio (DTI) ke according exact monthly instalment calculation.",
+    "loanAmount": "Loan Amount (₹)",
+    "interestRate": "Concessional Interest Rate (% p.a.)",
+    "tenure": "Tenure (Months)",
+    "moratorium": "Moratorium Chhoot (Months)",
+    "monthlyIncome": "Aapki Monthly Income (₹)",
+    "projectedEmi": "Projected Monthly EMI",
+    "moraNote": "*Moratorium period ke baad shuru hoga",
+    "totalInterest": "Total De-ya Byaj",
+    "totalRepayment": "Total Repayment Amount",
+    "promoterMargin": "Apna Margin Contribution (5%)",
+    "dtiRatio": "Affordability Ratio (DTI)",
+    "whatifTitle": "'What-If?' Scenario Simulator",
+    "whatifSub": "Alag-alag scenarios (loan badhana, female rebate) ka profile bina badle test karein."
+  },
+  "partners": {
+    "heading": "Geo-Spatial Authorized Channel Partner Locator",
+    "sub": "Verified State Channelising Agencies (SCAs), Lead District Banks aur Regional Rural Centres.",
+    "locateMe": "Mera GPS Location Use Karein",
+    "verifiedList": "Verified Partners List",
+    "statusLabel": "Branch Status",
+    "verificationRequired": "Current availability: Verification Zaroori",
+    "distance": "Distance",
+    "call": "Call Karein",
+    "viewMap": "Map Par Dekhein"
+  },
+  "documents": {
+    "heading": "Document Vault & Verification Architecture",
+    "sub": "DigiLocker se direct official certificates verify karein ya manual verification ke liye upload karein.",
+    "uploadTitle": "Document Upload & DigiLocker Verification",
+    "dropPrompt": "Certificate yahan drag karein ya browse karne ke liye click karein",
+    "dropFormats": "PDF, PNG, JPG (Max 10MB) — SHA-256 Secured",
+    "verifyDigiLocker": "DigiLocker Se Verify Karein",
+    "digiLockerRecommended": "(Recommended • Tez & Digital)",
+    "uploadManual": "Manually Upload Karein",
+    "sandboxBadge": "Demo / Sandbox Verification Mode",
+    "status": {
+      "unverified": "Unverified",
+      "pending": "Verification Pending",
+      "digilockerVerified": "DigiLocker Verified",
+      "issuerVerified": "Department Verified",
+      "manualReview": "Manual Review Me",
+      "failed": "Verification Failed",
+      "expired": "Document Expired"
+    },
+    "trustHierarchy": {
+      "rank1": "Rank 1: DigiLocker Authoritative Verification (Highest Trust)",
+      "rank2": "Rank 2: Government Department Portal Verification",
+      "rank3": "Rank 3: Validated Uploaded Certificate (SHA-256)",
+      "rank4": "Rank 4: Administrative Manual Review",
+      "rank5": "Rank 5: OCR Extraction (User Confirmation Zaroori)",
+      "rank6": "Rank 6: Self-Declared Information (Lowest Trust)"
+    }
+  },
+  "errors": {
+    "network": "Network connection error. Please ensure backend server chal raha hai.",
+    "validation": "Invalid input format. Kripya zaroori fields check karein.",
+    "fileSize": "File 10MB limit se badi hai.",
+    "fileType": "Unsupported format. Kripya PDF, PNG ya JPG upload karein.",
+    "notFound": "Resource nahi mila."
+  }
+}

@@ -6,12 +6,56 @@ from app.database import get_db
 from app.api.deps import get_optional_current_user
 from app.models.user import User
 from app.models.document import UserDocument
-from app.schemas.document import DocumentUploadResponse, DocumentExtractResponse, DocumentOut
+from app.schemas.document import (
+    DocumentUploadResponse,
+    DocumentExtractResponse,
+    DocumentOut,
+    DigiLockerInitiateRequest,
+    DigiLockerInitiateResponse,
+    DigiLockerVerifyRequest,
+    DigiLockerVerifyResponse,
+    DocumentVerificationStatusResponse
+)
 from app.schemas.common import ApiResponse
 from app.services.document_service import DocumentService
+from app.services.verification_service import DocumentVerificationService
 from app.utils.exceptions import NotFoundException
 
 router = APIRouter(prefix="/documents", tags=["Documents"])
+
+
+@router.post("/digilocker/initiate", response_model=ApiResponse[DigiLockerInitiateResponse])
+def initiate_digilocker_verification(request: DigiLockerInitiateRequest):
+    """
+    Initiate DigiLocker document consent session.
+    Clearly operates in isolated Sandbox/Demo mode for SIH 2026 Evaluation.
+    """
+    init_res = DocumentVerificationService.initiate_digilocker(request)
+    return ApiResponse.success_response(init_res)
+
+
+@router.post("/digilocker/verify", response_model=ApiResponse[DigiLockerVerifyResponse])
+def verify_digilocker_document(request: DigiLockerVerifyRequest, db: Session = Depends(get_db)):
+    """
+    Verify and pull document from DigiLocker Requester Sandbox.
+    Enforces Document Trust Hierarchy Rank 1 (Issuer-backed verification).
+    """
+    verify_res = DocumentVerificationService.verify_digilocker(db, request)
+    return ApiResponse.success_response(verify_res)
+
+
+@router.get("/verification-status", response_model=ApiResponse[DocumentVerificationStatusResponse])
+def get_verification_status(
+    user_id: Optional[str] = None,
+    db: Session = Depends(get_db),
+    current_user: Optional[User] = Depends(get_optional_current_user)
+):
+    """
+    Get consolidated verification status and readiness score across mandatory MoSJE documents.
+    """
+    target_user_id = user_id or (current_user.id if current_user else None)
+    status_summary = DocumentVerificationService.get_user_verification_status(db, target_user_id)
+    return ApiResponse.success_response(status_summary)
 
 
 @router.post("", response_model=ApiResponse[DocumentUploadResponse])

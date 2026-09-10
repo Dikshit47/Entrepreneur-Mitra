@@ -12,19 +12,23 @@ router = APIRouter(tags=["Matching"])
 
 @router.post("/matches", response_model=ApiResponse[MatchResponse])
 @router.post("/matching", response_model=ApiResponse[MatchResponse], include_in_schema=False)
-def match_schemes(req: MatchRequest, db: Session = Depends(get_db)):
+def match_schemes(req: MatchRequest, lang: Optional[str] = Query("en"), db: Session = Depends(get_db)):
     """
     Match and rank government schemes for an entrepreneur profile
     using the transparent 6-factor weighting model.
     """
-    matches = MatchingService.match_schemes_for_profile(db, req.profile_id)
+    matches = MatchingService.match_schemes_for_profile(db, req.profile_id, lang=lang)
     return ApiResponse.success_response(matches)
 
 
 @router.get("/matching/results", response_model=ApiResponse[MatchResponse])
-def get_matching_results(profile_id: str = Query(..., description="Entrepreneur Profile ID"), db: Session = Depends(get_db)):
+def get_matching_results(
+    profile_id: str = Query(..., description="Entrepreneur Profile ID"),
+    lang: Optional[str] = Query("en", description="Language: en, hi, hinglish"),
+    db: Session = Depends(get_db)
+):
     """Get matched schemes by query parameter."""
-    matches = MatchingService.match_schemes_for_profile(db, profile_id)
+    matches = MatchingService.match_schemes_for_profile(db, profile_id, lang=lang)
     return ApiResponse.success_response(matches)
 
 
@@ -32,10 +36,11 @@ def get_matching_results(profile_id: str = Query(..., description="Entrepreneur 
 def explain_scheme_match(
     scheme_id: str = Path(...),
     profile_id: str = Query(...),
+    lang: Optional[str] = Query("en", description="Language: en, hi, hinglish"),
     db: Session = Depends(get_db)
 ):
     """
     Return structured rule trace explaining exactly WHY a scheme was matched or rejected.
     """
-    explanation = MatchingService.explain_match(db, scheme_id, profile_id)
+    explanation = MatchingService.explain_match(db, scheme_id, profile_id, lang=lang)
     return ApiResponse.success_response(explanation)

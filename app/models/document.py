@@ -1,7 +1,7 @@
 """User Document model."""
 import uuid
 from datetime import datetime, timezone
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Text
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -19,6 +19,18 @@ class UserDocument(Base):
     checksum = Column(String(64), nullable=False)
     ocr_status = Column(String(30), default="UPLOADED")  # UPLOADED, PROCESSING, EXTRACTED, FAILED
     document_status = Column(String(30), default="NEEDS_REVIEW")  # NEEDS_REVIEW, USER_CONFIRMED, REJECTED
+    
+    # Document Trust & Verification Hierarchy attributes (PART 10-15)
+    verification_status = Column(String(40), default="UNVERIFIED")  # UNVERIFIED, VERIFICATION_PENDING, DIGILOCKER_VERIFIED, ISSUER_VERIFIED, MANUAL_REVIEW, VERIFICATION_FAILED, EXPIRED
+    source = Column(String(40), default="MANUAL_UPLOAD")  # DIGILOCKER_ISSUER, MANUAL_UPLOAD, OCR_EXTRACTION, USER_PROVIDED
+    verification_method = Column(String(60), nullable=True)  # DIGILOCKER_OAUTH, MANUAL_REVIEW, OCR_CHECKSUM
+    issuer = Column(String(150), nullable=True)  # e.g., 'Revenue Department, Govt of Uttar Pradesh'
+    issued_date = Column(String(50), nullable=True)
+    expiry_date = Column(String(50), nullable=True)
+    verified_at = Column(DateTime, nullable=True)
+    verification_reference = Column(String(100), nullable=True)  # DigiLocker URI / Doc Ref No
+    is_sandbox = Column(Boolean, default=True)  # Clearly labels mock/sandbox mode for SIH Demo safety
+
     extracted_data_json = Column(Text, nullable=True)  # Candidate fields requiring user confirmation
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))

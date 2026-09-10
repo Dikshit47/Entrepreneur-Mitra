@@ -13,6 +13,7 @@ class CriterionResult(BaseModel):
     rule_type: str  # hard, soft, conditional
     reason: str
     source_id: Optional[str] = None
+    trust_level: str = "USER_PROVIDED"  # VERIFIED, USER_PROVIDED, UNKNOWN, CONFLICTING
 
 
 class SchemeEligibilityResult(BaseModel):
