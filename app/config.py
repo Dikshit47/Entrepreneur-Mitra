@@ -54,6 +54,8 @@ class Settings(BaseSettings):
     LLM_BASE_URL: str = "http://localhost:11434"
     LLM_MODEL: str = "llama3"
     GEMINI_API_KEY: str = ""
+    OPENAI_API_KEY: str = ""
+    BHASHINI_API_KEY: str = ""
     
     model_config = SettingsConfigDict(
         env_file=".env",

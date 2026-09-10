@@ -1717,8 +1717,14 @@ async function openRuleTraceModal(schemeId) {
 }
 
 function closeRuleTraceModal() {
-  document.getElementById('ruleTraceModal')?.classList.remove('open');
+  const modal = document.getElementById('ruleTraceModal');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.style.setProperty('display', 'none', 'important');
+  }
 }
+window.closeRuleTraceModal = closeRuleTraceModal;
+window.openRuleTraceModal = openRuleTraceModal;
 
 // ============================================================================
 // 11. Financial EMI Calculator & What-If Simulation
@@ -2130,9 +2136,11 @@ function closeDigiLockerModal() {
   const modal = document.getElementById('digiLockerModal');
   if (modal) {
     modal.classList.remove('open');
-    modal.style.display = 'none';
+    modal.style.setProperty('display', 'none', 'important');
   }
 }
+window.closeDigiLockerModal = closeDigiLockerModal;
+window.openDigiLockerModal = openDigiLockerModal;
 
 async function executeDigiLockerVerification() {
   const docType = AppState.currentDlDocType || 'CASTE_CERTIFICATE';
@@ -2304,8 +2312,16 @@ function openProfileModal() {
 }
 
 function closeProfileModal() {
-  document.getElementById('profileModal')?.classList.remove('open');
+  const modal = document.getElementById('profileModal');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.style.setProperty('display', 'none', 'important');
+  }
 }
+window.closeProfileModal = closeProfileModal;
+window.openProfileModal = openProfileModal;
+window.saveProfileAndRerun = saveProfileAndRerun;
+window.executeDigiLockerVerification = executeDigiLockerVerification;
 
 async function saveProfileAndRerun() {
   const getVal = (id) => document.getElementById(id)?.value.trim();
